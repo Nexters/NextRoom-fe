@@ -25,7 +25,9 @@ export default function Home() {
     <div>
       <Wrapper>
         <div>Escape Room</div>
-        <div onClick={addUsedHintState}>{hintState}</div>
+        <div className="hint" onClick={addUsedHintState}>
+          {hintState}
+        </div>
       </Wrapper>
     </div>
   );
