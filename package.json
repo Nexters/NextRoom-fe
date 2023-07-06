@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@types/node": "20.3.3",
@@ -22,6 +24,14 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.1.0-beta.0",
+    "@storybook/addon-interactions": "^7.1.0-beta.0",
+    "@storybook/addon-links": "^7.1.0-beta.0",
+    "@storybook/addon-onboarding": "^1.0.4",
+    "@storybook/blocks": "^7.1.0-beta.0",
+    "@storybook/nextjs": "^7.1.0-beta.0",
+    "@storybook/react": "^7.1.0-beta.0",
+    "@storybook/testing-library": "^0.2.0",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
@@ -36,6 +46,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.8.8"
+    "eslint-plugin-storybook": "^0.6.12",
+    "prettier": "^2.8.8",
+    "storybook": "^7.1.0-beta.0"
   }
 }
