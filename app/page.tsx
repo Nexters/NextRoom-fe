@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import { useHintState } from "./components/atoms/hints.atom";
 import Button from "@mui/material/Button";
-import { StyledEngineProvider } from "@mui/styled-engine";
 
 export default function Home() {
   const [hintState, setHintState] = useHintState();
@@ -18,10 +17,7 @@ export default function Home() {
         <div className="hint" onClick={addUsedHintState}>
           {hintState}
         </div>
-
-        <StyledEngineProvider injectFirst>
-          <MyButton>MUI 버튼</MyButton>
-        </StyledEngineProvider>
+        <MyButton>MUI 버튼</MyButton>
       </Wrapper>
     </div>
   );
