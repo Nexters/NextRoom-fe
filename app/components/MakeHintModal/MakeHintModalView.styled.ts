@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { styled } from "styled-components";
 
 export const Container = styled.div`
@@ -15,4 +16,9 @@ export const Title = styled.div`
 export const ContentsWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const GridItem = styled(Grid)<{ margin?: string }>`
+  margin-bottom: 30px;
+  ${({ margin }) => `margin: ${margin}`};
 `;

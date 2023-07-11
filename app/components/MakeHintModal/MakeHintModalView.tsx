@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./MakeHintModalView.styled";
-import { Box, TextField } from "@mui/material";
-import MainDrawer from "../common/Drawer/Drawer";
+import { Button, Grid, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 type Props = {};
 
@@ -12,6 +12,7 @@ const MakeHintModalView = (props: Props) => {
     autoComplete: "off",
     onSubmit: () => {},
   };
+  const { register, handleSubmit, formState } = useForm();
 
   const textFieldProps = [
     {
@@ -31,6 +32,7 @@ const MakeHintModalView = (props: Props) => {
       label: "진행률(필수)",
       placeholder: "입력해 주세요.",
       helperText: "tip: 10%, 70% 등 진행률을 입력해 주세요.",
+      type: "number",
     },
     {
       id: "description",
@@ -46,19 +48,34 @@ const MakeHintModalView = (props: Props) => {
 
   const TextFields = () => {
     return textFieldProps.map((props) => {
-      return <TextField {...props} key={props.id} />;
+      const customMargin =
+        props.id === "description" || props.id === "answer"
+          ? { margin: "0 0 50px 0" }
+          : {};
+      return (
+        <S.GridItem {...customMargin}>
+          <TextField
+            {...props}
+            {...register(props.id)}
+            fullWidth
+            key={props.id}
+          />
+        </S.GridItem>
+      );
     });
   };
 
   return (
     <S.Container>
-      {/* <S.Title>힌트 만들기</S.Title>
+      <S.Title>힌트 만들기</S.Title>
       <S.ContentsWrapper>
-        <Box {...formProps}>
+        <Grid direction="column">
           <TextFields />
-        </Box>
-      </S.ContentsWrapper> */}
-      <MainDrawer open={true}>hello</MainDrawer>
+          <S.ContentsWrapper>
+            <Button variant="contained">힌트 작성 완료</Button>
+          </S.ContentsWrapper>
+        </Grid>
+      </S.ContentsWrapper>
     </S.Container>
   );
 };
