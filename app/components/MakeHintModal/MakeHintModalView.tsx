@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import * as S from "./MakeHintModalView.styled";
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 type Props = {};
@@ -12,7 +12,11 @@ const MakeHintModalView = (props: Props) => {
     autoComplete: "off",
     onSubmit: () => {},
   };
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, watch } = useForm();
+
+  useEffect(() => {
+    console.log({ watch });
+  }, [watch]);
 
   const textFieldProps = [
     {
