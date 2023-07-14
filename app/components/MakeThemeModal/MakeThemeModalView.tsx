@@ -1,8 +1,10 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import * as S from "./MakeThemeModalView.styled";
 import { Box, Button, Grid, TextField, Card, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Modal from "@mui/material/Modal";
+import { useModalState } from "@/components/atoms/modals.atom";
 
 type Props = {
   formProps: Record<string, any>;
@@ -10,23 +12,25 @@ type Props = {
 };
 
 const MakeThemeModalView = (props: Props) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const [modalState, setModalState] = useModalState();
   const { register, handleSubmit, formState, watch } = useForm();
-  const { formProps, textFieldProps } = props;
+  const { formProps, textFieldProps,} = props;
+
+  const toggleOnModalState = () => setModalState(true);
+  const toggleOffModalState = () => setModalState(false);
+
 
   useEffect(() => {
-    console.log({ watch });
-  }, [watch]);
+    console.log({ modalState });
+  }, [modalState]);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
-      <Modal
+            <Modal
         keepMounted
-        open={open}
-        onClose={handleClose}
+        open={modalState}
+        onClose={toggleOffModalState}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
@@ -64,7 +68,7 @@ const MakeThemeModalView = (props: Props) => {
               </Grid>
             </S.TextWrapper>
             <S.ButtonContainer>
-              <Button variant="contained" onClick={handleClose}>
+              <Button variant="contained" onClick={toggleOffModalState}>
                 확인
               </Button>
             </S.ButtonContainer>
