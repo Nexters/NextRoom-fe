@@ -12,6 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@material/material-color-utilities": "^0.2.7",
+    "@mui/icons-material": "^5.13.7",
     "@mui/material": "^5.13.7",
     "@mui/styled-engine": "^5.13.2",
     "@tanstack/react-query": "^4.29.19",
@@ -26,6 +28,7 @@
     "react-hook-form": "^7.45.1",
     "recoil": "^0.7.7",
     "styled-components": "^6.0.2",
+    "tss-react": "^4.8.6",
     "typescript": "5.1.6"
   },
   "devDependencies": {
