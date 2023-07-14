@@ -1,10 +1,13 @@
-import { Grid } from "@mui/material";
 import { styled } from "styled-components";
+import { Grid } from "@mui/material";
+import { KeyboardBackspace } from "@mui/icons-material";
 
 export const Container = styled.div`
   display: flex;
+  padding: 30px 0;
   justify-content: center;
   flex-direction: column;
+  background-color: #fff;
 `;
 
 export const Title = styled.div`
@@ -18,7 +21,12 @@ export const ContentsWrapper = styled.div`
   justify-content: center;
 `;
 
+export const StyledBackIcon = styled(KeyboardBackspace)`
+  margin-left: 20px;
+  cursor: pointer;
+`;
+
 export const GridItem = styled(Grid)<{ margin?: string }>`
   margin-bottom: 30px;
-  ${({ margin }) => `margin: ${margin}`};
+  ${({ margin }) => `margin: ${margin};`}
 `;
