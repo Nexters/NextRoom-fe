@@ -14,6 +14,7 @@ function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
     // TODO: connect login api
   };

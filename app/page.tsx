@@ -36,6 +36,7 @@ export default function Home() {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log({ open });
   }, [open]);
   const addUsedHintState = () => setHintState(hintState + 1);
