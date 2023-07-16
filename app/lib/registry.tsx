@@ -17,9 +17,11 @@ export default function StyledComponentsRegistry({
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
     styledComponentsStyleSheet.instance.clearTag();
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{styles}</>;
   });
 
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   if (typeof window !== "undefined") return <>{children}</>;
 
   return (

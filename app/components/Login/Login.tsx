@@ -10,12 +10,12 @@ interface FormValues {
   adminCode: string;
 }
 
-const Login = () => {
+function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
-    //TODO: connect login api
+    // TODO: connect login api
   };
   const formProps = {
     component: "form",
@@ -37,6 +37,6 @@ const Login = () => {
   };
 
   return <LoginView {...LoginViewProps} />;
-};
+}
 
 export default Login;

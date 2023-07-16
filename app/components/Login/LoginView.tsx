@@ -1,14 +1,14 @@
 import React from "react";
-import * as S from "./LoginView.styled";
 import { Box, TextField } from "@mui/material";
 import { LOGIN_TITLE } from "@/consts/login";
+import * as S from "./LoginView.styled";
 
 type Props = {
   formProps: Record<string, any>;
   textFieldProps: Record<string, any>;
 };
 
-const LoginView = (props: Props) => {
+function LoginView(props: Props) {
   const { formProps, textFieldProps } = props;
 
   return (
@@ -19,6 +19,6 @@ const LoginView = (props: Props) => {
       </Box>
     </S.Wrapper>
   );
-};
+}
 
 export default LoginView;

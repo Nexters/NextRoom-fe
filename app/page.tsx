@@ -1,31 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import { useHintState } from "./components/atoms/hints.atom";
 import Button from "@mui/material/Button";
 import { StyledEngineProvider } from "@mui/styled-engine";
-
-export default function Home() {
-  const [hintState, setHintState] = useHintState();
-
-  const addUsedHintState = () => setHintState(hintState + 1);
-
-  return (
-    <div>
-      <Wrapper>
-        <div>Escape Room</div>
-        <div className="hint" onClick={addUsedHintState}>
-          {hintState}
-        </div>
-
-        <StyledEngineProvider injectFirst>
-          <MyButton>MUI 버튼</MyButton>
-        </StyledEngineProvider>
-      </Wrapper>
-    </div>
-  );
-}
+import { useHintState } from "./components/atoms/hints.atom";
+import { MakeHintModal } from "./components/MakeHintModal";
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,3 +28,31 @@ const MyButton = styled(Button)`
   height: 48px;
   padding: 0 20px;
 `;
+
+export default function Home() {
+  const [hintState, setHintState] = useHintState();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    console.log({ open });
+  }, [open]);
+  const addUsedHintState = () => setHintState(hintState + 1);
+
+  return (
+    <div>
+      <Wrapper>
+        <div>Escape Room</div>
+        <button className="hint" type="button" onClick={addUsedHintState}>
+          {hintState}
+        </button>
+
+        <StyledEngineProvider injectFirst>
+          <MyButton onClick={handleOpen}>MUI 버튼</MyButton>
+          <MakeHintModal handleClose={handleClose} open={open} id="id" />
+        </StyledEngineProvider>
+      </Wrapper>
+    </div>
+  );
+}
