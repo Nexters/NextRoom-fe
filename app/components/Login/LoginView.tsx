@@ -4,7 +4,9 @@ import { LOGIN_TITLE } from "@/consts/login";
 import * as S from "./LoginView.styled";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textFieldProps: Record<string, any>;
 };
 

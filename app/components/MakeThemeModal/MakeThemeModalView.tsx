@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
-import * as S from "./MakeThemeModalView.styled";
-import { Box, Button, Grid, TextField, Card, Stack } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Modal from "@mui/material/Modal";
+import * as S from "./MakeThemeModalView.styled";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textFieldProps: Record<string, any>;
 };
 
-const MakeThemeModalView = (props: Props) => {
+function MakeThemeModalView(props: Props) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { register, handleSubmit, formState, watch } = useForm();
-  const { formProps, textFieldProps } = props;
+  const { register, watch } = useForm();
+  const { textFieldProps } = props;
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log({ watch });
   }, [watch]);
 
@@ -32,7 +35,7 @@ const MakeThemeModalView = (props: Props) => {
       >
         <S.Container>
           <S.CardWrap
-            container
+            // container
             sx={{ width: 312, height: 408, aline: "center" }}
           >
             <S.Title>테마 추가하기</S.Title>
@@ -73,6 +76,6 @@ const MakeThemeModalView = (props: Props) => {
       </Modal>
     </div>
   );
-};
+}
 
 export default MakeThemeModalView;

@@ -13,7 +13,9 @@ function MakeHintModal(props: MakeTypeModalProps) {
 
   const { register, handleSubmit, resetField } = useForm();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit: SubmitHandler<any> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
