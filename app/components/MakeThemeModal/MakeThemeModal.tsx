@@ -1,9 +1,7 @@
 import React from "react";
 import MakeThemeModalView from "./MakeThemeModalView";
 
-type Props = {};
-
-const MakeThemeModal = (props: Props) => {
+function MakeThemeModal() {
   const formProps = {
     component: "form",
     noValidate: true,
@@ -39,6 +37,6 @@ const MakeThemeModal = (props: Props) => {
   };
 
   return <MakeThemeModalView {...MakeThemeModalViewProps} />;
-};
+}
 
 export default MakeThemeModal;
