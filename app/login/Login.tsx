@@ -28,6 +28,8 @@ function Login() {
     noValidate: true,
     autoComplete: "off",
     onSubmit: handleSubmit(onSubmit),
+    sx: { display: "flex" },
+    flexDirection: "column",
   };
 
   const textFieldProps = {
@@ -37,9 +39,14 @@ function Login() {
     ...register("shopCode"),
   };
 
+  const buttonProps = {
+    type: "submit",
+  };
+
   const LoginViewProps = {
     formProps,
     textFieldProps,
+    buttonProps,
   };
 
   return <LoginView {...LoginViewProps} />;
