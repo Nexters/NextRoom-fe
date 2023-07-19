@@ -6,8 +6,8 @@ import ReactQueryProvider from "@/lib/reactQueryProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Escape Room",
-  description: "Escape Room Dashboard",
+  title: "오늘의 방탈출 Admin",
+  description: "오늘의 방탈출 Admin",
 };
 
 export default function RootLayout({

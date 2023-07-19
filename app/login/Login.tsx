@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { ADMIN_CODE } from "@/consts/login";
@@ -11,12 +12,14 @@ interface FormValues {
 }
 
 function Login() {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
     // TODO: connect login api
+    router.push("/home");
   };
   const formProps = {
     component: "form",
