@@ -12,7 +12,7 @@ interface AccountInfo {
 
 const accountInfoState = atom<Partial<AccountInfo>>({
   key: "accountInfo",
-  default: { shopCode: "1" },
+  default: { shopCode: undefined },
 });
 
 export const useAccountInfo = () => useRecoilState(accountInfoState);

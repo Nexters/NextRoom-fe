@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Login from "@/components/Login/Login";
+import Login from "@/login/Login";
 
 function LoginPage() {
   return <Login />;
