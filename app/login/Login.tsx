@@ -4,8 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ADMIN_CODE } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
+import { useAccountInfoWrite } from "@/components/atoms/account.atom";
 import LoginView from "./LoginView";
-import { useAccountInfoWrite } from "../atoms/account.atom";
 
 interface FormValues {
   shopCode: string;
