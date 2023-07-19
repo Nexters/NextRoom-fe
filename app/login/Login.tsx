@@ -4,37 +4,49 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ADMIN_CODE } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
+import { useAccountInfoWrite } from "@/components/atoms/account.atom";
 import LoginView from "./LoginView";
 
 interface FormValues {
-  adminCode: string;
+  shopCode: string;
 }
 
 function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
+  const setAccountInfo = useAccountInfoWrite();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
+
+    const { shopCode } = data;
     // TODO: connect login api
+    setAccountInfo({ shopCode });
   };
   const formProps = {
     component: "form",
     noValidate: true,
     autoComplete: "off",
     onSubmit: handleSubmit(onSubmit),
+    sx: { display: "flex" },
+    flexDirection: "column",
   };
 
   const textFieldProps = {
     id: "filled-adminCode",
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
-    ...register("adminCode"),
+    ...register("shopCode"),
+  };
+
+  const buttonProps = {
+    type: "submit",
   };
 
   const LoginViewProps = {
     formProps,
     textFieldProps,
+    buttonProps,
   };
 
   return <LoginView {...LoginViewProps} />;
