@@ -1,8 +1,14 @@
 "use client";
 
+import { PropsWithChildren, useState } from "react";
+import axios from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { PropsWithChildren, useState } from "react";
+
+export const apiClient = axios.create({
+  withCredentials: true,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+});
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
