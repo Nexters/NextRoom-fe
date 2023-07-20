@@ -1,26 +1,20 @@
 import { apiClient } from "@/lib/reactQueryProvider";
 import { MutationConfigOptions } from "@/types";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { useAccountInfoWrite } from "../atoms/account.atom";
+import { AxiosResponse } from "axios";
+import { useAccountInfoWrite } from "../components/atoms/account.atom";
 
 interface Request {
   shopCode: string;
 }
-type Reponse = void;
+type Response = void;
 
 const URL_PATH = `/v1/login`;
 const MUTATION_KEY = [URL_PATH];
 
-// const axiosConfig: AxiosRequestConfig = {
-//     params: {
-//       themeId: 0,
-//     },
-//   };
-
 export const postLogin = async ({ shopCode }: Request) => {
   const data: Request = { shopCode };
-  const res = await apiClient.post<Request, AxiosResponse<Reponse>>(
+  const res = await apiClient.post<Request, AxiosResponse<Response>>(
     URL_PATH,
     data
   );
@@ -31,7 +25,7 @@ export const postLogin = async ({ shopCode }: Request) => {
 export const usePostLogin = (configOptions?: MutationConfigOptions) => {
   const setAccountInfo = useAccountInfoWrite();
 
-  const info = useMutation<Reponse, void, Request, void>({
+  const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
     mutationFn: (req) => postLogin(req),
     ...configOptions?.options,

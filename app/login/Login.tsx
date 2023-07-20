@@ -5,7 +5,7 @@ import { ADMIN_CODE } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
 import { useAccountInfoWrite } from "@/components/atoms/account.atom";
-import { usePostLogin } from "@/components/mutations/postLogin";
+import { usePostLogin } from "@/mutations/postLogin";
 import LoginView from "./LoginView";
 
 interface FormValues {
