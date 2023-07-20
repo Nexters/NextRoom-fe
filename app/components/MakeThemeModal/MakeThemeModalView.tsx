@@ -1,8 +1,10 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Modal from "@mui/material/Modal";
 import * as S from "./MakeThemeModalView.styled";
+import { useModalState } from "@/components/atoms/modals.atom";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -12,24 +14,27 @@ type Props = {
 };
 
 function MakeThemeModalView(props: Props) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [modalState, setModalState] = useModalState();
+
+  const toggleOnModalState = () => setModalState(true);
+  const toggleOffModalState = () => setModalState(false);
+
   const { register, watch } = useForm();
-  const { textFieldProps } = props;
+  const { TextFields, formProps } = props;
 
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.log({ watch });
   }, [watch]);
 
+
+  
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         keepMounted
-        open={open}
-        onClose={handleClose}
+        open={modalState}
+        onClose={toggleOffModalState}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
@@ -37,6 +42,7 @@ function MakeThemeModalView(props: Props) {
           <S.CardWrap
             // container
             sx={{ width: 312, height: 408, aline: "center" }}
+            {...formProps}
           >
             <S.Title>테마 추가하기</S.Title>
             <S.Description>
@@ -44,30 +50,16 @@ function MakeThemeModalView(props: Props) {
               <br />
               아래 정보는 언제든지 수정 가능합니다.
             </S.Description>
-            <S.TextWrapper>
-              <Grid item xs={8}>
-                <TextField
-                  {...textFieldProps[0]}
-                  {...register(textFieldProps[0].id)}
-                />
-              </Grid>
-              <Grid container spacing={2} columns={16}>
-                <Grid item xs={8}>
-                  <TextField
-                    {...textFieldProps[1]}
-                    {...register(textFieldProps[1].id)}
-                  />
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    {...textFieldProps[2]}
-                    {...register(textFieldProps[2].id)}
-                  />
-                </Grid>
-              </Grid>
+            <S.TextWrapper >
+            <TextFields />
+
             </S.TextWrapper>
             <S.ButtonContainer>
-              <Button variant="contained" onClick={handleClose}>
+              <Button
+                variant="contained"
+                onClick={toggleOffModalState}
+                type="submit"
+              >
                 확인
               </Button>
             </S.ButtonContainer>
