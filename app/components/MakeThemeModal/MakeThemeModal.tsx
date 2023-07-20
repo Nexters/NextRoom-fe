@@ -1,15 +1,27 @@
 /* eslint-disable */
 import React from "react";
 import MakeThemeModalView from "./MakeThemeModalView";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Grid, TextField } from "@mui/material";
 
 function MakeThemeModal() {
+
+
+
+  const { register, handleSubmit, resetField } = useForm();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit: SubmitHandler<any> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
+
   const formProps = {
     component: "form",
     noValidate: true,
     autoComplete: "off",
-    onSubmit: () => {},
+    onSubmit: handleSubmit(onSubmit),
   };
-
 
 
   const textFieldProps = [
@@ -33,12 +45,29 @@ function MakeThemeModal() {
       variant: "filled"
     },
   ];
+  
+  
+  
+  const TextFields = () =>
+  textFieldProps.map((textField) => {
 
-  const MakeThemeModalViewProps = {
-    formProps,
-    textFieldProps,
-  };
-
+    return (
+      <Grid key={textField.id}>
+          <TextField
+            {...textField}
+            {...register(textField.id)}
+            fullWidth
+            />
+        </Grid>
+      );
+    });
+    
+    
+    
+      const MakeThemeModalViewProps = {
+        formProps,
+        TextFields,
+      };
   return <MakeThemeModalView {...MakeThemeModalViewProps}/>;
 };
 
