@@ -1,13 +1,23 @@
 import React from "react";
-import { HOME_TITLE, HOME_DESCRIPTION } from "@/consts/home";
+import MainDrawer from "@/components/common/Drawer/Drawer";
+import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
+import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
 import * as S from "./HomeView.styled";
 
-function HomeView() {
+function HomeView(props: Props) {
   return (
-    <S.Wrapper>
-      <S.Title>{HOME_TITLE}</S.Title>
-      <S.Ment>{HOME_DESCRIPTION}</S.Ment>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <MainDrawer open>hello</MainDrawer>
+        <S.Cont
+          component="main"
+        >
+          <EmptyHome />
+          {/* <HintList/> */}
+        </S.Cont>
+      </S.Wrapper>
+      <MakeThemeModal />;
+    </>
   );
 }
 
