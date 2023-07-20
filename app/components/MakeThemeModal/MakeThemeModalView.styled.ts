@@ -44,5 +44,5 @@ export const TextWrapper = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  margin: 30px;
+  margin: 50px 30px;
 `;
