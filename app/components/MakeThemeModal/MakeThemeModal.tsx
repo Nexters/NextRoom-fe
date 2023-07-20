@@ -36,12 +36,14 @@ function MakeThemeModal() {
       id: "hour",
       label: "시간",
       placeholder: "선택하기",
+      type: "number",
       variant: "filled"
     },
     {
       id: "minute",
       label: "분",
       placeholder: "선택하기",
+      type: "number",
       variant: "filled"
     },
   ];
