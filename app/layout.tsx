@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import StyledJsxRegistry from "@/lib/registry";
 import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
+import MuiProvider from "./lib/muiProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Recoil>
           <ReactQueryProvider>
-            <StyledJsxRegistry>{children}</StyledJsxRegistry>
+            <StyledJsxRegistry>
+              <MuiProvider>{children}</MuiProvider>
+            </StyledJsxRegistry>
           </ReactQueryProvider>
         </Recoil>
       </body>
