@@ -37,6 +37,8 @@ function Login() {
 
   const textFieldProps = {
     id: "filled-adminCode",
+    type: "password",
+    variant: "filled",
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
     ...register("adminCode"),
