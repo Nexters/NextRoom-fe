@@ -23,7 +23,7 @@ function Login() {
 
     const { adminCode } = data;
     // TODO: connect login api
-    // setAccountInfo({ shopCode: adminCode });
+    setAccountInfo({ shopCode: adminCode });
     postLogin({ adminCode });
   };
   const formProps = {
@@ -44,12 +44,21 @@ function Login() {
 
   const buttonProps = {
     type: "submit",
+    variant: "contained",
+  };
+
+  const logoProps = {
+    src: "/images/svg/logo.svg",
+    alt: "오늘의 방탈출",
+    width: 40,
+    height: 40,
   };
 
   const LoginViewProps = {
     formProps,
     textFieldProps,
     buttonProps,
+    logoProps,
   };
 
   return <LoginView {...LoginViewProps} />;
