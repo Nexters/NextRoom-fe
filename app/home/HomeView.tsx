@@ -2,6 +2,7 @@ import React from "react";
 import MainDrawer from "@/components/common/Drawer/Drawer";
 import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
 import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
+import HintList from "@/components/common/HintList/HintList";
 import * as S from "./HomeView.styled";
 
 function HomeView() {
@@ -12,8 +13,8 @@ function HomeView() {
         <S.Cont
           component="main"
         >
-          <EmptyHome />
-          {/* <HintList/> */}
+          {/* <EmptyHome /> */}
+          <HintList/>
         </S.Cont>
       </S.Wrapper>
       <MakeThemeModal />;
