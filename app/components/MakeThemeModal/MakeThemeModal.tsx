@@ -5,9 +5,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Grid, TextField } from "@mui/material";
 
 function MakeThemeModal() {
-
-
-
   const { register, handleSubmit, resetField } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,52 +20,46 @@ function MakeThemeModal() {
     onSubmit: handleSubmit(onSubmit),
   };
 
-
   const textFieldProps = [
     {
       id: "themeName",
       label: "테마 이름",
       placeholder: "입력해 주세요.",
-      fullWidth :"fullWidth",
+      fullWidth: "fullWidth",
       variant: "filled",
     },
     {
       id: "hour",
       label: "시간",
       placeholder: "선택하기",
-      variant: "filled"
+      variant: "filled",
     },
     {
       id: "minute",
       label: "분",
       placeholder: "선택하기",
-      variant: "filled"
+      variant: "filled",
     },
   ];
-  
-  
-  
-  const TextFields = () =>
-  textFieldProps.map((textField) => {
 
-    return (
-      <Grid key={textField.id}>
+  const TextFields = () =>
+    textFieldProps.map((textField) => {
+      return (
+        <Grid key={textField.id}>
           <TextField
-            {...textField}
+            {...textFieldProps}
             {...register(textField.id)}
             fullWidth
-            />
+          />
         </Grid>
       );
     });
-    
-    
-    
-      const MakeThemeModalViewProps = {
-        formProps,
-        TextFields,
-      };
-  return <MakeThemeModalView {...MakeThemeModalViewProps}/>;
-};
+
+  const MakeThemeModalViewProps = {
+    formProps,
+    TextFields,
+  };
+  return <MakeThemeModalView {...MakeThemeModalViewProps} />;
+}
 
 export default MakeThemeModal;

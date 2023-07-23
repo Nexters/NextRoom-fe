@@ -9,8 +9,7 @@ import { useModalState } from "@/components/atoms/modals.atom";
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  textFieldProps: Record<string, any>;
+  TextFields: any;
 };
 
 function MakeThemeModalView(props: Props) {
@@ -27,8 +26,6 @@ function MakeThemeModalView(props: Props) {
     console.log({ watch });
   }, [watch]);
 
-
-  
   return (
     <div>
       <Modal
@@ -50,9 +47,8 @@ function MakeThemeModalView(props: Props) {
               <br />
               아래 정보는 언제든지 수정 가능합니다.
             </S.Description>
-            <S.TextWrapper >
-            <TextFields />
-
+            <S.TextWrapper>
+              <TextFields />
             </S.TextWrapper>
             <S.ButtonContainer>
               <Button

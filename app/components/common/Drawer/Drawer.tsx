@@ -29,7 +29,7 @@ import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernetOutlined";
 import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponentOutlined";
 import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
 import PaletteTwoToneIcon from "@mui/icons-material/Palette";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import { useModalState } from "@/components/atoms/modals.atom";
 
 const MainDrawer: FC<DrawerProps> = (props) => {
@@ -44,10 +44,7 @@ const MainDrawer: FC<DrawerProps> = (props) => {
   const categories = [
     {
       id: "우리 지점 테마",
-      children: [
-
-        { id: "새로운 테마 추가하기", icon: <AddIcon /> },
-      ],
+      children: [{ id: "새로운 테마 추가하기", icon: <AddIcon /> }],
     },
   ];
 
@@ -65,49 +62,46 @@ const MainDrawer: FC<DrawerProps> = (props) => {
   };
   return (
     <>
-
-        <List
-          sx={{
-            maxWidth: 360,
-            height: "100vh",
-            flexShrink: 0,
-          }}
-          variant="permanent"
-          anchor="right"
-        >
-          <Box>
-            <ListItem>
-                <ListItemText>Logo Img</ListItemText>
+      <List
+        sx={{
+          maxWidth: 360,
+          height: "100vh",
+          flexShrink: 0,
+        }}
+        // variant="permanent"
+        // anchor="right"
+      >
+        <Box>
+          <ListItem>
+            <ListItemText>Logo Img</ListItemText>
+          </ListItem>
+        </Box>
+        {categories.map(({ id, children }) => (
+          <Box key={id}>
+            <ListItem sx={{ py: 2, px: 3 }}>
+              <ListItemText sx={{ fontWeight: "bold" }}>
+                <Typography
+                  color="inherit"
+                  sx={{ ml: 1, fontSize: 15, fontWeight: 500 }}
+                >
+                  {id}
+                </Typography>
+              </ListItemText>
             </ListItem>
-            
-
-          </Box>
-          {categories.map(({ id, children }) => (
-            <Box key={id}>
-              <ListItem sx={{ py: 2, px: 3 }}>
-                <ListItemText sx={{ fontWeight: "bold" }}>
-                  <Typography
-                    color="inherit"
-                    sx={{ ml: 1, fontSize: 15, fontWeight: 500 }}
-                  >
-                    {id}
-                  </Typography>
-                </ListItemText>
+            {children.map(({ id: childId, icon }) => (
+              <ListItem key={childId}>
+                <ListItemButton
+                  selected={selectedIndex == childId}
+                  onClick={toggleOnModalState}
+                >
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText>{childId}</ListItemText>
+                </ListItemButton>
               </ListItem>
-              {children.map(({ id: childId, icon }) => (
-                <ListItem key={childId}>
-                  <ListItemButton
-                    selected={selectedIndex == childId}
-                    onClick={toggleOnModalState}
-                  >
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText>{childId}</ListItemText>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </Box>
-          ))}
-        </List>
+            ))}
+          </Box>
+        ))}
+      </List>
     </>
   );
 };
