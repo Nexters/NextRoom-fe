@@ -7,12 +7,12 @@ import {
 } from "recoil";
 
 interface AccountInfo {
-  shopCode: string;
+  adminCode: string;
 }
 
 const accountInfoState = atom<Partial<AccountInfo>>({
   key: "accountInfo",
-  default: { shopCode: undefined },
+  default: { adminCode: undefined },
 });
 
 export const useAccountInfo = () => useRecoilState(accountInfoState);
@@ -23,7 +23,7 @@ const isLoggedInState = selector<boolean>({
   key: "isLoggedIn",
   get: ({ get }) => {
     const accountInfo = get(accountInfoState);
-    return !!accountInfo?.shopCode;
+    return !!accountInfo?.adminCode;
   },
 });
 
