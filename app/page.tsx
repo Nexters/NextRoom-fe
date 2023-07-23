@@ -1,15 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Login from "./login/Login";
 
 import { getAccessToken } from "./uilts/localStorage";
+import { useIsLoggedIn } from "./components/atoms/account.atom";
 
 export default function Home() {
   const router = useRouter();
-  const accountToken = getAccessToken();
+  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
-  if (accountToken) {
+  useEffect(() => {
+    const accountToken = getAccessToken();
+
+    if (accountToken) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
+
+  if (isLoggedIn) {
     router.push("/home");
     return <div>Loading...</div>;
   }
