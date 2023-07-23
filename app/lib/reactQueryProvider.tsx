@@ -7,7 +7,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const apiClient = axios.create({
   withCredentials: true,
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
