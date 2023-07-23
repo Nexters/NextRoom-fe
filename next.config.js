@@ -5,6 +5,14 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -14,6 +22,6 @@ const nextConfig = {
 
     return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
