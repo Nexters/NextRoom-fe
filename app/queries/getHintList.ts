@@ -1,10 +1,10 @@
 import { apiClient } from "@/lib/reactQueryProvider";
-import { QueryConfigOptions } from "@/types";
+import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = { themeId: number };
-type Response = {
+type Hints = {
   id: number;
   hintTitle: string;
   hintCode: string;
@@ -12,6 +12,8 @@ type Response = {
   answer: string;
   progress: number;
 }[];
+
+type Response = ApiResponse<Hints>;
 
 const URL_PATH = `/v1/hint`;
 export const QUERY_KEY = [URL_PATH];

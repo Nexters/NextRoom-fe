@@ -1,10 +1,12 @@
 import { apiClient } from "@/lib/reactQueryProvider";
-import { QueryConfigOptions } from "@/types";
+import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = void;
-type Response = { id: number; title: string; timeLimit: number }[];
+type Themes = { id: number; title: string; timeLimit: number }[];
+
+type Response = ApiResponse<Themes>;
 
 const URL_PATH = `/v1/theme`;
 export const QUERY_KEY = [URL_PATH];
