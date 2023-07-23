@@ -9,7 +9,7 @@ import { usePostLogin } from "@/mutations/postLogin";
 import LoginView from "./LoginView";
 
 interface FormValues {
-  shopCode: string;
+  adminCode: string;
 }
 
 function Login() {
@@ -21,10 +21,10 @@ function Login() {
     // eslint-disable-next-line no-console
     console.log(data);
 
-    const { shopCode } = data;
+    const { adminCode } = data;
     // TODO: connect login api
-    setAccountInfo({ shopCode });
-    postLogin({ shopCode });
+    // setAccountInfo({ shopCode: adminCode });
+    postLogin({ adminCode });
   };
   const formProps = {
     component: "form",
@@ -39,7 +39,7 @@ function Login() {
     id: "filled-adminCode",
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
-    ...register("shopCode"),
+    ...register("adminCode"),
   };
 
   const buttonProps = {

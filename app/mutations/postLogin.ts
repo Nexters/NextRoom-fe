@@ -5,15 +5,15 @@ import { AxiosResponse } from "axios";
 import { useAccountInfoWrite } from "../components/atoms/account.atom";
 
 interface Request {
-  shopCode: string;
+  adminCode: string;
 }
 type Response = void;
 
-const URL_PATH = `/v1/login`;
+const URL_PATH = `/v1/auth/login`;
 const MUTATION_KEY = [URL_PATH];
 
-export const postLogin = async ({ shopCode }: Request) => {
-  const data: Request = { shopCode };
+export const postLogin = async ({ adminCode }: Request) => {
+  const data: Request = { adminCode };
   const res = await apiClient.post<Request, AxiosResponse<Response>>(
     URL_PATH,
     data
@@ -30,8 +30,8 @@ export const usePostLogin = (configOptions?: MutationConfigOptions) => {
     mutationFn: (req) => postLogin(req),
     ...configOptions?.options,
     onSuccess: (_, req) => {
-      const { shopCode = "" } = req;
-      setAccountInfo({ shopCode });
+      const { adminCode = "" } = req;
+      setAccountInfo({ adminCode });
     },
     onSettled: () => {
       //   console.log("항상 실행");
