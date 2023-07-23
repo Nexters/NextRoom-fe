@@ -13,3 +13,9 @@ export interface QueryConfigOptions {
   config?: AxiosRequestConfig;
   options?: Omit<QueryObserverOptions<any, any, any, any>, `initialData`>;
 }
+
+export interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
