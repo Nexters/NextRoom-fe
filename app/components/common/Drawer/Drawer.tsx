@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Drawer,
   DrawerProps,
   List,
   ListItem,
@@ -20,12 +21,12 @@ import { useThemeState } from "@/components/atoms/theme.atom";
 const MainDrawer: FC<DrawerProps> = (props) => {
   const { onClose, categories } = props;
   const setTheme = useThemeStateWrite();
-  
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () => setModalState(true);
   const toggleOffModalState = () => setModalState(false);
 
   const Link = "";
+
 
   // const location = useLocation();
   //   const [selectedIndex, setSelectedIndex] = useState(location.pathname.replace('/', ''));

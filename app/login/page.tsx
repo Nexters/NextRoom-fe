@@ -1,12 +1,10 @@
 "use client";
 
 import React from "react";
-import Login from "@/components/Login/Login";
+import Login from "@/login/Login";
 
-type Props = {};
-
-const LoginPage = (props: Props) => {
+function LoginPage() {
   return <Login />;
-};
+}
 
 export default LoginPage;

@@ -3,10 +3,8 @@
 import React from "react";
 import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
 
-type Props = {};
-
-const ThemePage = (props: Props) => {
+function ThemePage() {
   return <MakeThemeModal />;
-};
+}
 
 export default ThemePage;

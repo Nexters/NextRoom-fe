@@ -2,12 +2,13 @@ import { Inter } from "next/font/google";
 import StyledJsxRegistry from "@/lib/registry";
 import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
+import MuiProvider from "./lib/muiProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Escape Room",
-  description: "Escape Room Dashboard",
+  title: "오늘의 방탈출 Admin",
+  description: "오늘의 방탈출 Admin",
 };
 
 export default function RootLayout({
@@ -20,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Recoil>
           <ReactQueryProvider>
-            <StyledJsxRegistry>{children}</StyledJsxRegistry>
+            <StyledJsxRegistry>
+              <MuiProvider>{children}</MuiProvider>
+            </StyledJsxRegistry>
           </ReactQueryProvider>
         </Recoil>
       </body>

@@ -1,50 +1,28 @@
 "use client";
 
-import styled from "styled-components";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Login from "./login/Login";
 
-import { useHintState } from "./components/atoms/hints.atom";
-import Button from "@mui/material/Button";
-import { StyledEngineProvider } from "@mui/styled-engine";
+import { getAccessToken } from "./uilts/localStorage";
+import { useIsLoggedIn } from "./components/atoms/account.atom";
 
 export default function Home() {
-  const [hintState, setHintState] = useHintState();
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
-  const addUsedHintState = () => setHintState(hintState + 1);
+  useEffect(() => {
+    const accountToken = getAccessToken();
 
-  return (
-    <div>
-      <Wrapper>
-        <div>Escape Room</div>
-        <div className="hint" onClick={addUsedHintState}>
-          {hintState}
-        </div>
+    if (accountToken) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
 
-        <StyledEngineProvider injectFirst>
-          <MyButton>MUI 버튼</MyButton>
-        </StyledEngineProvider>
-      </Wrapper>
-    </div>
-  );
+  if (isLoggedIn) {
+    router.push("/home");
+    return <div>Loading...</div>;
+  }
+
+  return <Login />;
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 10em;
-  width: 100vw;
-  height: 100vh;
-  color: #fff;
-  background-color: #000;
-  justify-content: center;
-  align-items: center;
-`;
-
-const MyButton = styled(Button)`
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border: 0;
-  border-radius: 3px;
-  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
-  color: white;
-  height: 48px;
-  padding: 0 20px;
-`;
