@@ -6,8 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const apiClient = axios.create({
-  withCredentials: true,
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: false,
+  // baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: "https://pokeapi.co/api/v2",
 });
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {

@@ -6,6 +6,7 @@ import { INPUT_MSG } from "@/consts/common";
 
 import { useAccountInfoWrite } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
+import { useGetThemeList } from "@/queries/getThemeList";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -16,6 +17,8 @@ function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
   const setAccountInfo = useAccountInfoWrite();
   const { mutateAsync: postLogin, isLoading = false } = usePostLogin();
+
+  useGetThemeList();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // eslint-disable-next-line no-console

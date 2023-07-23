@@ -6,7 +6,8 @@ import { AxiosRequestConfig, AxiosResponse } from "axios";
 type Request = void;
 type Response = { id: number; title: string; timeLimit: number }[];
 
-const URL_PATH = `/v1/theme`;
+// const URL_PATH = `/v1/theme?adminCode=12345`;
+const URL_PATH = `/pokemon/25`;
 export const QUERY_KEY = [URL_PATH];
 
 export const getThemeList = async (config?: AxiosRequestConfig) => {
