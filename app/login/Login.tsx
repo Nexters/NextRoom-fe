@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ADMIN_CODE } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
-import { useAccountInfoWrite } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 import LoginView from "./LoginView";
 
@@ -14,16 +13,14 @@ interface FormValues {
 
 function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
-  const setAccountInfo = useAccountInfoWrite();
-  const { mutateAsync: postLogin, isLoading = false } = usePostLogin();
+  const {
+    mutateAsync: postLogin,
+    isLoading = false,
+    isError = false,
+  } = usePostLogin();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
-
     const { adminCode } = data;
-    // TODO: connect login api
-    setAccountInfo({ shopCode: adminCode });
     postLogin({ adminCode });
   };
   const formProps = {
@@ -42,6 +39,7 @@ function Login() {
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
     ...register("adminCode"),
+    error: isError,
   };
 
   const buttonProps = {
@@ -61,6 +59,7 @@ function Login() {
     textFieldProps,
     buttonProps,
     logoProps,
+    isLoading,
   };
 
   return <LoginView {...LoginViewProps} />;
