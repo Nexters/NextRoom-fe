@@ -29,5 +29,5 @@ export const Title = styled.div`
 `;
 
 export const LoginButton = styled(Button)`
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 `;

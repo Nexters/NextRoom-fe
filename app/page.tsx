@@ -2,13 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import Login from "./login/Login";
-import { useIsLoggedInValue } from "./components/atoms/account.atom";
+
+import { getAccessToken } from "./uilts/localStorage";
 
 export default function Home() {
   const router = useRouter();
-  const isLoggedIn = useIsLoggedInValue();
+  const accountToken = getAccessToken();
 
-  if (isLoggedIn) {
+  if (accountToken) {
     router.push("/home");
     return <div>Loading...</div>;
   }
