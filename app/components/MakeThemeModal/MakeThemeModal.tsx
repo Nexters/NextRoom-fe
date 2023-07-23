@@ -3,17 +3,26 @@ import React from "react";
 import MakeThemeModalView from "./MakeThemeModalView";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Grid, TextField } from "@mui/material";
+import { usePostTheme } from "@/mutations/postTheme";
 
 function MakeThemeModal() {
+  interface FormValues {
+    title: string;
+    timeLimit: number;
+  }
+  
 
+  const { mutateAsync: postTheme } = usePostTheme();
 
-
-  const { register, handleSubmit, resetField } = useForm();
+  const { register, handleSubmit } = useForm<FormValues>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit: SubmitHandler<any> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const submitData = { ...data, timeLimit: parseInt(data.timeLimit) };
+
     // eslint-disable-next-line no-console
-    console.log(data);
+    console.log(submitData);
+    postTheme(data);
   };
 
   const formProps = {
@@ -24,52 +33,28 @@ function MakeThemeModal() {
   };
 
 
+
   const textFieldProps = [
     {
-      id: "themeName",
+      id: "title",
       label: "테마 이름",
       placeholder: "입력해 주세요.",
       fullWidth :"fullWidth",
       variant: "filled",
     },
     {
-      id: "hour",
+      id: "timeLimit",
       label: "시간",
       placeholder: "선택하기",
-      type: "number",
-      variant: "filled"
-    },
-    {
-      id: "minute",
-      label: "분",
-      placeholder: "선택하기",
-      type: "number",
       variant: "filled"
     },
   ];
-  
-  
-  
-  const TextFields = () =>
-  textFieldProps.map((textField) => {
 
-    return (
-      <Grid key={textField.id}>
-          <TextField
-            {...textField}
-            {...register(textField.id)}
-            fullWidth
-            />
-        </Grid>
-      );
-    });
-    
-    
-    
-      const MakeThemeModalViewProps = {
-        formProps,
-        TextFields,
-      };
+  const MakeThemeModalViewProps = {
+    formProps,
+    textFieldProps,
+  };
+
   return <MakeThemeModalView {...MakeThemeModalViewProps}/>;
 };
 

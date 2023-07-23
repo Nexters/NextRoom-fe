@@ -1,8 +1,10 @@
 /* eslint-disable */
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Modal from "@mui/material/Modal";
+import { useModalState } from "@/components/atoms/modals.atom";
 import * as S from "./MakeThemeModalView.styled";
 import { useModalState } from "@/components/atoms/modals.atom";
 
@@ -12,6 +14,15 @@ type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textFieldProps: Record<string, any>;
 };
+
+const MakeThemeModalView = (props: Props) => {
+
+  const [modalState, setModalState] = useModalState();
+  const { register, handleSubmit, formState, watch } = useForm();
+  const { formProps, textFieldProps,} = props;
+
+  const toggleOnModalState = () => setModalState(true);
+  const toggleOffModalState = () => setModalState(false);
 
 function MakeThemeModalView(props: Props) {
   const [modalState, setModalState] = useModalState();
@@ -23,16 +34,18 @@ function MakeThemeModalView(props: Props) {
   const { TextFields, formProps } = props;
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log({ watch });
-  }, [watch]);
+    console.log({ modalState });
+  }, [modalState]);
 
 
   
   return (
     <div>
+            <Modal
       <Modal
         keepMounted
+        open={modalState}
+        onClose={toggleOffModalState}
         open={modalState}
         onClose={toggleOffModalState}
         aria-labelledby="keep-mounted-modal-title"
@@ -55,6 +68,7 @@ function MakeThemeModalView(props: Props) {
 
             </S.TextWrapper>
             <S.ButtonContainer>
+              <Button variant="contained" onClick={toggleOffModalState}>
               <Button
                 variant="contained"
                 onClick={toggleOffModalState}
