@@ -11,7 +11,9 @@ const accessToken = getAccessToken();
 export const apiClient = axios.create({
   withCredentials: true,
   headers: {
-    ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    ...(accessToken && {
+      Authorization: `Bearer ${accessToken.replace(/^"(.*)"$/, "$1")}`,
+    }),
   },
 });
 
