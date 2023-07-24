@@ -5,16 +5,12 @@ import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
 import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
 import HintList from "@/components/common/HintList/HintList";
 
+import { Themes } from "@/queries/getThemeList";
+
 import * as S from "./HomeView.styled";
 
-export interface Theme {
-  id: number;
-  title: string;
-  timeLimit: number;
-}
-
 type Props = {
-  categories: Theme[];
+  categories: Themes;
 };
 
 function HomeView(props: Props) {

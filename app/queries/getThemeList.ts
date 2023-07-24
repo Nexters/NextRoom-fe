@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = void;
-type Themes = { id: number; title: string; timeLimit: number }[];
+export type Themes = { id: number; title: string; timeLimit: number }[];
 
 type Response = ApiResponse<Themes>;
 
-const URL_PATH = `/v1/theme`;
+const URL_PATH = `/v1/theme?adminCode=12345`;
 export const QUERY_KEY = [URL_PATH];
 
 export const getThemeList = async (config?: AxiosRequestConfig) => {
@@ -23,10 +23,11 @@ export const getThemeList = async (config?: AxiosRequestConfig) => {
 };
 
 export const useGetThemeList = (configOptions?: QueryConfigOptions) => {
-  const info = useQuery<Response, Request>({
+  const info = useQuery<Response, Request, Themes>({
     queryKey: QUERY_KEY,
     queryFn: () => getThemeList(configOptions?.config),
     ...configOptions?.options,
+    select: (res) => res.data,
   });
 
   return info;
