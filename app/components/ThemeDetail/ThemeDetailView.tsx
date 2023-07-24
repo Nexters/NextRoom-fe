@@ -7,20 +7,11 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import AddIcon from "@mui/icons-material/Add";
 
-import { Hints } from "@/queries/getHintList";
-import * as S from "./HintListView.styled";
+import { HintManage } from "@/components/HintManage";
+import * as S from "./ThemeDetail.styled";
 
-interface Props {
-  hintList: Hints;
-}
-
-function HintListView(props: Props) {
-  const { hintList } = props;
-
-  // eslint-disable-next-line no-console
-  console.log({ hintList });
+function ThemeDetailView() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [themeState, setThemeState] = useThemeState();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,20 +66,10 @@ function HintListView(props: Props) {
             </Grid>
           </Grid>
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <S.Title>힌트관리</S.Title>
-
-          <Button onClick={toggleOnModalState} startIcon={<AddIcon />}>
-            <Typography>새로운 힌트 추가하기</Typography>
-          </Button>
-        </Stack>
+        <HintManage />
       </Stack>
     </S.Wrapper>
   );
 }
 
-export default HintListView;
+export default ThemeDetailView;
