@@ -9,9 +9,18 @@ import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from "@mui/icons-material/Add";
 
+import { Hints } from "@/queries/getHintList";
 import * as S from "./HintListView.styled";
 
-function HintListView() {
+interface Props {
+  hintList: Hints;
+}
+
+function HintListView(props: Props) {
+  const { hintList } = props;
+
+  // eslint-disable-next-line no-console
+  console.log({ hintList });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [themeState, setThemeState] = useThemeState();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

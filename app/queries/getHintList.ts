@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = { themeId: number };
-type Hints = {
+export type Hints = {
   id: number;
   hintTitle: string;
   hintCode: string;
@@ -39,9 +39,10 @@ export const useGetHintList = (
   req: Request,
   configOptions?: QueryConfigOptions
 ) => {
-  const info = useQuery<Response, Request>({
+  const info = useQuery<Response, Request, Hints>({
     queryKey: QUERY_KEY,
     queryFn: () => getHintList(req, configOptions?.config),
+    select: (res) => res.data,
     ...configOptions?.options,
   });
 
