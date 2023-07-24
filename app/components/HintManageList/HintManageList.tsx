@@ -5,9 +5,13 @@ import HintManageListView from "./HintManageListView";
 function HintManageList() {
   const themeId = 1;
   const { data: hints = [] } = useGetHintList({ themeId });
+  const onDelete = () => {};
+  const onSave = () => {};
 
   const hintManageListProps = {
     hints,
+    onDelete,
+    onSave,
   };
 
   return <HintManageListView {...hintManageListProps} />;

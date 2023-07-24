@@ -27,13 +27,14 @@
         "root": {
           "boxShadow": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
           "border": "0px solid #cac4cf",
-          "color": "#1c1b1e",
+          "color": "#79747E",
           "backgroundColor": "#fff",
           "&:before": {
             "backgroundColor": "#fdf8fd",
             "display": "none"
           },
           "&.Mui-expanded": {
+            "color": "#1c1b1e",
             "backgroundColor": "#fdf8fd"
           },
           "&.Mui-disabled": {

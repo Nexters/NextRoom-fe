@@ -9,7 +9,7 @@ export type Themes = Theme[];
 
 type Response = ApiResponse<Themes>;
 
-const URL_PATH = `/v1/theme?adminCode=12345`;
+const URL_PATH = `/v1/theme`;
 export const QUERY_KEY = [URL_PATH];
 
 export const getThemeList = async (config?: AxiosRequestConfig) => {
