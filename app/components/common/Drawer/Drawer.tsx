@@ -1,8 +1,5 @@
-/* eslint-disable */
-
 import {
   Box,
-  DrawerProps,
   List,
   ListItem,
   ListItemButton,
@@ -10,47 +7,49 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from "@mui/icons-material/Add";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import CircleIcon from "@mui/icons-material/Circle";
 import { useModalState } from "@/components/atoms/modals.atom";
 import { useThemeStateWrite } from "@/components/atoms/theme.atom";
-import { useThemeState } from "@/components/atoms/theme.atom";
 
-const MainDrawer: FC<DrawerProps> = (props) => {
-  const { onClose, categories } = props;
+interface Theme {
+  id: number;
+  title: string;
+  timeLimit: number;
+}
+
+type Props = {
+  categories: Theme[];
+};
+
+function MainDrawer(props: Props) {
+  const { categories } = props;
   const setTheme = useThemeStateWrite();
-  
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () => setModalState(true);
-  const toggleOffModalState = () => setModalState(false);
 
-  const Link = "";
+  const [selectedIndex, setSelectedIndex] = useState<string | null>(null)
+  useEffect(() => {
+    if (categories.length > 0) {
+      setSelectedIndex(categories[0].title);
+      setTheme(categories[0]);
+    }
+  }, [categories, setTheme]);
 
-  // const location = useLocation();
-  //   const [selectedIndex, setSelectedIndex] = useState(location.pathname.replace('/', ''));
-  const [selectedIndex, setSelectedIndex] = useState("");
 
-  //   useEffect(() => {
-  //     setSelectedIndex(location.pathname.replace("/", ""));
-  //   }, [location.pathname]);
+  const handleListItemClick = (theme: Theme) => {
+    setSelectedIndex(theme.title);
 
-  const handleListItemClick = (title: string, timeLimit:number) => {
-    setSelectedIndex(title);
-    setTheme({title:title, timeLimit: timeLimit})
-    onClose?.({}, "backdropClick");
+    setTheme({ ...theme });
   };
 
   return (
-    <List
-      sx={{
-        maxWidth: 360,
-        height: "100vh",
-        flexShrink: 0,
-      }}
-      variant="permanent"
-      anchor="right"
-    >
+    <List>
       <Box>
         <ListItem>
           <ListItemText>Logo Img</ListItemText>
@@ -68,24 +67,23 @@ const MainDrawer: FC<DrawerProps> = (props) => {
           </ListItemText>
         </ListItem>
 
-        {categories?.map(({ id, title, timeLimit }) => (
-          <ListItem key={id}>
+        {categories.map((theme) => (
+          <ListItem key={theme.id}>
             <ListItemButton
-              selected={selectedIndex == title}
-              onClick={() => handleListItemClick(title, timeLimit)}
+              selected={selectedIndex === theme.title}
+              onClick={() => {
+                handleListItemClick(theme);
+              }}
             >
               <ListItemIcon>
                 <CircleIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>{title}</ListItemText>
+              <ListItemText>{theme.title}</ListItemText>
             </ListItemButton>
           </ListItem>
         ))}
         <ListItem>
-          <ListItemButton
-            // selected={selectedIndex == childId}
-            onClick={toggleOnModalState}
-          >
+          <ListItemButton onClick={toggleOnModalState}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -95,6 +93,6 @@ const MainDrawer: FC<DrawerProps> = (props) => {
       </Box>
     </List>
   );
-};
+}
 
 export default MainDrawer;

@@ -1,51 +1,33 @@
-/* eslint-disable */
-/* eslint-disable */
-import React, { useEffect, useState } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import React, { useEffect } from "react";
+import { Button, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
-import Modal from "@mui/material/Modal";
 import { useModalState } from "@/components/atoms/modals.atom";
 import * as S from "./MakeThemeModalView.styled";
-import { useModalState } from "@/components/atoms/modals.atom";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  textFieldProps: Record<string, any>;
+  TextFields: () => React.JSX.Element[];
 };
-
-const MakeThemeModalView = (props: Props) => {
-
-  const [modalState, setModalState] = useModalState();
-  const { register, handleSubmit, formState, watch } = useForm();
-  const { formProps, textFieldProps,} = props;
-
-  const toggleOnModalState = () => setModalState(true);
-  const toggleOffModalState = () => setModalState(false);
 
 function MakeThemeModalView(props: Props) {
   const [modalState, setModalState] = useModalState();
 
-  const toggleOnModalState = () => setModalState(true);
   const toggleOffModalState = () => setModalState(false);
 
-  const { register, watch } = useForm();
+  const { watch } = useForm();
   const { TextFields, formProps } = props;
 
   useEffect(() => {
-    console.log({ modalState });
-  }, [modalState]);
+    // eslint-disable-next-line no-console
+    console.log({ watch });
+  }, [watch]);
 
-
-  
   return (
     <div>
-            <Modal
       <Modal
         keepMounted
-        open={modalState}
-        onClose={toggleOffModalState}
         open={modalState}
         onClose={toggleOffModalState}
         aria-labelledby="keep-mounted-modal-title"
@@ -63,12 +45,10 @@ function MakeThemeModalView(props: Props) {
               <br />
               아래 정보는 언제든지 수정 가능합니다.
             </S.Description>
-            <S.TextWrapper >
-            <TextFields />
-
+            <S.TextWrapper>
+              <TextFields />
             </S.TextWrapper>
             <S.ButtonContainer>
-              <Button variant="contained" onClick={toggleOffModalState}>
               <Button
                 variant="contained"
                 onClick={toggleOffModalState}

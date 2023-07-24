@@ -5,9 +5,15 @@ import {
   useSetRecoilState,
 } from "recoil";
 
-const themeState = atom<boolean>({
+interface Theme {
+  id: number;
+  title: string;
+  timeLimit: number;
+}
+
+const themeState = atom<Theme>({
   key: "themeState",
-  default: { title: "", timeLimit:0 }
+  default: { id: 0, title: "", timeLimit: 0 },
 });
 
 export const useThemeState = () => useRecoilState(themeState);
