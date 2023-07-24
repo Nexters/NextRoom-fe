@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Modal } from "@mui/material";
 import * as S from "./CustomModalView.styled";
-import { CustomTypeModalViewProps } from "./CustomModal.type";
+import { CustomTypeModalProps } from "./CustomModal.type";
 
-function CustomModalView(props: CustomTypeModalViewProps) {
+function CustomModalView(props: CustomTypeModalProps) {
   const { open, content, handleClose } = props;
 
   return (

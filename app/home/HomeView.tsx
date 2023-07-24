@@ -1,15 +1,20 @@
 import React from "react";
+// eslint-disable-next-line import/no-cycle
 import MainDrawer from "@/components/common/Drawer/Drawer";
 import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
 import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
 import HintList from "@/components/common/HintList/HintList";
+
 import * as S from "./HomeView.styled";
 
+export interface Theme {
+  id: number;
+  title: string;
+  timeLimit: number;
+}
+
 type Props = {
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // formProps: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: Record<string, any>;
+  categories: Theme[];
 };
 
 function HomeView(props: Props) {

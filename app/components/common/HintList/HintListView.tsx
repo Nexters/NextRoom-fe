@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Typography, Button, Grid, Stack } from "@mui/material";
 import { useThemeState } from "@/components/atoms/theme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
@@ -18,13 +18,10 @@ function HintListView() {
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () => setModalState(true);
   useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log(themeState);
-     
-  
- 
-  
-  }, [themeState])
-  
+  }, [themeState]);
+
   return (
     <S.Wrapper>
       <Stack spacing={4}>
@@ -57,7 +54,7 @@ function HintListView() {
             </Grid>
             <Grid item xs={6}>
               <Stack spacing={2} direction="row" alignItems="center">
-                <Button >
+                <Button>
                   <AccessTimeIcon />
                 </Button>
                 <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>

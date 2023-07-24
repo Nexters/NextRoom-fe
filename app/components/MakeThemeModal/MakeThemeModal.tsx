@@ -12,7 +12,7 @@ function MakeThemeModal() {
 
   const { mutateAsync: postTheme } = usePostTheme();
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { handleSubmit } = useForm<FormValues>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -46,7 +46,7 @@ function MakeThemeModal() {
   const TextFields = () =>
     textFieldProps.map((textField) => (
       <Grid key={textField.id}>
-        <TextField {...textField}  fullWidth />
+        <TextField {...textField} fullWidth />
       </Grid>
     ));
 

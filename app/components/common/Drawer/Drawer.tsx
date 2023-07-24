@@ -15,11 +15,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useModalState } from "@/components/atoms/modals.atom";
 import { useThemeStateWrite } from "@/components/atoms/theme.atom";
 
-interface Theme {
-  id: number;
-  title: string;
-  timeLimit: number;
-}
+// eslint-disable-next-line import/no-cycle
+import { Theme } from "@/home/HomeView";
 
 type Props = {
   categories: Theme[];
@@ -33,14 +30,13 @@ function MainDrawer(props: Props) {
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () => setModalState(true);
 
-  const [selectedIndex, setSelectedIndex] = useState<string | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
   useEffect(() => {
     if (categories.length > 0) {
       setSelectedIndex(categories[0].title);
       setTheme(categories[0]);
     }
   }, [categories, setTheme]);
-
 
   const handleListItemClick = (theme: Theme) => {
     setSelectedIndex(theme.title);
