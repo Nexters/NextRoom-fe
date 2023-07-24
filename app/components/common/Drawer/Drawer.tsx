@@ -14,12 +14,12 @@ import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useModalState } from "@/components/atoms/modals.atom";
 import { useThemeStateWrite } from "@/components/atoms/theme.atom";
+import { Theme, Themes } from "@/queries/getThemeList";
 
 // eslint-disable-next-line import/no-cycle
-import { Theme } from "@/home/HomeView";
 
 type Props = {
-  categories: Theme[];
+  categories: Themes;
 };
 
 function MainDrawer(props: Props) {

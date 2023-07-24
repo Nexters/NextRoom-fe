@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = void;
-export type Themes = { id: number; title: string; timeLimit: number }[];
+export type Theme = { id: number; title: string; timeLimit: number };
+export type Themes = Theme[];
 
 type Response = ApiResponse<Themes>;
 
