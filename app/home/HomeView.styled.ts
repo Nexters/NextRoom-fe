@@ -7,9 +7,7 @@ export const Wrapper = styled(Box)`
 `;
 
 export const Cont = styled(Box)`
-  /* flexGrow: 1, bgcolor: "background.default", p: 3 */
   flex-grow:1;
-  background-color: white;
 `;
 
 
