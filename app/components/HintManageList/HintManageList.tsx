@@ -1,34 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useGetHintList } from "@/queries/getHintList";
 import HintManageListView from "./HintManageListView";
-import { DeleteHintDialog } from "../DeleteHintDialog";
+import { useIsOpenAddAccordionValue } from "../atoms/hints.atom";
 
 function HintManageList() {
-  const [open, setOpen] = useState<boolean>(false);
+  const adding = useIsOpenAddAccordionValue();
   // const { id: themeId = 1 } = useThemeStateValue();
   const themeId = 1;
   const { data: hints = [] } = useGetHintList({ themeId });
-  const onDelete = () => {
-    setOpen(true);
-  };
-  const onSave = () => {};
 
   const hintManageListProps = {
     hints,
-    onDelete,
-    onSave,
+    adding,
   };
 
-  return (
-    <>
-      <HintManageListView {...hintManageListProps} />
-      <DeleteHintDialog
-        open={open}
-        handleClose={() => setOpen(false)}
-        id={themeId}
-      />
-    </>
-  );
+  return <HintManageListView {...hintManageListProps} />;
 }
 
 export default HintManageList;

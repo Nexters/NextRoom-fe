@@ -7,13 +7,19 @@ import { HintManageList } from "../HintManageList";
 const MANAGE_HINT = "힌트 관리";
 const ADD_NEW_HINT = "새로운 힌트 추가하기";
 
-function HintManageView() {
+interface Props {
+  activateAdding: () => void;
+}
+
+function HintManageView(props: Props) {
+  const { activateAdding } = props;
+
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <S.Title>{MANAGE_HINT}</S.Title>
 
-        <Button startIcon={<AddIcon />}>
+        <Button startIcon={<AddIcon />} onClick={activateAdding}>
           <Typography>{ADD_NEW_HINT}</Typography>
         </Button>
       </Stack>
