@@ -3,7 +3,7 @@ import React from "react";
 import MainDrawer from "@/components/common/Drawer/Drawer";
 import MakeThemeModal from "@/components/MakeThemeModal/MakeThemeModal";
 import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
-import HintList from "@/components/common/HintList/HintList";
+import HintList from "@/components/ThemeDetail/ThemeDetail";
 
 import { Themes } from "@/queries/getThemeList";
 
