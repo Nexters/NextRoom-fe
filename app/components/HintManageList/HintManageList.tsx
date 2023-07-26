@@ -1,17 +1,17 @@
 import React from "react";
 import { useGetHintList } from "@/queries/getHintList";
 import HintManageListView from "./HintManageListView";
+import { useIsOpenAddAccordionValue } from "../atoms/hints.atom";
 
 function HintManageList() {
+  const adding = useIsOpenAddAccordionValue();
+  // const { id: themeId = 1 } = useThemeStateValue();
   const themeId = 1;
   const { data: hints = [] } = useGetHintList({ themeId });
-  const onDelete = () => {};
-  const onSave = () => {};
 
   const hintManageListProps = {
     hints,
-    onDelete,
-    onSave,
+    adding,
   };
 
   return <HintManageListView {...hintManageListProps} />;
