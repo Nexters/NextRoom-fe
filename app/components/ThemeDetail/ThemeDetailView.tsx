@@ -5,6 +5,8 @@ import { useModalState } from "@/components/atoms/modals.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import ContactsIcon from "@mui/icons-material/Contacts";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 
@@ -16,7 +18,8 @@ function ThemeDetailView() {
   const [themeState, setThemeState] = useThemeState();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
-  const toggleOnModalState = () => setModalState(true);
+  const toggleOnModalState = () => setModalState({isOpen:true, type: "put"});
+  
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.log(themeState);
@@ -46,7 +49,7 @@ function ThemeDetailView() {
             <Grid item xs={6}>
               <Stack spacing={2} direction="row" alignItems="center">
                 <Button>
-                  <AccessTimeIcon />
+                  <ContactsIcon />
                 </Button>
                 <S.MiddleTitle>테마이름</S.MiddleTitle>
                 <Typography>{themeState.title}</Typography>
