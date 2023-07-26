@@ -1,14 +1,17 @@
 import {
-
   atom,
   useRecoilValue,
   useRecoilState,
-  useSetRecoilState
+  useSetRecoilState,
 } from "recoil";
 
-const modalState = atom<boolean>({
+interface Modal {
+  isOpen: boolean;
+  type: "post" | "put";
+}
+const modalState = atom<Modal>({
   key: "modalState",
-  default: false,
+  default: { isOpen: false, type : "post" },
 });
 
 export const useModalState = () => useRecoilState(modalState);
