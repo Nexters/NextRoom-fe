@@ -12,13 +12,11 @@ import AddIcon from "@mui/icons-material/Add";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CircleIcon from "@mui/icons-material/Circle";
 import { useModalState } from "@/components/atoms/modals.atom";
-import { useThemeStateWrite } from "@/components/atoms/theme.atom";
+import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
 import Image from "next/image";
 import * as S from "./DrawerView.styled";
 // import { useDeleteTheme } from "@/mutations/deleteTheme";
-
-// eslint-disable-next-line import/no-cycle
 
 type Props = {
   categories: Themes;
@@ -26,14 +24,13 @@ type Props = {
 
 function MainDrawer(props: Props) {
   const { categories } = props;
-  const setTheme = useThemeStateWrite();
+  const setSelectedTheme = useSelectedThemeWrite();
+  // const { mutateAsync: deleteTheme } = useDeleteTheme();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
     setModalState({ ...modalState, isOpen: true });
-  // const { mutateAsync: deleteTheme } = useDeleteTheme();
-
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "오늘의 방탈출",
@@ -41,18 +38,18 @@ function MainDrawer(props: Props) {
     height: 40,
   };
 
-  const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   useEffect(() => {
     if (categories.length > 0) {
       setSelectedIndex(categories[0].id);
-      setTheme(categories[0]);
+      setSelectedTheme(categories[0]);
     }
-  }, [categories, setTheme]);
+  }, [categories, setSelectedTheme]);
 
   const handleListItemClick = (theme: Theme) => {
     setSelectedIndex(theme.id);
     // deleteTheme({id: theme.id})
-    setTheme({ ...theme });
+    setSelectedTheme({ ...theme });
   };
 
   return (
@@ -64,14 +61,9 @@ function MainDrawer(props: Props) {
         </ListItem>
       </Box>
       <Box>
-        <ListItem sx={{ py: 2, px: 3 }}>
-          <ListItemText sx={{ fontWeight: "bold" }}>
-            <S.Theme
-              color="inherit"
-              sx={{ ml: 1, fontSize: 15, fontWeight: 500 }}
-            >
-              관리 중인 테마
-            </S.Theme>
+        <ListItem>
+          <ListItemText>
+            <S.Theme color="inherit">관리 중인 테마</S.Theme>
           </ListItemText>
         </ListItem>
 
