@@ -2,23 +2,27 @@ import React, { useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import * as S from "./ActiveInput.styled";
 
-interface Props extends UseFormRegisterReturn {
+export interface ActiveInputProps extends UseFormRegisterReturn {
   // eslint-disable-next-line react/require-default-props
   type?: string;
   // eslint-disable-next-line react/require-default-props
   placeholder?: string;
+  // eslint-disable-next-line react/require-default-props, react/no-unused-prop-types
+  multiline?: boolean;
 }
-function ActiveInput(props: Props) {
+function ActiveInput(props: ActiveInputProps) {
   const {
+    multiline = false,
     type = "text",
     placeholder = "",
-    onChange,
+    onChange: formHookOnChange,
     onBlur: formHookOnBlur,
     ref,
     name,
   } = props;
 
   const [active, setActive] = useState<boolean>(false);
+  const [displayName, setDisplayName] = useState<string>("");
 
   const switchActive = () => {
     setActive(!active);
@@ -31,9 +35,16 @@ function ActiveInput(props: Props) {
     formHookOnBlur(e);
   };
 
+  const onChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setDisplayName(e.target.value);
+    formHookOnChange(e);
+  };
+
   return (
     <>
-      <S.Input
+      <S.TextField
         type={type}
         placeholder={placeholder}
         onChange={onChange}
@@ -41,9 +52,12 @@ function ActiveInput(props: Props) {
         ref={ref}
         name={name}
         active={active}
+        multiline={multiline}
+        variant="standard"
+        fullWidth
       />
       <S.FormText onClick={switchActive} active={active}>
-        {placeholder}
+        {displayName || placeholder}
       </S.FormText>
     </>
   );
