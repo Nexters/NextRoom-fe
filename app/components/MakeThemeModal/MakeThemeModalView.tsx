@@ -13,8 +13,8 @@ type Props = {
 
 function MakeThemeModalView(props: Props) {
   const [modalState, setModalState] = useModalState();
-
-  const toggleOffModalState = () => setModalState(false);
+  const toggleOffModalState = () =>
+    setModalState({ ...modalState, isOpen: false });
 
   const { watch } = useForm();
   const { TextFields, formProps } = props;
@@ -28,15 +28,13 @@ function MakeThemeModalView(props: Props) {
     <div>
       <Modal
         keepMounted
-        open={modalState}
+        open={modalState.isOpen}
         onClose={toggleOffModalState}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
         <S.Container>
           <S.CardWrap
-            // container
-            sx={{ width: 312, height: 408, aline: "center" }}
             {...formProps}
           >
             <S.Title>테마 추가하기</S.Title>
@@ -49,8 +47,14 @@ function MakeThemeModalView(props: Props) {
               <TextFields />
             </S.TextWrapper>
             <S.ButtonContainer>
+            <Button
+                variant="text"
+                onClick={toggleOffModalState}
+              >
+                취소
+              </Button>
               <Button
-                variant="contained"
+                variant="text"
                 onClick={toggleOffModalState}
                 type="submit"
               >
