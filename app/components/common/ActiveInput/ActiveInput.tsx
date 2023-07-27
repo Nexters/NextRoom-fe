@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@mui/material";
 
 interface Props {
-  type: string | undefined;
-  active: boolean;
+  // eslint-disable-next-line react/require-default-props
+  type?: string;
+  // eslint-disable-next-line react/require-default-props
+  placeholder?: string;
+  // eslint-disable-next-line react/require-default-props
   value: string;
   onChange: () => void;
 }
-function ActiveInput({ type = "text", active, value, onChange }: Props) {
+function ActiveInput(props: Props) {
+  const { type = "text", placeholder = "", value = "", onChange } = props;
+
+  const [active, setActive] = useState<boolean>(false);
+
+  const switchActive = () => {
+    setActive(!active);
+  };
+
   if (active) {
-    return <Input type={type} value={value} onChange={onChange} />;
+    return (
+      <Input
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={switchActive}
+      />
+    );
   }
-  return <span>{value}</span>;
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+  return <span onClick={switchActive}>{value || placeholder}</span>;
 }
 
 export default ActiveInput;
