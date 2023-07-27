@@ -14,7 +14,7 @@ type Response = void;
 const URL_PATH = `/v1/theme`;
 const MUTATION_KEY = [URL_PATH];
 
-export const postTheme = async (req: Request) => {
+export const putTheme = async (req: Request) => {
   const res = await apiClient.put<Request, AxiosResponse<Response>>(
     URL_PATH,
     req
@@ -23,11 +23,11 @@ export const postTheme = async (req: Request) => {
   return res.data;
 };
 
-export const usePostTheme = (configOptions?: MutationConfigOptions) => {
+export const usePutTheme = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
   const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
-    mutationFn: (req) => postTheme(req),
+    mutationFn: (req) => putTheme(req),
     ...configOptions?.options,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
