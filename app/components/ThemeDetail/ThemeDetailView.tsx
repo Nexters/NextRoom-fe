@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Typography, Button, Grid, Stack } from "@mui/material";
-import { useThemeState } from "@/components/atoms/theme.atom";
+import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ContactsIcon from "@mui/icons-material/Contacts";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -13,14 +15,15 @@ import * as S from "./ThemeDetail.styled";
 
 function ThemeDetailView() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [themeState, setThemeState] = useThemeState();
+  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
-  const toggleOnModalState = () => setModalState(true);
+  const toggleOnModalState = () => setModalState({isOpen:true, type: "put"});
+  
   useEffect(() => {
     // eslint-disable-next-line no-console
-    console.log(themeState);
-  }, [themeState]);
+    console.log(selectedTheme);
+  }, [selectedTheme]);
 
   return (
     <S.Wrapper>
@@ -46,10 +49,10 @@ function ThemeDetailView() {
             <Grid item xs={6}>
               <Stack spacing={2} direction="row" alignItems="center">
                 <Button>
-                  <AccessTimeIcon />
+                  <ContactsIcon />
                 </Button>
                 <S.MiddleTitle>테마이름</S.MiddleTitle>
-                <Typography>{themeState.title}</Typography>
+                <Typography>{selectedTheme.title}</Typography>
               </Stack>
             </Grid>
             <Grid item xs={6}>
@@ -59,7 +62,7 @@ function ThemeDetailView() {
                 </Button>
                 <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
                 <Stack direction="row" alignItems="center">
-                  <Typography>{themeState.timeLimit}</Typography>
+                  <Typography>{selectedTheme.timeLimit}</Typography>
                   <Typography>분</Typography>
                 </Stack>
               </Stack>

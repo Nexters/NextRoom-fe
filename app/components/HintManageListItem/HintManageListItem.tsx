@@ -13,7 +13,7 @@ type Props = {
 function HintManageListItem(props: Props) {
   const { id, hintCode, contents, answer, progress } = props;
   const [open, setOpen] = useState<boolean>(false);
-  // const { id: themeId = 1 } = useThemeStateValue();
+  // const { id: themeId = 1 } = useSelectedThemeValue();
   const themeId = 1;
 
   const onDelete = () => {
