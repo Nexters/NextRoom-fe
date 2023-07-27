@@ -21,11 +21,11 @@ function ActiveInput(props: ActiveInputProps) {
     name,
   } = props;
 
-  const [active, setActive] = useState<boolean>(false);
+  const [inputActive, setInputActive] = useState<boolean>(false);
   const [displayName, setDisplayName] = useState<string>("");
 
   const switchActive = () => {
-    setActive(!active);
+    setInputActive(!inputActive);
   };
 
   const onBlur = (
@@ -51,12 +51,12 @@ function ActiveInput(props: ActiveInputProps) {
         onBlur={onBlur}
         ref={ref}
         name={name}
-        active={active}
+        inputActive={inputActive}
         multiline={multiline}
         variant="standard"
         fullWidth
       />
-      <S.FormText onClick={switchActive} active={active}>
+      <S.FormText onClick={switchActive} inputActive={inputActive}>
         {displayName || placeholder}
       </S.FormText>
     </>
