@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import { Input } from "@mui/material";
+import { UseFormRegisterReturn } from "react-hook-form";
+import * as S from "./ActiveInput.styled";
 
-interface Props {
+interface Props extends UseFormRegisterReturn {
   // eslint-disable-next-line react/require-default-props
   type?: string;
   // eslint-disable-next-line react/require-default-props
   placeholder?: string;
-  // eslint-disable-next-line react/require-default-props
-  value: string;
-  onChange: () => void;
 }
 function ActiveInput(props: Props) {
-  const { type = "text", placeholder = "", value = "", onChange } = props;
+  const {
+    type = "text",
+    placeholder = "",
+    onChange,
+    onBlur: formHookOnBlur,
+    ref,
+    name,
+  } = props;
 
   const [active, setActive] = useState<boolean>(false);
 
@@ -19,19 +24,29 @@ function ActiveInput(props: Props) {
     setActive(!active);
   };
 
-  if (active) {
-    return (
-      <Input
+  const onBlur = (
+    e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+  ) => {
+    switchActive();
+    formHookOnBlur(e);
+  };
+
+  return (
+    <>
+      <S.Input
         type={type}
-        value={value}
         placeholder={placeholder}
         onChange={onChange}
-        onBlur={switchActive}
+        onBlur={onBlur}
+        ref={ref}
+        name={name}
+        active={active}
       />
-    );
-  }
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-  return <span onClick={switchActive}>{value || placeholder}</span>;
+      <S.FormText onClick={switchActive} active={active}>
+        {placeholder}
+      </S.FormText>
+    </>
+  );
 }
 
 export default ActiveInput;
