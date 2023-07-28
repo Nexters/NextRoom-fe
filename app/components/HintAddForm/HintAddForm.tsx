@@ -1,10 +1,11 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { usePostHint } from "@/mutations/postHint";
 import HintAddFormView from "./HintAddFormView";
 import { useIsOpenAddAccordionWrite } from "../atoms/hints.atom";
 
 interface FormValues {
-  progress: string;
+  progress: number;
   hintCode: string;
   contents: string;
   answer: string;
@@ -13,9 +14,23 @@ interface FormValues {
 function HintAddForm() {
   const { register, handleSubmit } = useForm<FormValues>();
   const setAdding = useIsOpenAddAccordionWrite();
+  const { mutateAsync: postHint, isSuccess } = usePostHint();
 
-  const onSubmit = () => {
-    console.log("run");
+  useEffect(() => {
+    if (isSuccess) {
+      setAdding(false);
+    }
+  }, [isSuccess, setAdding]);
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const { progress, hintCode, contents, answer } = data;
+    if (progress && hintCode && contents && answer) {
+      postHint({ progress: Number(progress), hintCode, contents, answer });
+    } else {
+      // TODO: add error message
+      // eslint-disable-next-line no-console
+      console.error("please check code");
+    }
   };
 
   const formProps = {
@@ -28,22 +43,22 @@ function HintAddForm() {
   const progressInputProps = {
     placeholder: "진행률",
     type: "number",
-    ...register("progress", { required: true }),
+    register: { ...register("progress") },
   };
 
   const hintCodeInputProps = {
     placeholder: "힌트코드",
-    ...register("hintCode", { required: true }),
+    register: { ...register("hintCode") },
   };
   const contentsInputProps = {
     placeholder: "힌트내용",
     multiline: true,
-    ...register("contents", { required: true }),
+    register: { ...register("contents") },
   };
   const answerInputProps = {
     placeholder: "정답",
     multiline: true,
-    ...register("answer", { required: true }),
+    register: { ...register("answer") },
   };
 
   const deleteButtonProps = {

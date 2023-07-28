@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
 interface Request {
-  hintTitle: string;
+  hintTitle?: string;
   hintCode: string;
   contents: string;
   answer: string;

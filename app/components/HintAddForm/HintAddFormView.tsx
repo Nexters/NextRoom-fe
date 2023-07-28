@@ -8,7 +8,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ChatBubbleOutline, Code, Done, Water } from "@mui/icons-material";
 
 import * as S from "./HintAddFormView.styled";
@@ -44,11 +43,7 @@ function HintAddFormView(props: Props) {
   return (
     <Box {...formProps}>
       <Accordion key="add" expanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon color="inherit" />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
+        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
           <Typography color="inherit">
             <S.SummaryStack direction="row">
               <Stack direction="row">
