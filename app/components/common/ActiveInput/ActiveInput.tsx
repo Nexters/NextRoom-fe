@@ -6,9 +6,10 @@ export interface ActiveInputProps {
   // eslint-disable-next-line react/require-default-props
   type?: string;
   // eslint-disable-next-line react/require-default-props
-  placeholder?: string;
+  placeholder?: string | number;
   // eslint-disable-next-line react/require-default-props, react/no-unused-prop-types
   multiline?: boolean;
+  // eslint-disable-next-line react/require-default-props
   register: UseFormRegisterReturn;
 }
 function ActiveInput(props: ActiveInputProps) {
@@ -45,7 +46,7 @@ function ActiveInput(props: ActiveInputProps) {
       <S.TextField
         {...register}
         type={type}
-        placeholder={placeholder}
+        placeholder={String(placeholder)}
         onChange={onChange}
         onBlur={onBlur}
         inputActive={inputActive}
