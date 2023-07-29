@@ -2,6 +2,7 @@ import React from "react";
 import { Stack } from "@mui/material";
 import { Hints } from "@/queries/getHintList";
 import { HintManageListItem } from "../HintManageListItem";
+import { HintAddForm } from "../HintAddForm";
 
 interface Props {
   hints: Hints;
@@ -14,7 +15,7 @@ function HintManageListView(props: Props) {
   return (
     <Stack spacing={3}>
       <Stack direction="column">
-        {adding && <div>힌트 추가 화면</div>}
+        {adding && <HintAddForm />}
         {hints.map(({ id, hintCode, contents, answer, progress }) => (
           <HintManageListItem
             id={id}
