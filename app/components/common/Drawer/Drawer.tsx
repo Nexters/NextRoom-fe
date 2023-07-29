@@ -30,7 +30,7 @@ function MainDrawer(props: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
-    setModalState({ ...modalState, isOpen: true });
+    setModalState({ type:"post", isOpen: true });
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "오늘의 방탈출",
@@ -41,8 +41,8 @@ function MainDrawer(props: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   useEffect(() => {
     if (categories.length > 0) {
-      setSelectedIndex(categories[0].id);
-      setSelectedTheme(categories[0]);
+      setSelectedIndex(categories[categories.length-1].id);
+      setSelectedTheme(categories[categories.length-1]);
     }
   }, [categories, setSelectedTheme]);
 
@@ -67,7 +67,7 @@ function MainDrawer(props: Props) {
           </ListItemText>
         </ListItem>
 
-        {categories.map((theme) => (
+        {[...categories].reverse().map((theme) => (
           <ListItem key={theme.id}>
             <ListItemButton
               selected={selectedIndex === theme.id}
