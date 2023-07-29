@@ -87,6 +87,8 @@ function HintManageListItem(props: Props) {
 
   const progressInputProps = {
     placeholder: progress || "진행률",
+    max: 100,
+    min: 0,
     type: "number",
     register: { ...register("progress") },
   };

@@ -51,6 +51,8 @@ function HintAddForm() {
   const progressInputProps = {
     placeholder: "진행률",
     type: "number",
+    max: 100,
+    min: 0,
     register: { ...register("progress") },
   };
 
