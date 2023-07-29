@@ -6,7 +6,6 @@ import { AxiosResponse } from "axios";
 
 interface Request {
   id: number;
-  hintTitle?: string;
   hintCode: string;
   contents: string;
   answer: string;
