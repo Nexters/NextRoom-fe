@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostHint } from "@/mutations/postHint";
 import HintAddFormView from "./HintAddFormView";
 import { useIsOpenAddAccordionWrite } from "../atoms/hints.atom";
+import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 interface FormValues {
   progress: number;
@@ -15,6 +16,7 @@ function HintAddForm() {
   const { register, handleSubmit } = useForm<FormValues>();
   const setAdding = useIsOpenAddAccordionWrite();
   const { mutateAsync: postHint, isSuccess } = usePostHint();
+  const { id: themeId } = useSelectedThemeValue();
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,7 +27,13 @@ function HintAddForm() {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { progress, hintCode, contents, answer } = data;
     if (progress && hintCode && contents && answer) {
-      postHint({ progress: Number(progress), hintCode, contents, answer });
+      postHint({
+        progress: Number(progress),
+        hintCode,
+        contents,
+        answer,
+        themeId,
+      });
     } else {
       // TODO: add error message
       // eslint-disable-next-line no-console
