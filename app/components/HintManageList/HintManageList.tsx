@@ -8,7 +8,7 @@ import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 function HintManageList() {
   const adding = useIsOpenAddAccordionValue();
-  const { id: themeId = 1 } = useSelectedThemeValue();
+  const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [] } = useGetHintList({ themeId });
 
   const hintManageListProps = {
