@@ -10,50 +10,40 @@ import {
 } from "@mui/material";
 import { ChatBubbleOutline, Code, Done, Water } from "@mui/icons-material";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ActiveInput, {
-  ActiveInputProps,
-} from "../common/ActiveInput/ActiveInput";
+import * as S from "./HintAddFormView.styled";
+import { ActiveInput } from "../common";
+import { ActiveInputProps } from "../common/ActiveInput/ActiveInput";
 
-import * as S from "./HintManageListItemView.styled";
-
-type Props = {
-  id: number;
-  contents: string;
-  onDelete: () => void;
+interface Props {
   progressInputProps: ActiveInputProps;
   hintCodeInputProps: ActiveInputProps;
   contentsInputProps: ActiveInputProps;
   answerInputProps: ActiveInputProps;
+  deleteButtonProps: { onClick: () => void };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  saveButtonProps: Record<string, any>;
-};
+  makeHintButtonProps: Record<string, any>;
+}
 
 const DELETE = "삭제하기";
-const SAVE_MODIFIED_DATA = "변경사항 저장";
+const MAKE_HINT = "힌트 만들기";
 
-function HintManageListItemView(props: Props) {
+function HintAddFormView(props: Props) {
   const {
-    contents,
-    onDelete,
     progressInputProps,
     hintCodeInputProps,
     contentsInputProps,
     answerInputProps,
+    deleteButtonProps,
+    makeHintButtonProps,
     formProps,
-    saveButtonProps,
   } = props;
 
   return (
     <Box {...formProps}>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon color="inherit" />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
+      <Accordion key="add" expanded>
+        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
           <Typography color="inherit">
             <S.SummaryStack direction="row">
               <Stack direction="row">
@@ -67,7 +57,6 @@ function HintManageListItemView(props: Props) {
                     <ActiveInput {...hintCodeInputProps} />
                   </S.IconText>
                 </S.CodeProgressWrapper>
-                <S.SummaryText>{contents}</S.SummaryText>
               </Stack>
             </S.SummaryStack>
           </Typography>
@@ -84,8 +73,8 @@ function HintManageListItemView(props: Props) {
             </S.DetailIconText>
           </Typography>
           <S.ButtonsStack direction="row" spacing={3}>
-            <Button onClick={onDelete}>{DELETE}</Button>
-            <Button {...saveButtonProps}>{SAVE_MODIFIED_DATA}</Button>
+            <Button {...deleteButtonProps}>{DELETE}</Button>
+            <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
           </S.ButtonsStack>
         </AccordionDetails>
       </Accordion>
@@ -93,4 +82,4 @@ function HintManageListItemView(props: Props) {
   );
 }
 
-export default HintManageListItemView;
+export default HintAddFormView;
