@@ -10,14 +10,13 @@ import { useIsLoggedIn } from "./components/atoms/account.atom";
 export default function LoginPage() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
+  const accountToken = getAccessToken();
 
   useEffect(() => {
-    const accountToken = getAccessToken();
-
     if (accountToken) {
       setIsLoggedIn(true);
     }
-  }, [setIsLoggedIn]);
+  }, [setIsLoggedIn, accountToken]);
 
   if (isLoggedIn) {
     router.push("/home");
