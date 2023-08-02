@@ -13,8 +13,9 @@ type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  textFieldProps: Record<string, any>;
-  autoCompleteProps: Record<string, any>;
+  timeLimitProps: Record<string, any>;
+  themeNameProps: Record<string, any>;
+  hintLimitProps: Record<string, any>;
   timeOption: TimeItem[];
 };
 
@@ -25,7 +26,13 @@ function MakeThemeModalView(props: Props) {
   const MODIFY_THEME = "테마 수정하기";
   const MODIFY_BTN = "수정하기";
   const { watch } = useForm();
-  const { formProps, timeOption, textFieldProps, autoCompleteProps } = props;
+  const {
+    formProps,
+    timeOption,
+    themeNameProps,
+    timeLimitProps,
+    hintLimitProps,
+  } = props;
 
   const toggleOffModalState = () => {
     setModalState({ ...modalState, isOpen: false });
@@ -57,14 +64,14 @@ function MakeThemeModalView(props: Props) {
             </S.Description>
             <S.TextWrapper>
               <TextField
-                {...textFieldProps}
+                {...themeNameProps}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 variant="filled"
                 fullWidth
               />
-              <S.Description>{textFieldProps.message}</S.Description>
+              <S.Description>{themeNameProps.message}</S.Description>
               <Autocomplete
                 disablePortal
                 id="timeLimit"
@@ -72,7 +79,7 @@ function MakeThemeModalView(props: Props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    {...autoCompleteProps}
+                    {...timeLimitProps}
                     variant="filled"
                     InputLabelProps={{
                       shrink: true,
@@ -81,7 +88,16 @@ function MakeThemeModalView(props: Props) {
                   />
                 )}
               />
-              <S.Description>{autoCompleteProps.message}</S.Description>
+              <S.Description>{timeLimitProps.message}</S.Description>
+              <TextField
+                {...hintLimitProps}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="filled"
+                fullWidth
+              />
+              <S.Description>{hintLimitProps.message}</S.Description>
             </S.TextWrapper>
             <S.ButtonContainer>
               <Button variant="text" onClick={toggleOffModalState}>
