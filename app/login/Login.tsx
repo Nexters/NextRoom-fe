@@ -11,8 +11,8 @@ import { useIsLoggedIn } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 
 import { getAccessToken } from "@/uilts/localStorage";
-
 import { apiClient } from "@/lib/reactQueryProvider";
+
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -22,22 +22,22 @@ interface FormValues {
 
 function Login() {
   const router = useRouter();
+  const accountToken = getAccessToken();
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
-  const { register, handleSubmit } = useForm<FormValues>();
   const {
     mutateAsync: postLogin,
     isLoading = false,
     isError = false,
   } = usePostLogin();
 
-  useEffect(() => {
-    const accountToken = getAccessToken();
+  const { register, handleSubmit } = useForm<FormValues>();
 
+  useEffect(() => {
     if (accountToken) {
       apiClient.defaults.headers.common.Authorization = accountToken;
       setIsLoggedIn(true);
     }
-  }, [setIsLoggedIn]);
+  }, [accountToken, setIsLoggedIn]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     postLogin(data);
