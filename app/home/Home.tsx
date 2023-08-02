@@ -3,29 +3,28 @@
 import React, { useEffect } from "react";
 
 import { useGetThemeList } from "@/queries/getThemeList";
+import useCheckSignIn from "@/hooks/useCheckSignIn";
 
-import { apiClient } from "@/lib/reactQueryProvider";
-import { getAccessToken } from "@/uilts/localStorage";
-
-import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
-
+import { useRouter } from "next/navigation";
 import HomeView from "./HomeView";
 
 function Home() {
   const { data: categories = [] } = useGetThemeList();
-  const accountToken = getAccessToken();
-  const setIsLoggedIn = useIsLoggedInWrite();
+  const router = useRouter();
+
+  const isSignIn = useCheckSignIn();
 
   useEffect(() => {
-    if (accountToken) {
-      apiClient.defaults.headers.common.Authorization = accountToken;
-      setIsLoggedIn(true);
+    if (!isSignIn) {
+      router.push("/");
     }
-  }, [accountToken, setIsLoggedIn]);
+  }, [isSignIn, router]);
 
   const themeAllProps = {
     categories,
   };
+
+  if (!isSignIn) return <div>Loading...</div>;
 
   return <HomeView {...themeAllProps} />;
 }

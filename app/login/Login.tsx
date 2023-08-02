@@ -1,18 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
-import { useIsLoggedIn } from "@/components/atoms/account.atom";
+import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
-
-import { getAccessToken } from "@/uilts/localStorage";
-import { apiClient } from "@/lib/reactQueryProvider";
-
+import useCheckSignIn from "@/hooks/useCheckSignIn";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -22,8 +19,7 @@ interface FormValues {
 
 function Login() {
   const router = useRouter();
-  const accountToken = getAccessToken();
-  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
+  const isLoggedIn = useIsLoggedInValue();
   const {
     mutateAsync: postLogin,
     isLoading = false,
@@ -32,12 +28,7 @@ function Login() {
 
   const { register, handleSubmit } = useForm<FormValues>();
 
-  useEffect(() => {
-    if (accountToken) {
-      apiClient.defaults.headers.common.Authorization = accountToken;
-      setIsLoggedIn(true);
-    }
-  }, [accountToken, setIsLoggedIn]);
+  useCheckSignIn();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     postLogin(data);
