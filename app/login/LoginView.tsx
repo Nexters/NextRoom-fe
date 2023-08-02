@@ -8,8 +8,14 @@ import * as S from "./LoginView.styled";
 type Props = Record<string, any>;
 
 function LoginView(props: Props) {
-  const { formProps, textFieldProps, buttonProps, logoProps, isLoading } =
-    props;
+  const {
+    formProps,
+    adminCodeProps,
+    passwordProps,
+    buttonProps,
+    logoProps,
+    isLoading,
+  } = props;
 
   return (
     <S.Wrapper>
@@ -19,7 +25,8 @@ function LoginView(props: Props) {
       <Image {...logoProps} />
       <S.Title>{LOGIN_TITLE}</S.Title>
       <Box {...formProps}>
-        <TextField {...textFieldProps} />
+        <TextField {...adminCodeProps} />
+        <TextField {...passwordProps} />
         <S.LoginButton {...buttonProps}>로그인</S.LoginButton>
       </Box>
     </S.Wrapper>

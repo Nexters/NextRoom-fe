@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
@@ -11,6 +11,7 @@ function MakeThemeModal() {
     id: number | undefined;
     title: string;
     timeLimit: number;
+    hintLimit: number;
   }
 
   interface TimeItem {
@@ -22,8 +23,20 @@ function MakeThemeModal() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
+  const { register, handleSubmit, setValue } = useForm<FormValues>();
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  useEffect(() => {
+    if (modalState.type === "put") {
+      setValue("title", selectedTheme.title);
+      setValue("timeLimit", selectedTheme.timeLimit);
+      setValue("hintLimit", selectedTheme.hintLimit);
+    } else {
+      setValue("title", "");
+      setValue("timeLimit", 0);
+      setValue("hintLimit", 0);
+    }
+  }, [selectedTheme, setValue, modalState.type]);
+
   const { mutateAsync: postTheme } = usePostTheme();
   const { mutateAsync: putTheme } = usePutTheme();
 
@@ -32,7 +45,8 @@ function MakeThemeModal() {
     const submitData = {
       id: selectedTheme.id,
       title: data.title,
-      timeLimit: data.timeLimit
+      timeLimit: data.timeLimit,
+      hintLimit: data.hintLimit,
     };
 
     if (modalState.type === "put") {
@@ -57,28 +71,35 @@ function MakeThemeModal() {
     { label: "120", minute: 120 },
   ];
 
-  const textFieldProps = {
+  const themeNameProps = {
     id: "title",
     label: "테마 이름",
     placeholder: "입력해 주세요.",
     message: "손님에게는 보이지 않아요.",
     ...register("title"),
-    // variant: "filled",
   };
-  const autoCompleteProps = {
+  const timeLimitProps = {
     id: "timeLimit",
     label: "시간",
     placeholder: "선택하기",
     type: "number",
     message: "손님이 사용할 타이머에 표시됩니다. (분 단위로 입력해 주세요.)",
     ...register("timeLimit"),
-    // variant: "filled",
+  };
+  const hintLimitProps = {
+    id: "hintLimit",
+    label: "힌트갯수",
+    placeholder: "선택하기",
+    type: "number",
+    message: "손님이 사용할 흰트갯수가 표시됩니다.",
+    ...register("hintLimit"),
   };
 
   const MakeThemeModalViewProps = {
     formProps,
-    textFieldProps,
-    autoCompleteProps,
+    themeNameProps,
+    timeLimitProps,
+    hintLimitProps,
     timeOption,
   };
 

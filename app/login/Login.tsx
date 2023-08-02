@@ -1,7 +1,7 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { ADMIN_CODE } from "@/consts/login";
+import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
 import { usePostLogin } from "@/mutations/postLogin";
@@ -9,6 +9,7 @@ import LoginView from "./LoginView";
 
 interface FormValues {
   adminCode: string;
+  password: string;
 }
 
 function Login() {
@@ -20,8 +21,8 @@ function Login() {
   } = usePostLogin();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { adminCode } = data;
-    postLogin({ adminCode });
+
+    postLogin(data);
   };
   const formProps = {
     component: "form",
@@ -32,13 +33,24 @@ function Login() {
     flexDirection: "column",
   };
 
-  const textFieldProps = {
+  const adminCodeProps = {
     id: "filled-adminCode",
-    type: "password",
+    type: "text",
     variant: "filled",
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
     ...register("adminCode"),
+    error: isError,
+    sx:{marginBottom: "10px"}
+  };
+
+  const passwordProps = {
+    id: "filled-password",
+    type: "password",
+    variant: "filled",
+    label: ADMIN_PASSWORD,
+    placeholder: INPUT_MSG,
+    ...register("password"),
     error: isError,
   };
 
@@ -56,7 +68,8 @@ function Login() {
 
   const LoginViewProps = {
     formProps,
-    textFieldProps,
+    adminCodeProps,
+    passwordProps,
     buttonProps,
     logoProps,
     isLoading,
