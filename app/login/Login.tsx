@@ -1,10 +1,18 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
+import { useIsLoggedIn } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
+
+import { getAccessToken } from "@/uilts/localStorage";
+
+import { apiClient } from "@/lib/reactQueryProvider";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -13,6 +21,8 @@ interface FormValues {
 }
 
 function Login() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const { register, handleSubmit } = useForm<FormValues>();
   const {
     mutateAsync: postLogin,
@@ -20,8 +30,16 @@ function Login() {
     isError = false,
   } = usePostLogin();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  useEffect(() => {
+    const accountToken = getAccessToken();
 
+    if (accountToken) {
+      apiClient.defaults.headers.common.Authorization = accountToken;
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     postLogin(data);
   };
   const formProps = {
@@ -41,7 +59,7 @@ function Login() {
     placeholder: INPUT_MSG,
     ...register("adminCode"),
     error: isError,
-    sx:{marginBottom: "10px"}
+    sx: { marginBottom: "10px" },
   };
 
   const passwordProps = {
@@ -74,6 +92,11 @@ function Login() {
     logoProps,
     isLoading,
   };
+
+  if (isLoggedIn) {
+    router.push("/home");
+    return <div>Loading...</div>;
+  }
 
   return <LoginView {...LoginViewProps} />;
 }
