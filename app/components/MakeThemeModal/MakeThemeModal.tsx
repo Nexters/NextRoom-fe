@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
@@ -22,8 +22,20 @@ function MakeThemeModal() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
+  const { register, handleSubmit, setValue } = useForm<FormValues>();
+  
+  
+  
+  useEffect(() => {
+    if (modalState.type === "put") {
+      setValue("title", selectedTheme.title);
+      setValue("timeLimit", selectedTheme.timeLimit);
+    } else {
+      setValue("title", "");
+      setValue("timeLimit", 0);
+    }
+  }, [selectedTheme, setValue, modalState.type]);
 
-  const { register, handleSubmit } = useForm<FormValues>();
   const { mutateAsync: postTheme } = usePostTheme();
   const { mutateAsync: putTheme } = usePutTheme();
 
@@ -32,7 +44,7 @@ function MakeThemeModal() {
     const submitData = {
       id: selectedTheme.id,
       title: data.title,
-      timeLimit: data.timeLimit
+      timeLimit: data.timeLimit,
     };
 
     if (modalState.type === "put") {
@@ -63,7 +75,6 @@ function MakeThemeModal() {
     placeholder: "입력해 주세요.",
     message: "손님에게는 보이지 않아요.",
     ...register("title"),
-    // variant: "filled",
   };
   const autoCompleteProps = {
     id: "timeLimit",
@@ -72,7 +83,6 @@ function MakeThemeModal() {
     type: "number",
     message: "손님이 사용할 타이머에 표시됩니다. (분 단위로 입력해 주세요.)",
     ...register("timeLimit"),
-    // variant: "filled",
   };
 
   const MakeThemeModalViewProps = {
