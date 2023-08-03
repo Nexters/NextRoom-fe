@@ -7,10 +7,20 @@ import { HintAddForm } from "../HintAddForm";
 interface Props {
   hints: Hints;
   adding: boolean;
+  isLoading: boolean;
+  hasNoHints: boolean;
 }
 
 function HintManageListView(props: Props) {
-  const { hints = [], adding } = props;
+  const { hints = [], adding, isLoading, hasNoHints } = props;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (hasNoHints) {
+    return <div>힌트가 없습니다.</div>;
+  }
 
   return (
     <Stack spacing={3}>

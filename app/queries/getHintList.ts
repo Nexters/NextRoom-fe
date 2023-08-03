@@ -40,9 +40,10 @@ export const useGetHintList = (
   configOptions?: QueryConfigOptions
 ) => {
   const info = useQuery<Response, Request, Hints>({
-    queryKey: QUERY_KEY,
+    queryKey: [...QUERY_KEY, req],
     queryFn: () => getHintList(req, configOptions?.config),
     select: (res) => res.data,
+    enabled: req.themeId > 0,
     ...configOptions?.options,
   });
 
