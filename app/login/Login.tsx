@@ -1,10 +1,15 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/login";
 import { INPUT_MSG } from "@/consts/common";
 
+import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
+import useCheckSignIn from "@/hooks/useCheckSignIn";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -13,15 +18,19 @@ interface FormValues {
 }
 
 function Login() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const router = useRouter();
+  const isLoggedIn = useIsLoggedInValue();
   const {
     mutateAsync: postLogin,
     isLoading = false,
     isError = false,
   } = usePostLogin();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const { register, handleSubmit } = useForm<FormValues>();
 
+  useCheckSignIn();
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     postLogin(data);
   };
   const formProps = {
@@ -41,7 +50,7 @@ function Login() {
     placeholder: INPUT_MSG,
     ...register("adminCode"),
     error: isError,
-    sx:{marginBottom: "10px"}
+    sx: { marginBottom: "10px" },
   };
 
   const passwordProps = {
@@ -74,6 +83,11 @@ function Login() {
     logoProps,
     isLoading,
   };
+
+  if (isLoggedIn) {
+    router.push("/home");
+    return <div>Loading...</div>;
+  }
 
   return <LoginView {...LoginViewProps} />;
 }
