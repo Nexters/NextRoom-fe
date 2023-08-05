@@ -23,7 +23,7 @@ function MakeThemeModal() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const { register, handleSubmit, setValue } = useForm<FormValues>();
+  const { register, handleSubmit, setValue, reset } = useForm<FormValues>();
 
   useEffect(() => {
     if (modalState.type === "put") {
@@ -48,12 +48,12 @@ function MakeThemeModal() {
       timeLimit: data.timeLimit,
       hintLimit: data.hintLimit,
     };
-
     if (modalState.type === "put") {
       putTheme(submitData);
     } else {
       postTheme(data);
     }
+    reset();
     // eslint-disable-next-line no-console
     console.log(data);
   };
@@ -76,15 +76,20 @@ function MakeThemeModal() {
     label: "테마 이름",
     placeholder: "입력해 주세요.",
     message: "손님에게는 보이지 않아요.",
-    ...register("title"),
+    ...register("title", {
+      required: true,
+    }),
   };
+
   const timeLimitProps = {
     id: "timeLimit",
     label: "시간",
     placeholder: "선택하기",
     type: "number",
     message: "손님이 사용할 타이머에 표시됩니다. (분 단위로 입력해 주세요.)",
-    ...register("timeLimit"),
+    ...register("timeLimit", {
+      required: true,
+    }),
   };
   const hintLimitProps = {
     id: "hintLimit",
@@ -92,7 +97,9 @@ function MakeThemeModal() {
     placeholder: "선택하기",
     type: "number",
     message: "손님이 사용할 흰트갯수가 표시됩니다.",
-    ...register("hintLimit"),
+    ...register("hintLimit", {
+      required: true,
+    }),
   };
 
   const MakeThemeModalViewProps = {
