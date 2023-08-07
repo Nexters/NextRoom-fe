@@ -49,7 +49,10 @@ function Login() {
     placeholder: INPUT_MSG,
     ...register("adminCode"),
     error: isError,
-    sx: { marginBottom: "40px", backgroundColor: "#FFFFFF10" },
+    sx: {
+      marginBottom: "40px",
+      backgroundColor: "#FFFFFF10",
+    },
   };
 
   const passwordProps = {

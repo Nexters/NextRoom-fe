@@ -683,7 +683,8 @@
           },
           "&.Mui-focused:after": {
             "borderBottom": "1px solid var(--TextField-brandBorderFocusedColor)"
-          }
+          },
+          "color": "#fff"
         }
       }
     }
