@@ -7,8 +7,8 @@ import MuiProvider from "./lib/muiProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "오늘의 방탈출 Admin",
-  description: "오늘의 방탈출 Admin",
+  title: "NEXT ROOM",
+  description: "NEXT ROOM Admin",
 };
 
 export default function RootLayout({

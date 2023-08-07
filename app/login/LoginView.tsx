@@ -1,7 +1,10 @@
 import React from "react";
-import { Box, LinearProgress, TextField } from "@mui/material";
-import { LOGIN_TITLE } from "@/consts/login";
 import Image from "next/image";
+import { LinearProgress, TextField } from "@mui/material";
+
+import { LOGIN, CONTECT, EMAIL } from "@/consts/login";
+
+import Link from "next/link";
 import * as S from "./LoginView.styled";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,12 +26,17 @@ function LoginView(props: Props) {
         <LinearProgress />
       </S.Loading>
       <Image {...logoProps} />
-      <S.Title>{LOGIN_TITLE}</S.Title>
-      <Box {...formProps}>
+
+      <S.StyledBox {...formProps}>
         <TextField {...adminCodeProps} />
         <TextField {...passwordProps} />
-        <S.LoginButton {...buttonProps}>로그인</S.LoginButton>
-      </Box>
+        <S.LoginButton {...buttonProps}>{LOGIN}</S.LoginButton>
+      </S.StyledBox>
+
+      <S.Contect>
+        {CONTECT}
+        <Link href={`mailto:${EMAIL}`}>{EMAIL}</Link>
+      </S.Contect>
     </S.Wrapper>
   );
 }

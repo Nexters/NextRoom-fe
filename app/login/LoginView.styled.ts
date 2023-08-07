@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { styled } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -29,5 +29,26 @@ export const Title = styled.div`
 `;
 
 export const LoginButton = styled(Button)`
-  margin-top: 1rem !important;
+  margin-top: 32px;
+  height: 56px;
+`;
+
+export const StyledBox = styled(Box)`
+  display: flex;
+  min-width: 360px;
+  margin: 62px auto;
+`;
+
+export const Contect = styled.div`
+  color: #ffffff70;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+
+  a:not(selector) {
+    color: #ffffff70;
+    text-decoration: none;
+    outline: none;
+  }
 `;
