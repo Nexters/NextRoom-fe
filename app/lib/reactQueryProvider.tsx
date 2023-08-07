@@ -26,9 +26,9 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const setIsLoggedIn = useIsLoggedInWrite();
   const queryCache = new QueryCache({
     // TODO: change onSettled to onError
-    onSettled: (datum) => {
+    onSettled: (data) => {
       // TODO: Type definition required
-      if ((datum as Record<string, string | number>)?.code === 401) {
+      if ((data as Record<string, string | number>)?.code === 401) {
         removeAccessToken();
         setIsLoggedIn(false);
       }
