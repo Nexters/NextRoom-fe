@@ -2,7 +2,7 @@ import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiResponse, MutationConfigOptions } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { setAccessToken } from "@/uilts/localStorage";
+import { setAccessToken, setShopName } from "@/uilts/localStorage";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 
 interface Request {
@@ -11,6 +11,7 @@ interface Request {
 }
 
 interface LoginResponse {
+  shopName: string;
   accessToken: string;
   accessTokenExpiresIn: number;
   grantType: string;
@@ -33,7 +34,6 @@ export const postLogin = async (data: Request) => {
 
 export const usePostLogin = (configOptions?: MutationConfigOptions) => {
   const setIsLoggedIn = useIsLoggedInWrite();
-
   const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
     mutationFn: (req) => postLogin(req),
@@ -43,6 +43,7 @@ export const usePostLogin = (configOptions?: MutationConfigOptions) => {
 
       if (data?.accessToken) {
         setAccessToken(data.accessToken);
+        setShopName(data.shopName);
         setIsLoggedIn(true);
       }
     },
