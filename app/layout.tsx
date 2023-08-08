@@ -3,6 +3,7 @@ import StyledJsxRegistry from "@/lib/registry";
 import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import MuiProvider from "./lib/muiProvider";
+import StyledProvider from "./lib/themeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <Recoil>
           <ReactQueryProvider>
-            <StyledJsxRegistry>
-              <MuiProvider>{children}</MuiProvider>
-            </StyledJsxRegistry>
+            <StyledProvider>
+              <StyledJsxRegistry>
+                <MuiProvider>{children}</MuiProvider>
+              </StyledJsxRegistry>
+            </StyledProvider>
           </ReactQueryProvider>
         </Recoil>
       </body>
