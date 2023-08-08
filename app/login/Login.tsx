@@ -38,7 +38,6 @@ function Login() {
     noValidate: true,
     autoComplete: "off",
     onSubmit: handleSubmit(onSubmit),
-    sx: { display: "flex" },
     flexDirection: "column",
   };
 
@@ -50,7 +49,10 @@ function Login() {
     placeholder: INPUT_MSG,
     ...register("adminCode"),
     error: isError,
-    sx: { marginBottom: "10px" },
+    sx: {
+      marginBottom: "40px",
+      backgroundColor: "#FFFFFF10",
+    },
   };
 
   const passwordProps = {
@@ -61,6 +63,7 @@ function Login() {
     placeholder: INPUT_MSG,
     ...register("password"),
     error: isError,
+    sx: { backgroundColor: "#ffffff10" },
   };
 
   const buttonProps = {
@@ -70,9 +73,9 @@ function Login() {
 
   const logoProps = {
     src: "/images/svg/logo.svg",
-    alt: "오늘의 방탈출",
-    width: 40,
-    height: 40,
+    alt: "NEXT ROOM",
+    width: 223,
+    height: 41,
   };
 
   const LoginViewProps = {
