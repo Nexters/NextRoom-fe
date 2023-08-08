@@ -1,27 +1,27 @@
 import { styled } from "styled-components";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 export const Wrapper = styled(Box)`
   display: flex;
-  /* width: 100%; */
   height: 100vh;
-  margin:64px 60px;
-  padding:32px;
-  background: white;
-  border-radius: 30px;
-
+  margin: 64px 60px;
+  padding: 32px;
   flex-direction: column;
-  /* background: var(--m-3-sys-light-surface-container-low, #F7F2FA); */
 `;
 
-
-
-
 export const Title = styled.div`
-  font-size: 1.25rem;
+  font-size: ${(props) => props.theme.fontSize.lg};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
 `;
 
 export const MiddleTitle = styled.div`
   font-size: 1rem;
-  color: var(--m-3-sys-light-primary, #6750A4);
+  opacity: 0.7;
+`;
+
+export const UpdateButton = styled(Button)`
+  width: 147px;
+  height: 40px;
+  font-size: ${(props) => props.theme.fontSize.sm};
+  
 `;

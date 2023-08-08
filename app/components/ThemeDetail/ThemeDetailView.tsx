@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
-import { Typography, Button, Grid, Stack } from "@mui/material";
+import { Stack, Grid, IconButton } from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import ContactsIcon from "@mui/icons-material/Contacts";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
-
 import { HintManage } from "@/components/HintManage";
 import * as S from "./ThemeDetail.styled";
 
@@ -18,8 +15,8 @@ function ThemeDetailView() {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
-  const toggleOnModalState = () => setModalState({isOpen:true, type: "put"});
-  
+  const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
+
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.log(selectedTheme);
@@ -28,47 +25,27 @@ function ThemeDetailView() {
   return (
     <S.Wrapper>
       <Stack spacing={4}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <S.Title>테마정보</S.Title>
+        <S.Title>{selectedTheme.title}</S.Title>
 
-          <Button onClick={toggleOnModalState} startIcon={<EditIcon />}>
-            <Typography>테마 정보 수정하기</Typography>
-          </Button>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
+          <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
         </Stack>
-
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack spacing={2} direction="row" alignItems="center">
-                <Button>
-                  <ContactsIcon />
-                </Button>
-                <S.MiddleTitle>테마이름</S.MiddleTitle>
-                <Typography>{selectedTheme.title}</Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack spacing={2} direction="row" alignItems="center">
-                <Button>
-                  <AccessTimeIcon />
-                </Button>
-                <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
-                <Stack direction="row" alignItems="center">
-                  <Typography>{selectedTheme.timeLimit}</Typography>
-                  <Typography>분</Typography>
-                </Stack>
-              </Stack>
-            </Grid>
+        <Grid container spacing={1}>
+          <Grid item>
+            <S.UpdateButton
+              onClick={toggleOnModalState}
+              startIcon={<EditIcon />}
+            >
+              테마 정보 수정
+            </S.UpdateButton>
           </Grid>
-        </Stack>
+          <Grid item>
+            <IconButton color="primary" aria-label="delete">
+              <MoreVertIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
         <HintManage />
       </Stack>
     </S.Wrapper>
