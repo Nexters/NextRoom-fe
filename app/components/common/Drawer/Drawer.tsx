@@ -30,19 +30,19 @@ function MainDrawer(props: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
-    setModalState({ type:"post", isOpen: true });
+    setModalState({ type: "post", isOpen: true });
   const logoProps = {
     src: "/images/svg/logo.svg",
-    alt: "오늘의 방탈출",
-    width: 40,
-    height: 40,
+    alt: "NEXT ROOM",
+    width: 223,
+    height: 41,
   };
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   useEffect(() => {
     if (categories.length > 0) {
-      setSelectedIndex(categories[categories.length-1].id);
-      setSelectedTheme(categories[categories.length-1]);
+      setSelectedIndex(categories[categories.length - 1].id);
+      setSelectedTheme(categories[categories.length - 1]);
     }
   }, [categories, setSelectedTheme]);
 
@@ -53,45 +53,48 @@ function MainDrawer(props: Props) {
   };
 
   return (
-    <List>
-      <Box>
-        <ListItem>
-          <Image {...logoProps} />
-          <S.Title>오늘의 방탈출</S.Title>
-        </ListItem>
-      </Box>
-      <Box>
-        <ListItem>
-          <ListItemText>
-            <S.Theme color="inherit">관리 중인 테마</S.Theme>
-          </ListItemText>
-        </ListItem>
+    <S.Wrapper>
+      <List>
+        <Box>
+          <ListItem>
+            <S.LogoWrapper>
+              <Image {...logoProps} />
+            </S.LogoWrapper>
+          </ListItem>
+        </Box>
+        <Box>
+          <ListItem>
+            <ListItemText>
+              <S.Theme color="inherit">관리 중인 테마</S.Theme>
+            </ListItemText>
+          </ListItem>
 
-        {[...categories].reverse().map((theme) => (
-          <ListItem key={theme.id}>
-            <ListItemButton
-              selected={selectedIndex === theme.id}
-              onClick={() => {
-                handleListItemClick(theme);
-              }}
-            >
+          {[...categories].reverse().map((theme) => (
+            <ListItem key={theme.id}>
+              <ListItemButton
+                selected={selectedIndex === theme.id}
+                onClick={() => {
+                  handleListItemClick(theme);
+                }}
+              >
+                <ListItemIcon>
+                  <CircleIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{theme.title}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem>
+            <ListItemButton onClick={toggleOnModalState}>
               <ListItemIcon>
-                <CircleIcon fontSize="small" />
+                <AddIcon />
               </ListItemIcon>
-              <ListItemText>{theme.title}</ListItemText>
+              <ListItemText>새로운 테마 추가하기</ListItemText>
             </ListItemButton>
           </ListItem>
-        ))}
-        <ListItem>
-          <ListItemButton onClick={toggleOnModalState}>
-            <ListItemIcon>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText>새로운 테마 추가하기</ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </Box>
-    </List>
+        </Box>
+      </List>
+    </S.Wrapper>
   );
 }
 

@@ -21,6 +21,9 @@ function HomeView(props: Props) {
       <S.Wrapper>
         <MainDrawer {...props} />
         <S.Cont component="main">
+          <S.TopNav>
+            <div />
+          </S.TopNav>
           {categories ? <HintList /> : <EmptyHome />}
         </S.Cont>
       </S.Wrapper>
