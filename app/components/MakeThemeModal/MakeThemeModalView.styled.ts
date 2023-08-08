@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const CardWrap = styled(Card)`
   background: var(--m-3-sys-light-surface-container-high, #ece6f0);
-  border-radius: 28px;
+  border-radius: 8px;
   width: 560px; 
   padding: 24px;
 `;
