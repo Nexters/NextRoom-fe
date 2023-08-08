@@ -22,7 +22,7 @@ type Response = ApiResponse<LoginResponse>;
 const URL_PATH = `/v1/auth/login`;
 const MUTATION_KEY = [URL_PATH];
 
-export const postLogin = async ( data : Request) => {
+export const postLogin = async (data: Request) => {
   const res = await apiClient.post<Request, AxiosResponse<Response>>(
     URL_PATH,
     data

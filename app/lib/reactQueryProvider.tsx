@@ -2,9 +2,14 @@
 
 import { PropsWithChildren, useState } from "react";
 import axios from "axios";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { getAccessToken } from "@/uilts/localStorage";
+import { getAccessToken, removeAccessToken } from "@/uilts/localStorage";
+import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 
 const accessToken = getAccessToken();
 
@@ -18,7 +23,24 @@ export const apiClient = axios.create({
 });
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
-  const [queryClient] = useState(() => new QueryClient());
+  const setIsLoggedIn = useIsLoggedInWrite();
+  const queryCache = new QueryCache({
+    // TODO: change onSettled to onError
+    onSettled: (data) => {
+      // TODO: Type definition required
+      if ((data as Record<string, string | number>)?.code === 401) {
+        removeAccessToken();
+        setIsLoggedIn(false);
+      }
+    },
+  });
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache,
+      })
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
