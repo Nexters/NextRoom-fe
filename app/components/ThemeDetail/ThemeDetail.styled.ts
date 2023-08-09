@@ -4,7 +4,6 @@ import { Box, Button } from "@mui/material";
 export const Wrapper = styled(Box)`
   display: flex;
   height: 100vh;
-  padding: 0 80px;
   flex-direction: column;
 `;
 

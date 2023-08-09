@@ -28,3 +28,8 @@ export const Body = styled.div`
   height: 100%;
   overflow-y: auto;
 `;
+
+export const MainContents = styled.div`
+  width: 1128px;
+  margin: 0 auto;
+`;

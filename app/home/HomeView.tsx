@@ -22,8 +22,10 @@ function HomeView(props: Props) {
       <S.Wrapper>
         <MainDrawer {...props} />
         <S.Cont component="main">
-          <Header />
-          <S.Body>{categories ? <HintList /> : <EmptyHome />}</S.Body>
+          <S.MainContents>
+            <Header />
+            <S.Body>{categories ? <HintList /> : <EmptyHome />}</S.Body>
+          </S.MainContents>
         </S.Cont>
       </S.Wrapper>
       <MakeThemeModal />
