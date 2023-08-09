@@ -32,15 +32,17 @@ function MainDrawer(props: Props) {
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
     setModalState({ type: "post", isOpen: true });
+  const toggleOffModalState = () =>
+    setModalState({ type: "post", isOpen: false });
+
   const logoProps = {
     src: "/images/svg/logo.svg",
-    alt: "오늘의 방탈출",
+    alt: "NEXT ROOM",
     width: 223,
     height: 41,
   };
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -53,19 +55,22 @@ function MainDrawer(props: Props) {
     setSelectedIndex(theme.id);
     // deleteTheme({id: theme.id})
     setSelectedTheme({ ...theme });
+    toggleOffModalState();
   };
 
   return (
-    <S.ListWrap>
+    <S.Wrapper>
       <Box>
         <ListItem>
-          <Image {...logoProps} />
+          <S.LogoWrapper>
+            <Image {...logoProps} />
+          </S.LogoWrapper>
         </ListItem>
       </Box>
       <Box>
         <ListItem>
           <ListItemText>
-            <S.ShopName color="inherit">{shopName}</S.ShopName>
+            <S.ShopName color="inherit">{shopName?.replaceAll(`"`, "")}</S.ShopName>
           </ListItemText>
         </ListItem>
 
@@ -84,7 +89,13 @@ function MainDrawer(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem style={{display:"flex", justifyContent:"center", marginTop:"14px"}}>
+        <ListItem
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "14px",
+          }}
+        >
           <Button onClick={toggleOnModalState}>
             <ListItemIcon>
               <AddIcon />
@@ -93,7 +104,7 @@ function MainDrawer(props: Props) {
           </Button>
         </ListItem>
       </Box>
-    </S.ListWrap>
+    </S.Wrapper>
   );
 }
 
