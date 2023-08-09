@@ -5,6 +5,7 @@ import EmptyHome from "@/components/common/EmptyHome/EmptyHome";
 import HintList from "@/components/ThemeDetail/ThemeDetail";
 import { Themes } from "@/queries/getThemeList";
 import { useModalStateValue } from "@/components/atoms/modals.atom";
+import Header from "@/components/common/Header/Header";
 
 import * as S from "./HomeView.styled";
 
@@ -25,15 +26,13 @@ function HomeView(props: Props) {
   }
 
   return (
-      <S.Wrapper>
-        <MainDrawer {...props} />
-        <S.Cont component="main">
-          <S.TopNav>
-            <div />
-          </S.TopNav>
-          {content}
-        </S.Cont>
-      </S.Wrapper>
+    <S.Wrapper>
+      <MainDrawer {...props} />
+      <S.Cont component="main">
+        <Header />
+        {content}
+      </S.Cont>
+    </S.Wrapper>
   );
 }
 export default HomeView;

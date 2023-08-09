@@ -3,8 +3,7 @@ import { Box, Button } from "@mui/material";
 
 export const Wrapper = styled(Box)`
   display: flex;
-  height: 100vh;
-  margin: 0 80px;
+  height: 100%;
   flex-direction: column;
 `;
 

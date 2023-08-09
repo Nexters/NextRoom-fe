@@ -59,7 +59,7 @@ function MainDrawer(props: Props) {
   };
 
   return (
-    <S.Wrapper>
+<S.ListWrap>
       <Box>
         <ListItem>
           <S.LogoWrapper>
@@ -104,7 +104,7 @@ function MainDrawer(props: Props) {
           </Button>
         </ListItem>
       </Box>
-    </S.Wrapper>
+    </S.ListWrap>
   );
 }
 

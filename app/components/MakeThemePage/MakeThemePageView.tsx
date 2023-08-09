@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Card, Modal, TextField, Autocomplete } from "@mui/material";
+import { Button, TextField,  } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useModalState } from "@/components/atoms/modals.atom";
 import * as S from "./MakeThemePageView.styled";
@@ -21,17 +21,13 @@ type Props = {
 
 function MakeThemePageView(props: Props) {
   const [modalState, setModalState] = useModalState();
-  const ADD_THEME = "테마 추가하기";
   const ADD_BTN = "추가하기";
-  const MODIFY_THEME = "테마 수정하기";
   const MODIFY_BTN = "수정하기";
   const { watch } = useForm();
   const {
     formProps,
-    timeOption,
     themeNameProps,
     timeLimitProps,
-    hintLimitProps,
   } = props;
 
   const toggleOffModalState = () => {
