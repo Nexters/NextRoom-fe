@@ -34,13 +34,12 @@ function MainDrawer(props: Props) {
     setModalState({ type: "post", isOpen: true });
   const logoProps = {
     src: "/images/svg/logo.svg",
-    alt: "오늘의 방탈출",
+    alt: "NEXT ROOM",
     width: 223,
     height: 41,
   };
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -59,7 +58,9 @@ function MainDrawer(props: Props) {
     <S.ListWrap>
       <Box>
         <ListItem>
-          <Image {...logoProps} />
+          <S.LogoWrapper>
+            <Image {...logoProps} />
+          </S.LogoWrapper>
         </ListItem>
       </Box>
       <Box>
@@ -84,7 +85,13 @@ function MainDrawer(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem style={{display:"flex", justifyContent:"center", marginTop:"14px"}}>
+        <ListItem
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "14px",
+          }}
+        >
           <Button onClick={toggleOnModalState}>
             <ListItemIcon>
               <AddIcon />

@@ -4,8 +4,7 @@ import { Box, Button } from "@mui/material";
 export const Wrapper = styled(Box)`
   display: flex;
   height: 100vh;
-  margin: 64px 60px;
-  padding: 32px;
+  padding: 0 80px;
   flex-direction: column;
 `;
 
@@ -23,5 +22,4 @@ export const UpdateButton = styled(Button)`
   width: 147px;
   height: 40px;
   font-size: ${(props) => props.theme.fontSize.sm};
-  
 `;
