@@ -1,10 +1,10 @@
 import {
   Box,
-  List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Button,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -15,8 +15,8 @@ import { useModalState } from "@/components/atoms/modals.atom";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
 import Image from "next/image";
+import { getShopName } from "@/uilts/localStorage";
 import * as S from "./DrawerView.styled";
-// import { useDeleteTheme } from "@/mutations/deleteTheme";
 
 type Props = {
   categories: Themes;
@@ -26,23 +26,26 @@ function MainDrawer(props: Props) {
   const { categories } = props;
   const setSelectedTheme = useSelectedThemeWrite();
   // const { mutateAsync: deleteTheme } = useDeleteTheme();
+  const shopName = getShopName();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
-    setModalState({ type:"post", isOpen: true });
+    setModalState({ type: "post", isOpen: true });
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "오늘의 방탈출",
-    width: 40,
-    height: 40,
+    width: 223,
+    height: 41,
   };
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+
   useEffect(() => {
     if (categories.length > 0) {
-      setSelectedIndex(categories[categories.length-1].id);
-      setSelectedTheme(categories[categories.length-1]);
+      setSelectedIndex(categories[categories.length - 1].id);
+      setSelectedTheme(categories[categories.length - 1]);
     }
   }, [categories, setSelectedTheme]);
 
@@ -53,17 +56,16 @@ function MainDrawer(props: Props) {
   };
 
   return (
-    <List>
+    <S.ListWrap>
       <Box>
         <ListItem>
           <Image {...logoProps} />
-          <S.Title>오늘의 방탈출</S.Title>
         </ListItem>
       </Box>
       <Box>
         <ListItem>
           <ListItemText>
-            <S.Theme color="inherit">관리 중인 테마</S.Theme>
+            <S.ShopName color="inherit">{shopName}</S.ShopName>
           </ListItemText>
         </ListItem>
 
@@ -82,16 +84,16 @@ function MainDrawer(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem>
-          <ListItemButton onClick={toggleOnModalState}>
+        <ListItem style={{display:"flex", justifyContent:"center", marginTop:"14px"}}>
+          <Button onClick={toggleOnModalState}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
             <ListItemText>새로운 테마 추가하기</ListItemText>
-          </ListItemButton>
+          </Button>
         </ListItem>
       </Box>
-    </List>
+    </S.ListWrap>
   );
 }
 

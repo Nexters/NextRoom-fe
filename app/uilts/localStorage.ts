@@ -1,4 +1,5 @@
 const ACCESS_TOKEN = "accessToken";
+const SHOP_NAME = "shopName";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setLocalStorage = (key: string, value: any) => {
@@ -47,10 +48,14 @@ export const removeLocalStorageItem = (key: string) => {
 
 export const setAccessToken = (token: string) => {
   setLocalStorage(ACCESS_TOKEN, token);
-  setLocalStorage(ACCESS_TOKEN, token);
+};
+
+export const setShopName = (ShopName: string) => {
+  setLocalStorage(SHOP_NAME, ShopName);
 };
 
 export const getAccessToken = () => getLocalStorage(ACCESS_TOKEN);
+export const getShopName = () => getLocalStorage(SHOP_NAME);
 
 export const removeAccessToken = () => {
   removeLocalStorageItem(ACCESS_TOKEN);

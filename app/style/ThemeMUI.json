@@ -262,7 +262,7 @@
             "variant": "text"
           },
           "style": {
-            "backgroundColor": "transparent",
+            "backgroundColor": "rgba(255, 255, 255, 0.1)",
             "color": "#ffffff",
             "boxShadow": "none",
             "padding": "5px 15px",
@@ -270,13 +270,13 @@
               "color": "rgba(28, 27, 30, 0.38)"
             },
             "&:hover": {
-              "backgroundColor": "#eee9f2"
+              "backgroundColor": "rgba(255, 255, 255, 0.2)"
             },
             "&:focus": {
-              "backgroundColor": "#e7e1ed"
+              "backgroundColor": "rgba(255, 255, 255, 0.25)"
             },
             "&:active": {
-              "backgroundColor": "#e7e1ed"
+              "backgroundColor": "rgba(255, 255, 255, 0.1)"
             }
           }
         }
@@ -494,29 +494,30 @@
     "MuiListItemButton": {
       "styleOverrides": {
         "root": {
-          "borderRadius": 50,
-          "color": "#49454e",
+          "borderRadius": "8px",
+          "height": "56px",
+          "color": "#FFF",
           "&:hover": {
-            "backgroundColor": "#e1dce1",
-            "color": "#45424a"
+            "backgroundColor": "rgba(255, 255, 255, 0.20)",
+            "color": "#FFF"
           },
           "&:active": {
-            "backgroundColor": "#d6d2d8",
-            "color": "#444048"
+            "backgroundColor": "rgba(255, 255, 255, 0.25)",
+            "color": "#FFF"
           },
           "&.Mui-selected": {
-            "color": "#ffffff70",
-            "background": "#e8def8",
+            "color": "#FFF",
+            "background": "rgba(255, 255, 255, 0.1)",
             "& > .MuiListItemText-root > .MuiTypography-root": {
               "fontWeight": "bold"
             },
             "&:hover": {
-              "backgroundColor": "#d4cbe4",
-              "color": "#2d283a"
+              "backgroundColor": "rgba(255, 255, 255, 0.1)",
+              "color": "#FFF"
             },
             "&:active": {
-              "backgroundColor": "#cbc1da",
-              "color": "#342f42"
+              "backgroundColor": "rgba(255, 255, 255, 0.25)",
+              "color": "#FFF"
             }
           }
         }
