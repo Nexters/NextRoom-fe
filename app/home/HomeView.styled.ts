@@ -9,6 +9,7 @@ export const Wrapper = styled(Box)`
 
 export const Cont = styled(Box)`
   flex-grow: 1;
+  height: 100%;
 `;
 
 export const Title = styled.div`
@@ -24,12 +25,8 @@ export const Ment = styled.div`
 `;
 
 export const Body = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-`;
-
-export const MainContents = styled.div`
   width: 1128px;
+  height: 100%;
   margin: 0 auto;
+  overflow-y: auto;
 `;
