@@ -5,7 +5,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Tooltip,
+  Snackbar,
+  Box,
 } from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
@@ -23,6 +24,8 @@ function ThemeDetailView() {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
+  const [state, setState] = useState(false);
+  const [state1, setState1] = useState(false);
   const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
 
   useEffect(() => {
@@ -38,7 +41,19 @@ function ThemeDetailView() {
   };
   const closeMenu = () => {
     setAnchorEl(null);
+    setState1(!state1)
   };
+  const handleClose = () => {
+
+    setState(!state)
+
+  };
+
+const handleMenu = ()=>{
+  setState(!state)
+    // deleteTheme({id: theme.id})
+  closeMenu()
+}
 
   return (
     <S.Wrapper>
@@ -58,8 +73,7 @@ function ThemeDetailView() {
               테마 정보 수정
             </S.UpdateButton>
           </Grid>
-          <Grid item >
-            <Tooltip title="Download">
+          <Grid item>
               <IconButton
                 size="large"
                 color="inherit"
@@ -71,7 +85,6 @@ function ThemeDetailView() {
               >
                 <MoreVertIcon />
               </IconButton>
-            </Tooltip>
             <Menu
               id="download-menu"
               anchorEl={anchorEl}
@@ -81,7 +94,7 @@ function ThemeDetailView() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem>
+              <MenuItem onClick={handleMenu}>
                 <DeleteIcon />
                 테마삭제
               </MenuItem>
@@ -90,6 +103,15 @@ function ThemeDetailView() {
         </Grid>
         <HintManage />
       </Stack>
+      <Box sx={{ width: 500 }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={state}
+          onClose={handleClose}
+          message="I love snacks"
+          key="bottomleft"
+        />
+      </Box>
     </S.Wrapper>
   );
 }
