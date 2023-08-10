@@ -1,12 +1,21 @@
 import React from "react";
-import { HOME_TITLE, HOME_DESCRIPTION } from "@/consts/home";
+import { HOME_TITLE } from "@/consts/home";
+import AddIcon from "@mui/icons-material/Add";
+import { useModalStateWrite } from "@/components/atoms/modals.atom";
 import * as S from "./EmptyHomeView.styled";
 
 function EmptyHomeView() {
+  const setModalState = useModalStateWrite();
+  const toggleOnModalState = () => {
+    setModalState({ type: "post", isOpen: true });
+  };
+
   return (
     <S.Wrapper>
-      <S.Title>{HOME_TITLE}</S.Title>
-      <S.Ment>{HOME_DESCRIPTION}</S.Ment>
+      <S.Title><pre>{HOME_TITLE}</pre></S.Title>
+      <S.AddButton onClick={toggleOnModalState} startIcon={<AddIcon />}>
+        새로운 테마 추가하기
+      </S.AddButton>
     </S.Wrapper>
   );
 }
