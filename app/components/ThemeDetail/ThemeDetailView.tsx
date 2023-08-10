@@ -7,7 +7,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { HintManage } from "@/components/HintManage";
+import HintList from "../HintList/HintList";
 import * as S from "./ThemeDetail.styled";
 
 function ThemeDetailView() {
@@ -46,7 +46,7 @@ function ThemeDetailView() {
             </IconButton>
           </Grid>
         </Grid>
-        <HintManage />
+        <HintList />
       </Stack>
     </S.Wrapper>
   );

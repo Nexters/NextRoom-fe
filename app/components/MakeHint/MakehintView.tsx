@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { ChatBubbleOutline, Code, Done, Water } from "@mui/icons-material";
 
-import * as S from "./HintAddFormView.styled";
+import * as S from "./MakeHintView.styled";
 import { ActiveInput } from "../common";
 import { ActiveInputProps } from "../common/ActiveInput/ActiveInput";
 
@@ -29,7 +29,7 @@ interface Props {
 const DELETE = "삭제하기";
 const MAKE_HINT = "힌트 만들기";
 
-function HintAddFormView(props: Props) {
+function MakeHintView(props: Props) {
   const {
     progressInputProps,
     hintCodeInputProps,
@@ -73,7 +73,7 @@ function HintAddFormView(props: Props) {
             </S.DetailIconText>
           </Typography>
           <S.ButtonsStack direction="row" spacing={3}>
-            <Button {...deleteButtonProps}>{DELETE}</Button>
+            <S.CancelButton {...deleteButtonProps}>{DELETE}</S.CancelButton>
             <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
           </S.ButtonsStack>
         </AccordionDetails>
@@ -82,4 +82,4 @@ function HintAddFormView(props: Props) {
   );
 }
 
-export default HintAddFormView;
+export default MakeHintView;
