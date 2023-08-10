@@ -14,10 +14,7 @@ function MakeThemePage() {
     hintLimit: number;
   }
 
-  interface TimeItem {
-    label: string;
-    minute: number;
-  }
+
 
   const modalState = useModalStateValue();
 
@@ -65,12 +62,7 @@ function MakeThemePage() {
     onSubmit: handleSubmit(onSubmit),
   };
 
-  const timeOption: TimeItem[] = [
-    { label: "60", minute: 60 },
-    { label: "90", minute: 90 },
-    { label: "120", minute: 120 },
-  ];
-
+  
   const themeNameProps = {
     id: "title",
     label: "테마 이름",
@@ -99,7 +91,6 @@ function MakeThemePage() {
     themeNameProps,
     timeLimitProps,
     hintLimitProps,
-    timeOption,
   };
 
   return <MakeThemeModalView {...MakeThemeModalViewProps} />;
