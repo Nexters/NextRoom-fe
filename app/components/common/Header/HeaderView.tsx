@@ -6,7 +6,7 @@ type Props = {
   iconProps: Record<string, any>;
 };
 
-function HeaderView({ iconProps }: Props) {
+function Headerview({ iconProps }: Props) {
   return (
     <S.Wrapper>
       <S.Icon {...iconProps} />
@@ -14,4 +14,4 @@ function HeaderView({ iconProps }: Props) {
   );
 }
 
-export default HeaderView;
+export default Headerview;
