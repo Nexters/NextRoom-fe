@@ -11,7 +11,6 @@ export const Cont = styled(Box)`
   flex-grow: 1;
   height: 100%;
   margin-left: 80px;
-
 `;
 export const TopNav = styled.div`
   display: flex;

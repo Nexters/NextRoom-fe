@@ -16,7 +16,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import DeleteIcon from "@mui/icons-material/Delete";
-import { HintManage } from "@/components/HintManage";
+import HintList from "../HintList/HintList";
 import * as S from "./ThemeDetail.styled";
 
 function ThemeDetailView() {
@@ -41,19 +41,17 @@ function ThemeDetailView() {
   };
   const closeMenu = () => {
     setAnchorEl(null);
-    setState1(!state1)
+    setState1(!state1);
   };
   const handleClose = () => {
-
-    setState(!state)
-
+    setState(!state);
   };
 
-const handleMenu = ()=>{
-  setState(!state)
+  const handleMenu = () => {
+    setState(!state);
     // deleteTheme({id: theme.id})
-  closeMenu()
-}
+    closeMenu();
+  };
 
   return (
     <S.Wrapper>
@@ -74,17 +72,17 @@ const handleMenu = ()=>{
             </S.UpdateButton>
           </Grid>
           <Grid item>
-              <IconButton
-                size="large"
-                color="inherit"
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={openMenu}
-              >
-                <MoreVertIcon />
-              </IconButton>
+            <IconButton
+              size="large"
+              color="inherit"
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={openMenu}
+            >
+              <MoreVertIcon />
+            </IconButton>
             <Menu
               id="download-menu"
               anchorEl={anchorEl}
@@ -101,7 +99,7 @@ const handleMenu = ()=>{
             </Menu>
           </Grid>
         </Grid>
-        <HintManage />
+        <HintList />
       </Stack>
       <Box sx={{ width: 500 }}>
         <Snackbar

@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { styled } from "styled-components";
 
 export const SummaryStack = styled(Stack)`
@@ -60,4 +60,8 @@ export const DetailIconText = styled.div`
 export const ButtonsStack = styled(Stack)`
   justify-content: end;
   align-items: center;
+`;
+
+export const CancelButton = styled(Button)`
+  color: black !important;
 `;

@@ -21,5 +21,4 @@ export const UpdateButton = styled(Button)`
   width: 147px;
   height: 40px;
   font-size: ${(props) => props.theme.fontSize.sm};
-  
 `;
