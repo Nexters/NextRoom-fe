@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { usePutHint } from "@/mutations/putHint";
 
-import HintManageListItemView from "./HintManageListItemView";
+import HintItemView from "./HintItemView";
 import { DeleteHintDialog } from "../DeleteHintDialog";
 
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
@@ -23,7 +23,7 @@ interface FormValues {
   answer: string;
 }
 
-function HintManageListItem(props: Props) {
+function HintItem(props: Props) {
   const { id, hintCode, contents, answer, progress } = props;
 
   const { mutateAsync: putHint } = usePutHint();
@@ -127,7 +127,7 @@ function HintManageListItem(props: Props) {
 
   return (
     <>
-      <HintManageListItemView {...HintManageListItemProps} />
+      <HintItemView {...HintManageListItemProps} />
       <DeleteHintDialog
         open={open}
         handleClose={() => setOpen(false)}
@@ -137,4 +137,4 @@ function HintManageListItem(props: Props) {
   );
 }
 
-export default HintManageListItem;
+export default HintItem;

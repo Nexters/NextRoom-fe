@@ -12,7 +12,9 @@ const fontWeight = {
   bold: "700",
 };
 
-const color = {};
+const color = {
+  white: "#fff",
+};
 
 const theme = {
   fontSize,

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostHint } from "@/mutations/postHint";
-import HintAddFormView from "./HintAddFormView";
-import { useIsOpenAddAccordionWrite } from "../atoms/hints.atom";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
+import MakeHintView from "./MakehintView";
+
+type Props = { active: boolean; close: () => void };
 
 interface FormValues {
   progress: number;
@@ -12,17 +13,18 @@ interface FormValues {
   answer: string;
 }
 
-function HintAddForm() {
+function MakeHint(props: Props) {
+  const { active, close } = props;
+
   const { register, handleSubmit } = useForm<FormValues>();
-  const setAdding = useIsOpenAddAccordionWrite();
   const { mutateAsync: postHint, isSuccess } = usePostHint();
   const { id: themeId } = useSelectedThemeValue();
 
   useEffect(() => {
     if (isSuccess) {
-      setAdding(false);
+      close();
     }
-  }, [isSuccess, setAdding]);
+  }, [close, isSuccess]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { progress, hintCode, contents, answer } = data;
@@ -70,7 +72,8 @@ function HintAddForm() {
   };
 
   const deleteButtonProps = {
-    onClick: () => setAdding(false),
+    variant: "text",
+    onClick: close,
   };
 
   const makeHintButtonProps = {
@@ -78,7 +81,7 @@ function HintAddForm() {
     variant: "contained",
   };
 
-  const hintAddFormProps = {
+  const makeHintProps = {
     answerInputProps,
     contentsInputProps,
     progressInputProps,
@@ -88,7 +91,9 @@ function HintAddForm() {
     makeHintButtonProps,
   };
 
-  return <HintAddFormView {...hintAddFormProps} />;
+  if (!active) return null;
+
+  return <MakeHintView {...makeHintProps} />;
 }
 
-export default HintAddForm;
+export default MakeHint;
