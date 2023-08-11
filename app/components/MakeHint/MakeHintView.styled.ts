@@ -1,30 +1,4 @@
-import { Button, Stack } from "@mui/material";
 import { styled } from "styled-components";
-
-export const SummaryStack = styled(Stack)`
-  width: 100%;
-  align-items: center;
-`;
-
-export const CodeProgressWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 360px;
-  height: 30px;
-`;
-
-export const IconText = styled.div`
-  display: flex;
-  width: 168px;
-  justify-content: baseline;
-  align-items: center;
-  color: #6750a4;
-
-  svg {
-    margin-right: 15px;
-    fill: #6750a4;
-  }
-`;
 
 export const SummaryText = styled.div`
   display: flex;
@@ -36,32 +10,39 @@ export const SummaryText = styled.div`
   white-space: nowrap;
 `;
 
-export const DetailIconText = styled.div`
-  display: flex;
-  flex: 30px auto;
+export const Wrapper = styled.div`
   width: 100%;
-  margin: 15px 0;
+  height: 237px;
+  /* background-color: red; */
+`;
 
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
+export const InputsWrapper = styled.div`
+  display: flex;
 
-  svg {
-    display: block;
-    margin-right: 25px;
-    fill: #aea9b1;
+  width: 100%;
+  height: 173px;
+  gap: 8px;
+
+  .inputBox {
+    width: 96px;
+    height: 36px;
+    background-color: #ffffff14;
+    color: #fff;
   }
 
-  & + & {
-    margin-top: 30px;
+  .TextareaBox {
+    width: 448px;
+    height: 128px;
+    background-color: #ffffff14;
+    color: #fff;
+    padding: 4px 0 5px 0;
+    align-items: unset;
   }
 `;
 
-export const ButtonsStack = styled(Stack)`
+export const FunctionButtonsWrapper = styled.div`
+  display: flex;
   justify-content: end;
-  align-items: center;
-`;
-
-export const CancelButton = styled(Button)`
-  color: black !important;
+  align-items: end;
+  gap: 8px;
 `;

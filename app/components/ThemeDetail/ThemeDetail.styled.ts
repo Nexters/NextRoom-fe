@@ -1,8 +1,11 @@
 import { styled } from "styled-components";
 import { Box, Button } from "@mui/material";
+import { MAIN_GRID_WIDTH } from "@/consts/styles/common";
 
 export const Wrapper = styled(Box)`
   display: flex;
+  margin: 0 auto;
+  width: ${MAIN_GRID_WIDTH};
   height: 100%;
   flex-direction: column;
 `;

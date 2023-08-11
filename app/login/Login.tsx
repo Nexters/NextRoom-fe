@@ -4,8 +4,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/login";
-import { INPUT_MSG } from "@/consts/common";
+import { INPUT_MSG } from "@/consts/components/common";
+import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/components/login";
 
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";

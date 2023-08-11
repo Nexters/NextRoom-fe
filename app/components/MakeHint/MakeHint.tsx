@@ -53,22 +53,23 @@ function MakeHint(props: Props) {
   const progressInputProps = {
     placeholder: "진행률",
     type: "number",
-    register: { ...register("progress") },
+    ...register("progress"),
   };
 
   const hintCodeInputProps = {
     placeholder: "힌트코드",
-    register: { ...register("hintCode") },
+    type: "number",
+    ...register("hintCode"),
   };
   const contentsInputProps = {
     placeholder: "힌트내용",
     multiline: true,
-    register: { ...register("contents") },
+    ...register("contents"),
   };
   const answerInputProps = {
     placeholder: "정답",
     multiline: true,
-    register: { ...register("answer") },
+    ...register("answer"),
   };
 
   const deleteButtonProps = {

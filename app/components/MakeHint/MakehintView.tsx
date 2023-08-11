@@ -1,24 +1,17 @@
 import React from "react";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { ChatBubbleOutline, Code, Done, Water } from "@mui/icons-material";
+import { Box, Button, Input } from "@mui/material";
 
 import * as S from "./MakeHintView.styled";
-import { ActiveInput } from "../common";
-import { ActiveInputProps } from "../common/ActiveInput/ActiveInput";
 
 interface Props {
-  progressInputProps: ActiveInputProps;
-  hintCodeInputProps: ActiveInputProps;
-  contentsInputProps: ActiveInputProps;
-  answerInputProps: ActiveInputProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  progressInputProps: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  hintCodeInputProps: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contentsInputProps: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  answerInputProps: Record<string, any>;
   deleteButtonProps: { onClick: () => void };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
@@ -42,42 +35,18 @@ function MakeHintView(props: Props) {
 
   return (
     <Box {...formProps}>
-      <Accordion key="add" expanded>
-        <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-          <Typography color="inherit">
-            <S.SummaryStack direction="row">
-              <Stack direction="row">
-                <S.CodeProgressWrapper>
-                  <S.IconText>
-                    <Water />
-                    <ActiveInput {...progressInputProps} />
-                  </S.IconText>
-                  <S.IconText>
-                    <Code />
-                    <ActiveInput {...hintCodeInputProps} />
-                  </S.IconText>
-                </S.CodeProgressWrapper>
-              </Stack>
-            </S.SummaryStack>
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography color="inherit">
-            <S.DetailIconText>
-              <ChatBubbleOutline />
-              <ActiveInput {...contentsInputProps} />
-            </S.DetailIconText>
-            <S.DetailIconText>
-              <Done />
-              <ActiveInput {...answerInputProps} />
-            </S.DetailIconText>
-          </Typography>
-          <S.ButtonsStack direction="row" spacing={3}>
-            <S.CancelButton {...deleteButtonProps}>{DELETE}</S.CancelButton>
-            <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
-          </S.ButtonsStack>
-        </AccordionDetails>
-      </Accordion>
+      <S.Wrapper>
+        <S.InputsWrapper>
+          <Input className="inputBox" {...hintCodeInputProps} />
+          <Input className="inputBox" {...progressInputProps} />
+          <Input className="TextareaBox" {...contentsInputProps} />
+          <Input className="TextareaBox" {...answerInputProps} />
+        </S.InputsWrapper>
+        <S.FunctionButtonsWrapper>
+          <Button {...deleteButtonProps}>{DELETE}</Button>
+          <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
+        </S.FunctionButtonsWrapper>
+      </S.Wrapper>
     </Box>
   );
 }

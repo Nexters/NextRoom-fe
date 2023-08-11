@@ -7,6 +7,7 @@ export const Header = styled.div`
   font-weight: ${(props) => props.theme.fontWeight.medium};
   color: #ffffff60;
   height: 34px;
+  gap: 8px;
 
   .smallHeader {
     width: 96px;
