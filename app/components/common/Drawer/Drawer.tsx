@@ -32,6 +32,9 @@ function MainDrawer(props: Props) {
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
     setModalState({ type: "post", isOpen: true });
+  const toggleOffModalState = () =>
+    setModalState({ type: "post", isOpen: false });
+
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "NEXT ROOM",
@@ -52,10 +55,11 @@ function MainDrawer(props: Props) {
     setSelectedIndex(theme.id);
     // deleteTheme({id: theme.id})
     setSelectedTheme({ ...theme });
+    toggleOffModalState();
   };
 
   return (
-    <S.ListWrap>
+<S.ListWrap>
       <Box>
         <ListItem>
           <S.LogoWrapper>
@@ -66,7 +70,7 @@ function MainDrawer(props: Props) {
       <Box>
         <ListItem>
           <ListItemText>
-            <S.ShopName color="inherit">{shopName}</S.ShopName>
+            <S.ShopName color="inherit">{shopName?.replaceAll(`"`, "")}</S.ShopName>
           </ListItemText>
         </ListItem>
 

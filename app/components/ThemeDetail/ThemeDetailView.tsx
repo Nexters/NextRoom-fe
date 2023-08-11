@@ -1,5 +1,13 @@
-import React, { useEffect } from "react";
-import { Stack, Grid, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Stack,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Snackbar,
+  Box,
+} from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -7,6 +15,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import DeleteIcon from "@mui/icons-material/Delete";
 import HintList from "../HintList/HintList";
 import * as S from "./ThemeDetail.styled";
 
@@ -15,6 +24,8 @@ function ThemeDetailView() {
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
+  const [state, setState] = useState(false);
+  const [state1, setState1] = useState(false);
   const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
 
   useEffect(() => {
@@ -22,16 +33,36 @@ function ThemeDetailView() {
     console.log(selectedTheme);
   }, [selectedTheme]);
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const closeMenu = () => {
+    setAnchorEl(null);
+    setState1(!state1);
+  };
+  const handleClose = () => {
+    setState(!state);
+  };
+
+  const handleMenu = () => {
+    setState(!state);
+    // deleteTheme({id: theme.id})
+    closeMenu();
+  };
+
   return (
     <S.Wrapper>
-      <Stack spacing={4}>
+      <Stack spacing={2}>
         <S.Title>{selectedTheme.title}</S.Title>
 
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={1} direction="row" alignItems="center">
           <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
           <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
         </Stack>
-        <Grid container spacing={1}>
+        <Grid container rowSpacing={3} alignItems="center">
           <Grid item>
             <S.UpdateButton
               onClick={toggleOnModalState}
@@ -41,13 +72,44 @@ function ThemeDetailView() {
             </S.UpdateButton>
           </Grid>
           <Grid item>
-            <IconButton color="primary" aria-label="delete">
+            <IconButton
+              size="large"
+              color="inherit"
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={openMenu}
+            >
               <MoreVertIcon />
             </IconButton>
+            <Menu
+              id="download-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={closeMenu}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleMenu}>
+                <DeleteIcon />
+                테마삭제
+              </MenuItem>
+            </Menu>
           </Grid>
         </Grid>
         <HintList />
       </Stack>
+      <Box sx={{ width: 500 }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={state}
+          onClose={handleClose}
+          message="I love snacks"
+          key="bottomleft"
+        />
+      </Box>
     </S.Wrapper>
   );
 }

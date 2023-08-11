@@ -14,6 +14,17 @@ export const ShopName = styled(ListItemText)`
   margin-bottom: 18px;
   /* color: #21005d; */
 `;
+export const Wrapper = styled.div`
+  width: 360px;
+  height: 100%;
+  min-height: 100vh;
+  padding: 12px;
+  box-sizing: border-box;
+  border-right: #ffffff20 solid 1px;
+  background-image: url("/images/drawer/background.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+`;
 
 export const ListWrap = styled(List)`
   width: 360px;
