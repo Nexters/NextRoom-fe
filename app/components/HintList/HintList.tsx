@@ -12,12 +12,14 @@ import MakeHint from "../MakeHint/MakeHint";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 import * as S from "./HintList.styled";
+import { DeleteHintDialog } from "../DeleteHintDialog";
 
 function HintList() {
   const [isAddEnabled, setIsAddEnabled] = useState<boolean>(false);
   const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [], isLoading = false } = useGetHintList({ themeId });
   const hintsLength = hints.length;
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const $AddHintButton = useMemo(() => {
     if (hintsLength > 1 || isAddEnabled) {
@@ -74,8 +76,14 @@ function HintList() {
           contents={contents}
           answer={answer}
           progress={progress}
+          openDeleteModal={() => setIsDeleteModalOpen(true)}
         />
       ))}
+      <DeleteHintDialog
+        open={isDeleteModalOpen}
+        handleClose={() => setIsDeleteModalOpen(false)}
+        id={themeId}
+      />
     </div>
   );
 }

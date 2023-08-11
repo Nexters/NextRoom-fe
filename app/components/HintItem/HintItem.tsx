@@ -4,9 +4,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { usePutHint } from "@/mutations/putHint";
 
 import HintItemView from "./HintItemView";
-import { DeleteHintDialog } from "../DeleteHintDialog";
-
-import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 type Props = {
   id: number;
@@ -14,6 +11,7 @@ type Props = {
   contents: string;
   answer: string;
   progress: number;
+  openDeleteModal: () => void;
 };
 
 interface FormValues {
@@ -24,16 +22,14 @@ interface FormValues {
 }
 
 function HintItem(props: Props) {
-  const { id, hintCode, contents, answer, progress } = props;
+  const { id, hintCode, contents, answer, progress, openDeleteModal } = props;
 
   const { mutateAsync: putHint } = usePutHint();
 
-  const [open, setOpen] = useState<boolean>(false);
   const [submitDisable, setSubmitDisable] = useState<boolean>(true);
-  const { id: themeId = 1 } = useSelectedThemeValue();
 
   const onDelete = () => {
-    setOpen(true);
+    openDeleteModal();
   };
   const onSave = () => {};
 
@@ -114,6 +110,7 @@ function HintItem(props: Props) {
   };
 
   const HintManageListItemProps = {
+    key: id,
     id,
     contents,
     onDelete,
@@ -125,16 +122,7 @@ function HintItem(props: Props) {
     saveButtonProps,
   };
 
-  return (
-    <>
-      <HintItemView {...HintManageListItemProps} />
-      <DeleteHintDialog
-        open={open}
-        handleClose={() => setOpen(false)}
-        id={themeId}
-      />
-    </>
-  );
+  return <HintItemView {...HintManageListItemProps} />;
 }
 
 export default HintItem;
