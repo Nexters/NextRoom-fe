@@ -1,7 +1,7 @@
 import React from "react";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
 import { removeAccessToken } from "@/uilts/localStorage";
-import HeaderView from "./HeaderView_";
+import HeaderView from "./HeaderView";
 
 function Header() {
   const setIsLoggedIn = useIsLoggedInWrite();
