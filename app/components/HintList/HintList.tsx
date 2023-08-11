@@ -1,13 +1,17 @@
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
 
+import { ListItemIcon, ListItemText } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+
 import { useGetHintList } from "@/queries/getHintList";
 import { HintItem } from "../HintItem";
 
 import MakeHint from "../MakeHint/MakeHint";
 
-import * as S from "./HintList.styled";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
+
+import * as S from "./HintList.styled";
 
 function HintList() {
   const [isAddEnabled, setIsAddEnabled] = useState<boolean>(false);
@@ -33,13 +37,20 @@ function HintList() {
     );
   }, [hintsLength, isAddEnabled]);
 
-  // const $AddHintFloatingButton = useMemo(() => {
-  //   if (hintsLength === 0 || isAddEnabled) {
-  //     return null;
-  //   }
+  const $AddHintFloatingButton = useMemo(() => {
+    if (hintsLength === 0 || isAddEnabled) {
+      return null;
+    }
 
-  //   return <S.StyledFab>새로운 힌트 추가하기</S.StyledFab>;
-  // }, [hintsLength, isAddEnabled]);
+    return (
+      <S.FloatButton onClick={() => setIsAddEnabled(true)}>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText>새로운 힌트 추가하기</ListItemText>
+      </S.FloatButton>
+    );
+  }, [hintsLength, isAddEnabled]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -54,7 +65,7 @@ function HintList() {
         <div className="largeHeader">정답 내용</div>
       </S.Header>
       {$AddHintButton}
-      {/* {$AddHintFloatingButton} */}
+      {$AddHintFloatingButton}
       <MakeHint active={isAddEnabled} close={() => setIsAddEnabled(false)} />
       {hints.map(({ id, hintCode, contents, answer, progress }) => (
         <HintItem
