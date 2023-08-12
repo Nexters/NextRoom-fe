@@ -5,8 +5,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Snackbar,
-  Box,
+
 } from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
@@ -16,28 +15,21 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import DeleteIcon from "@mui/icons-material/Delete";
-<<<<<<< HEAD
-import { HintManage } from "@/components/HintManage";
-import { useDeleteTheme } from "@/mutations/deleteTheme";
-=======
 import HintList from "../HintList/HintList";
->>>>>>> 764c97e433c8b47121a9fee998a75f11502c7dc2
 import * as S from "./ThemeDetail.styled";
 
-function ThemeDetailView() {
+type Props = {
+  handleOpen: () => void;
+};
+
+function ThemeDetailView(props: Props) {
+  const { handleOpen } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
-  const [state, setState] = useState(false);
   const [state1, setState1] = useState(false);
   const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
-  const { mutateAsync: deleteTheme } = useDeleteTheme();
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(selectedTheme);
-  }, [selectedTheme]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -49,12 +41,9 @@ function ThemeDetailView() {
     setAnchorEl(null);
     setState1(!state1);
   };
-  const handleClose = () => {
-    setState(!state);
-  };
 
   const handleMenu = () => {
-    setState(!state);
+    handleOpen()
     closeMenu();
   };
 
@@ -67,7 +56,7 @@ function ThemeDetailView() {
           <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
           <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
         </Stack>
-        <Grid container rowSpacing={3} alignItems="center">
+        <Grid container  spacing={1} rowSpacing={3} alignItems="center">
           <Grid item>
             <S.UpdateButton
               variant="outlined"
@@ -107,15 +96,7 @@ function ThemeDetailView() {
         </Grid>
         <HintList />
       </Stack>
-      <Box sx={{ width: 500 }}>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={state}
-          onClose={handleClose}
-          message="테마를 삭제했습니다.  단말기에서 업데이트를 진행해 주세요."
-          key="bottomleft"
-        />
-      </Box>
+
     </S.Wrapper>
   );
 }
