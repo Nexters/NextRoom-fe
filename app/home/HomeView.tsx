@@ -12,10 +12,12 @@ import * as S from "./HomeView.styled";
 
 type Props = {
   categories: Themes;
+  handleDialog: ()=>void;
 };
 
 function HomeView(props: Props) {
-  const { categories } = props;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { categories, handleDialog } = props;
   const modalState = useModalStateValue();
   let content;
   if (!categories) {

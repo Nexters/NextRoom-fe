@@ -4,7 +4,7 @@ import { List, ListItemText } from "@mui/material";
 export const Title = styled.div`
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 20px;
+  margin: 20px 0;
   color: #21005d;
 `;
 
@@ -12,7 +12,7 @@ export const ShopName = styled(ListItemText)`
   font-size: ${(props) => props.theme.fontSize.sm};
   font-weight: 400;
   margin-bottom: 18px;
-  /* color: #21005d; */
+  color: rgba(255, 255, 255, 0.7);
 `;
 export const Wrapper = styled.div`
   width: 360px;
@@ -47,5 +47,4 @@ export const Theme = styled(ListItemText)`
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 18px;
-  /* color: #21005d; */
 `;

@@ -190,15 +190,42 @@
               "boxShadow": "none"
             },
             "&:hover": {
-              "backgroundColor": "#715ea7",
+              "backgroundColor": "#ffffff",
               "boxShadow": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)"
             },
             "&:focus": {
-              "backgroundColor": "#7664a9",
+              "backgroundColor": "rgba(255, 255, 255, 0.08)",
               "boxShadow": "none"
             },
             "&:active": {
-              "backgroundColor": "#7664a9",
+              "backgroundColor": "rgba(255, 255, 255, 0.08)",
+              "boxShadow": "none"
+            }
+          }
+        },
+        {
+          "props": {
+            "variant": "contained"
+          },
+          "style": {
+            "backgroundColor": "#ffffff",
+            "color": "#000",
+            "boxShadow": "none",
+            "&.Mui-disabled": {
+              "backgroundColor": "rgba(255, 255, 255, 0.7)",
+              "color": "rgba(0, 0, 0, 0.38)",
+              "boxShadow": "none"
+            },
+            "&:hover": {
+              "backgroundColor": "#ffffff",
+              "boxShadow": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)"
+            },
+            "&:focus": {
+              "backgroundColor": "#ffffff",
+              "boxShadow": "none"
+            },
+            "&:active": {
+              "backgroundColor": "#ffffff",
               "boxShadow": "none"
             }
           }
@@ -262,7 +289,7 @@
             "variant": "text"
           },
           "style": {
-            "backgroundColor": "rgba(255, 255, 255, 0.0)",
+            "backgroundColor": "unset",
             "color": "#ffffff",
             "boxShadow": "none",
             "padding": "5px 15px",
@@ -285,8 +312,8 @@
     "MuiCard": {
       "styleOverrides": {
         "root": {
-          "borderRadius": "20px",
-          "padding": "10px 6px"
+          "borderRadius": "8px",
+          "padding": "20px"
         }
       },
       "variants": [
@@ -296,7 +323,7 @@
           },
           "style": {
             "boxShadow": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
-            "backgroundColor": "#f7f2f7",
+            "backgroundColor": "rgba(255, 255, 255, 0.25)",
             "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
             "&:hover": {
               "background": "#e9e3ed",
@@ -350,20 +377,20 @@
           },
           "style": {
             "boxShadow": "none",
-            "backgroundColor": "#fdf8fd",
+            "backgroundColor": "rgba(255, 255, 255, 0.25)",
             "borderColor": "#7a757f",
             "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
             "&:hover": {
-              "background": "#eee9f2",
+              "background": "rgba(255, 255, 255, 0.25)",
               "boxShadow": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)"
             },
             "&:focus": {
               "boxShadow": "none",
-              "background": "#e7e1ed"
+              "background": "rgba(255, 255, 255, 0.25)"
             },
             "&:active": {
               "boxShadow": "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
-              "background": "#d4ced9"
+              "background": "rgba(255, 255, 255, 0.25)"
             },
             "&.Mui-disabled": {
               "borderColor": "rgba(230, 225, 230, 0.12)",
@@ -685,7 +712,8 @@
           "&.Mui-focused:after": {
             "borderBottom": "1px solid var(--TextField-brandBorderFocusedColor)"
           },
-          "color": "#fff"
+          "color": "#fff",
+          "backgroundColor": "rgba(255, 255, 255, 0.08)"
         }
       }
     }
@@ -746,7 +774,7 @@
       "contrastText": "#ffd9e3"
     },
     "error": {
-      "main": "#ba1a1a",
+      "main": "#F2B8B5",
       "contrastText": "#000",
       "light": "rgb(199, 71, 71)",
       "dark": "rgb(130, 18, 18)"
@@ -869,7 +897,7 @@
     },
     "background": {
       "default": "#f2ecf1",
-      "paper": "#fdf8fd"
+      "paper": "#2B2B2B"
     },
     "onBackground": {
       "main": "#1c1b1e"
