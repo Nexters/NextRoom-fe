@@ -18,7 +18,7 @@ function HintItemView(props: Props) {
       <div className="numberBox">{hintData.hintCode}</div>
       <div className="numberBox">{hintData.progress}</div>
       <div className="textBox">{hintData.contents}</div>
-      <div className="textBox">{hintData.contents}</div>
+      <div className="textBox">{hintData.answer}</div>
     </S.ItemWrapper>
   );
 }
