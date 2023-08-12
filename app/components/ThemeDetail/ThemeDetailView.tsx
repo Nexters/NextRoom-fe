@@ -67,6 +67,7 @@ function ThemeDetailView() {
         <Grid container rowSpacing={3} alignItems="center">
           <Grid item>
             <S.UpdateButton
+              variant="outlined"
               onClick={toggleOnModalState}
               startIcon={<EditIcon />}
             >
