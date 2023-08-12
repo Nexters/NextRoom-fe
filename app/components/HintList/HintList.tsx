@@ -59,7 +59,7 @@ function HintList() {
   }
 
   return (
-    <div>
+    <S.HintListWrapper>
       <S.Header>
         <div className="smallHeader">힌트코드</div>
         <div className="smallHeader">진행률</div>
@@ -84,7 +84,7 @@ function HintList() {
         handleClose={() => setIsDeleteModalOpen(false)}
         id={themeId}
       />
-    </div>
+    </S.HintListWrapper>
   );
 }
 

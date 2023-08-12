@@ -1,6 +1,10 @@
 import { Button } from "@mui/material";
 import { styled } from "styled-components";
 
+export const HintListWrapper = styled.div`
+  margin-top: 60px;
+`;
+
 export const Header = styled.div`
   display: flex;
   font-size: ${(props) => props.theme.fontSize.xs};
