@@ -35,8 +35,8 @@ export const InputsWrapper = styled.div`
     height: 128px;
     background-color: #ffffff14;
     color: #fff;
-    padding: 4px 0 5px 0;
     align-items: unset;
+    overflow: auto;
   }
 `;
 

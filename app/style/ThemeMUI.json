@@ -700,6 +700,16 @@
         }
       }
     },
+    "MuiInput": {
+      "styleOverrides": {
+        "root": {
+          "borderBottom": "1px solid #ffffff80",
+          "borderRadius": "4px 4px 0px 0px",
+          "padding": "8px 16px"
+        },
+        "input": {}
+      }
+    },
     "MuiFilledInput": {
       "styleOverrides": {
         "root": {
