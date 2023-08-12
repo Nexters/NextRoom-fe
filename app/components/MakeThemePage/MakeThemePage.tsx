@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
+import { CancelDialog } from "@/components/CancelDialog";
 import MakeThemeModalView from "./MakeThemePageView";
 
 interface FormValues {
@@ -15,6 +16,7 @@ interface FormValues {
 
 function MakeThemePage() {
   const [modalState, setModalState] = useModalState();
+  const [open, setOpen] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
@@ -26,12 +28,11 @@ function MakeThemePage() {
     reset,
     formState: { errors },
   } = useForm<FormValues>();
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log({ watch });
-  }, [watch]);
-  const formValue = watch();
 
+  const formValue = watch();
+  const handleClose=()=>{
+    setOpen(!open)
+  }
   useEffect(() => {
     reset();
     if (modalState.type === "put") {
@@ -107,6 +108,7 @@ function MakeThemePage() {
   };
 
   const MakeThemeModalViewProps = {
+    handleClose,
     formValue,
     modalState,
     formProps,
@@ -118,7 +120,16 @@ function MakeThemePage() {
     hintLimitError: errors.hintLimit,
   };
 
-  return <MakeThemeModalView {...MakeThemeModalViewProps} />;
+  return (
+    <>
+      <MakeThemeModalView {...MakeThemeModalViewProps} />
+      <CancelDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+        handleModalClose={() => setModalState({ ...modalState, isOpen: false })}
+      />
+    </>
+  );
 }
 
 export default MakeThemePage;

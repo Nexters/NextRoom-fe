@@ -8,7 +8,9 @@ export const CardWrap = styled(Card)`
   flex-direction: column;
   padding: 20px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.20);
+
+;
 `;
 
 export const ErrorMention = styled.p`
