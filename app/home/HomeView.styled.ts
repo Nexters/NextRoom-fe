@@ -13,6 +13,7 @@ export const Cont = styled(Box)`
   height: 100%;
   min-width: calc(${MAIN_GRID_WIDTH} + 2px);
   margin: 0 auto;
+  overflow-y: auto;
 `;
 export const TopNav = styled.div`
   display: flex;
