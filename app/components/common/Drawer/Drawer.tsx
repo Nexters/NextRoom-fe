@@ -16,14 +16,17 @@ import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
 import Image from "next/image";
 import { getShopName } from "@/uilts/localStorage";
+import Link from "next/link";
+
 import * as S from "./DrawerView.styled";
 
 type Props = {
   categories: Themes;
+  handleDialog: () => void;
 };
 
 function MainDrawer(props: Props) {
-  const { categories } = props;
+  const { categories, handleDialog } = props;
   const setSelectedTheme = useSelectedThemeWrite();
   // const { mutateAsync: deleteTheme } = useDeleteTheme();
   const shopName = getShopName();
@@ -32,8 +35,7 @@ function MainDrawer(props: Props) {
   const [modalState, setModalState] = useModalState();
   const toggleOnModalState = () =>
     setModalState({ type: "post", isOpen: true });
-  const toggleOffModalState = () =>
-    setModalState({ type: "post", isOpen: false });
+
 
   const logoProps = {
     src: "/images/svg/logo.svg",
@@ -53,13 +55,16 @@ function MainDrawer(props: Props) {
 
   const handleListItemClick = (theme: Theme) => {
     setSelectedIndex(theme.id);
-    // deleteTheme({id: theme.id})
     setSelectedTheme({ ...theme });
-    toggleOffModalState();
+    // toggleOffModalState();
+    
+    if(modalState.isOpen){
+      handleDialog()
+    }
   };
 
   return (
-<S.ListWrap>
+    <S.ListWrap>
       <Box>
         <ListItem>
           <S.LogoWrapper>
@@ -69,25 +74,36 @@ function MainDrawer(props: Props) {
       </Box>
       <Box>
         <ListItem>
-          <ListItemText>
-            <S.ShopName color="inherit">{shopName?.replaceAll(`"`, "")}</S.ShopName>
+          <ListItemText style={{ margin: "18px 0" }}>
+            <S.ShopName color="inherit">
+              {shopName?.replaceAll(`"`, "")}
+            </S.ShopName>
           </ListItemText>
         </ListItem>
 
         {[...categories].reverse().map((theme) => (
-          <ListItem key={theme.id}>
-            <ListItemButton
-              selected={selectedIndex === theme.id}
-              onClick={() => {
-                handleListItemClick(theme);
-              }}
-            >
-              <ListItemIcon>
-                <CircleIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>{theme.title}</ListItemText>
-            </ListItemButton>
-          </ListItem>
+          <Link
+            key={theme.id}
+            href={{
+              pathname: "/home/",
+              query: { title: theme.title },
+            }}
+            style={{ textDecorationLine: "none" }}
+          >
+            <ListItem>
+              <ListItemButton
+                selected={selectedIndex === theme.id}
+                onClick={() => {
+                  handleListItemClick(theme);
+                }}
+              >
+                <ListItemIcon>
+                  <CircleIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{theme.title}</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
         <ListItem
           style={{

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import {
   Stack,
   Grid,
   IconButton,
   Menu,
   MenuItem,
-  Snackbar,
-  Box,
+
 } from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
@@ -19,19 +18,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import HintList from "../HintList/HintList";
 import * as S from "./ThemeDetail.styled";
 
-function ThemeDetailView() {
+type Props = {
+  handleOpen: () => void;
+};
+
+function ThemeDetailView(props: Props) {
+  const { handleOpen } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [modalState, setModalState] = useModalState();
-  const [state, setState] = useState(false);
   const [state1, setState1] = useState(false);
   const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(selectedTheme);
-  }, [selectedTheme]);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -43,13 +41,9 @@ function ThemeDetailView() {
     setAnchorEl(null);
     setState1(!state1);
   };
-  const handleClose = () => {
-    setState(!state);
-  };
 
   const handleMenu = () => {
-    setState(!state);
-    // deleteTheme({id: theme.id})
+    handleOpen()
     closeMenu();
   };
 
@@ -62,9 +56,10 @@ function ThemeDetailView() {
           <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
           <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
         </Stack>
-        <Grid container rowSpacing={3} alignItems="center">
+        <Grid container  spacing={1} rowSpacing={3} alignItems="center">
           <Grid item>
             <S.UpdateButton
+              variant="outlined"
               onClick={toggleOnModalState}
               startIcon={<EditIcon />}
             >
@@ -101,15 +96,7 @@ function ThemeDetailView() {
         </Grid>
         <HintList />
       </Stack>
-      <Box sx={{ width: 500 }}>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={state}
-          onClose={handleClose}
-          message="I love snacks"
-          key="bottomleft"
-        />
-      </Box>
+
     </S.Wrapper>
   );
 }
