@@ -3,42 +3,51 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
-import { useModalStateValue } from "@/components/atoms/modals.atom";
+import { useModalState } from "@/components/atoms/modals.atom";
 import MakeThemeModalView from "./MakeThemePageView";
 
+interface FormValues {
+  id: number | undefined;
+  title: string;
+  timeLimit: number;
+  hintLimit: number;
+}
+
 function MakeThemePage() {
-  interface FormValues {
-    id: number | undefined;
-    title: string;
-    timeLimit: number;
-    hintLimit: number;
-  }
-
-
-
-  const modalState = useModalStateValue();
+  const [modalState, setModalState] = useModalState();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  const { register, handleSubmit, setValue } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>();
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log({ watch });
+  }, [watch]);
+  const formValue = watch();
 
   useEffect(() => {
+    reset();
     if (modalState.type === "put") {
       setValue("title", selectedTheme.title);
       setValue("timeLimit", selectedTheme.timeLimit);
       setValue("hintLimit", selectedTheme.hintLimit);
-    } else {
-      setValue("title", "");
-      setValue("timeLimit", 0);
-      setValue("hintLimit", 0);
     }
-  }, [selectedTheme, setValue, modalState.type]);
+  }, [selectedTheme, setValue, modalState.type, reset]);
 
   const { mutateAsync: postTheme } = usePostTheme();
   const { mutateAsync: putTheme } = usePutTheme();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log("Submitting", data);
+
     const submitData = {
       id: selectedTheme.id,
       title: data.title,
@@ -48,11 +57,11 @@ function MakeThemePage() {
 
     if (modalState.type === "put") {
       putTheme(submitData);
+      setModalState({ ...modalState, isOpen: false });
     } else {
       postTheme(data);
+      setModalState({ ...modalState, isOpen: false });
     }
-    // eslint-disable-next-line no-console
-    console.log(data);
   };
 
   const formProps = {
@@ -62,13 +71,12 @@ function MakeThemePage() {
     onSubmit: handleSubmit(onSubmit),
   };
 
-  
   const themeNameProps = {
     id: "title",
     label: "테마 이름",
     placeholder: "입력해 주세요.",
     message: "손님에게는 보이지 않아요.",
-    ...register("title"),
+    ...register("title", { required: "테마 이름은 필수 값 입니다" }),
   };
   const timeLimitProps = {
     id: "timeLimit",
@@ -76,21 +84,38 @@ function MakeThemePage() {
     placeholder: "선택하기",
     type: "number",
     message: "손님이 사용할 타이머에 표시됩니다. (분 단위로 입력해 주세요.)",
-    ...register("timeLimit"),
+    ...register("timeLimit", {
+      required: "시간을 입력해주세요.",
+      pattern: {
+        value: /^[1-9]\d*$/,
+        message: "1분 이상으로 입력해 주세요.",
+      },
+    }),
   };
   const hintLimitProps = {
     id: "hintLimit",
     label: "힌트갯수",
     type: "number",
-    message: "손님이 사용할 흰트갯수가 표시됩니다.",
-    ...register("hintLimit"),
+    message: "손님이 사용할 힌트갯수입니다.",
+    ...register("hintLimit", {
+      required: "갯수를 입력해주세요.",
+      pattern: {
+        value: /^[1-9]\d*$/,
+        message: "1개 이상으로 입력해 주세요.",
+      },
+    }),
   };
 
   const MakeThemeModalViewProps = {
+    formValue,
+    modalState,
     formProps,
     themeNameProps,
     timeLimitProps,
     hintLimitProps,
+    titleError: errors.title,
+    timeLimitError: errors.timeLimit,
+    hintLimitError: errors.hintLimit,
   };
 
   return <MakeThemeModalView {...MakeThemeModalViewProps} />;
