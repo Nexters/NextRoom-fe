@@ -1,6 +1,5 @@
 import { Grid, TextField } from "@mui/material";
 import { FieldError } from "react-hook-form";
-import { useEffect } from "react";
 import * as S from "./MakeThemePageView.styled";
 
 interface Modal {
@@ -15,6 +14,7 @@ interface FormValues {
 }
 
 type Props = {
+  handleClose: () => void;
   formValue: FormValues;
   modalState: Modal;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +32,7 @@ function MakeThemePageView(props: Props) {
   const ADD_BTN = "추가하기";
   const MODIFY_BTN = "수정하기";
   const {
+    handleClose,
     formValue,
     modalState,
     formProps,
@@ -42,9 +43,6 @@ function MakeThemePageView(props: Props) {
     timeLimitError,
     hintLimitError,
   } = props;
-  useEffect(() => {
-    console.log(formValue);
-  }, [formValue]);
 
   return (
     <div>
@@ -101,10 +99,7 @@ function MakeThemePageView(props: Props) {
         </S.TextWrapper>
         <S.ButtonContainer container spacing={1}>
           <Grid item>
-            <S.CancleButton
-              variant="text"
-              // onClick={() => setModalState({ ...modalState, isOpen: false })}
-            >
+            <S.CancleButton variant="text" onClick={handleClose}>
               취소
             </S.CancleButton>
           </Grid>
