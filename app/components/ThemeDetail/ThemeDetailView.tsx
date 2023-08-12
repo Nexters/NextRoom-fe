@@ -16,8 +16,12 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import DeleteIcon from "@mui/icons-material/Delete";
+<<<<<<< HEAD
 import { HintManage } from "@/components/HintManage";
 import { useDeleteTheme } from "@/mutations/deleteTheme";
+=======
+import HintList from "../HintList/HintList";
+>>>>>>> 764c97e433c8b47121a9fee998a75f11502c7dc2
 import * as S from "./ThemeDetail.styled";
 
 function ThemeDetailView() {
@@ -51,7 +55,6 @@ function ThemeDetailView() {
 
   const handleMenu = () => {
     setState(!state);
-    deleteTheme({ id: selectedTheme.id });
     closeMenu();
   };
 
@@ -102,7 +105,7 @@ function ThemeDetailView() {
             </Menu>
           </Grid>
         </Grid>
-        <HintManage />
+        <HintList />
       </Stack>
       <Box sx={{ width: 500 }}>
         <Snackbar

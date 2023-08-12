@@ -15,7 +15,7 @@ import ActiveInput, {
   ActiveInputProps,
 } from "../common/ActiveInput/ActiveInput";
 
-import * as S from "./HintManageListItemView.styled";
+import * as S from "./HintItemView.styled";
 
 type Props = {
   id: number;
@@ -34,7 +34,7 @@ type Props = {
 const DELETE = "삭제하기";
 const SAVE_MODIFIED_DATA = "변경사항 저장";
 
-function HintManageListItemView(props: Props) {
+function HintItemView(props: Props) {
   const {
     contents,
     onDelete,
@@ -93,4 +93,4 @@ function HintManageListItemView(props: Props) {
   );
 }
 
-export default HintManageListItemView;
+export default HintItemView;
