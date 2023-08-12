@@ -2,9 +2,15 @@ import React, { useEffect } from "react";
 import { usePostHint } from "@/mutations/postHint";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
-import MakeHintView from "./MakehintView";
+import HintManagerView from "./HintManagerView";
 
-type Props = { active: boolean; close: () => void };
+type Props = {
+  active: boolean;
+  close: () => void;
+  type: "make" | "modify";
+  // eslint-disable-next-line react/require-default-props
+  id?: number;
+};
 
 interface FormValues {
   progress: number;
@@ -13,8 +19,8 @@ interface FormValues {
   answer: string;
 }
 
-function MakeHint(props: Props) {
-  const { active, close } = props;
+function HintManager(props: Props) {
+  const { id, active, close, type } = props;
 
   const { register, handleSubmit } = useForm<FormValues>();
   const { mutateAsync: postHint, isSuccess } = usePostHint();
@@ -26,9 +32,19 @@ function MakeHint(props: Props) {
     }
   }, [close, isSuccess]);
 
+  const key = `${type}-${id}`;
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { progress, hintCode, contents, answer } = data;
-    if (progress && hintCode && contents && answer) {
+
+    if (!(progress && hintCode && contents && answer)) {
+      // TODO: add error message
+      // eslint-disable-next-line no-console
+      console.error("please check code");
+      return;
+    }
+
+    if (type === "make") {
       postHint({
         progress: Number(progress),
         hintCode,
@@ -37,13 +53,12 @@ function MakeHint(props: Props) {
         themeId,
       });
     } else {
-      // TODO: add error message
-      // eslint-disable-next-line no-console
-      console.error("please check code");
+      alert("수정 요청");
     }
   };
 
   const formProps = {
+    key,
     component: "form",
     noValidate: true,
     autoComplete: "off",
@@ -94,7 +109,7 @@ function MakeHint(props: Props) {
 
   if (!active) return null;
 
-  return <MakeHintView {...makeHintProps} />;
+  return <HintManagerView {...makeHintProps} />;
 }
 
-export default MakeHint;
+export default HintManager;

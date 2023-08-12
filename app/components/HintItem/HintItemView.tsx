@@ -7,13 +7,14 @@ import { HintData } from "./HintItem";
 type Props = {
   id: number;
   hintData: HintData;
+  onClick: () => void;
 };
 
 function HintItemView(props: Props) {
-  const { hintData, id } = props;
+  const { hintData, id, onClick } = props;
 
   return (
-    <S.ItemWrapper key={id}>
+    <S.ItemWrapper key={id} onClick={onClick}>
       <div className="numberBox">{hintData.hintCode}</div>
       <div className="numberBox">{hintData.progress}</div>
       <div className="textBox">{hintData.contents}</div>

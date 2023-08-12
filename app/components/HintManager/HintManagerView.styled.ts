@@ -13,7 +13,8 @@ export const SummaryText = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
   height: 237px;
-  /* background-color: red; */
+  padding: 8px;
+  background-color: ${({ theme }) => theme.color.white10};
 `;
 
 export const InputsWrapper = styled.div`

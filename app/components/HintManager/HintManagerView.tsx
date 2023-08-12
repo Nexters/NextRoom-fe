@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Input } from "@mui/material";
 
-import * as S from "./MakeHintView.styled";
+import * as S from "./HintManagerView.styled";
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,9 +20,9 @@ interface Props {
 }
 
 const DELETE = "삭제하기";
-const MAKE_HINT = "힌트 만들기";
+const MAKE_HINT = "저장하기";
 
-function MakeHintView(props: Props) {
+function HintManagerView(props: Props) {
   const {
     progressInputProps,
     hintCodeInputProps,
@@ -51,4 +51,4 @@ function MakeHintView(props: Props) {
   );
 }
 
-export default MakeHintView;
+export default HintManagerView;

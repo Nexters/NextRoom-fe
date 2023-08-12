@@ -9,6 +9,7 @@ type Props = {
   contents: string;
   answer: string;
   progress: number;
+  onClick: () => void;
 };
 
 export type HintData = {
@@ -19,7 +20,7 @@ export type HintData = {
 };
 
 function HintItem(props: Props) {
-  const { id, hintCode, contents, answer, progress } = props;
+  const { id, hintCode, contents, answer, progress, onClick } = props;
 
   const hintData = {
     progress,
@@ -31,6 +32,7 @@ function HintItem(props: Props) {
   const HintManageListItemProps = {
     id,
     hintData,
+    onClick,
   };
 
   return <HintItemView {...HintManageListItemProps} />;

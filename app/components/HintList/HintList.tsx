@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useGetHintList } from "@/queries/getHintList";
 import { HintItem } from "../HintItem";
 
-import MakeHint from "../MakeHint/MakeHint";
+import HintManager from "../HintManager/HintManager";
 
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
@@ -15,19 +15,37 @@ import * as S from "./HintList.styled";
 import { DeleteHintDialog } from "../DeleteHintDialog";
 
 function HintList() {
-  const [isAddEnabled, setIsAddEnabled] = useState<boolean>(false);
+  const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);
+  const [isModifyEnableds, setIsModifyEnableds] = useState<number[]>([]);
   const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [], isLoading = false } = useGetHintList({ themeId });
   const hintsLength = hints.length;
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
+  const getOpenedModify = (id: number) =>
+    !!isModifyEnableds.find((modifyEnables) => modifyEnables === id);
+
+  const closeModify = (id: number) => {
+    const enableds = isModifyEnableds.filter((prevId) => prevId !== id);
+
+    setIsModifyEnableds(enableds);
+  };
+
+  const handleModify = (id: number) => {
+    if (getOpenedModify(id)) {
+      closeModify(id);
+    } else {
+      setIsModifyEnableds((prev) => [...prev, id]);
+    }
+  };
+
   const $AddHintButton = useMemo(() => {
-    if (hintsLength > 1 || isAddEnabled) {
+    if (hintsLength > 1 || isMakeEnabled) {
       return null;
     }
 
     return (
-      <S.Empty onClick={() => setIsAddEnabled(true)}>
+      <S.Empty onClick={() => setIsMakeEnabled(true)}>
         <Image
           src="/images/svg/plus.svg"
           width={12}
@@ -37,22 +55,22 @@ function HintList() {
         새로운 힌트 추가하기
       </S.Empty>
     );
-  }, [hintsLength, isAddEnabled]);
+  }, [hintsLength, isMakeEnabled]);
 
   const $AddHintFloatingButton = useMemo(() => {
-    if (hintsLength === 0 || isAddEnabled) {
+    if (hintsLength === 0 || isMakeEnabled) {
       return null;
     }
 
     return (
-      <S.FloatButton onClick={() => setIsAddEnabled(true)}>
+      <S.FloatButton onClick={() => setIsMakeEnabled(true)}>
         <ListItemIcon>
           <AddIcon />
         </ListItemIcon>
         <ListItemText>새로운 힌트 추가하기</ListItemText>
       </S.FloatButton>
     );
-  }, [hintsLength, isAddEnabled]);
+  }, [hintsLength, isMakeEnabled]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -68,15 +86,27 @@ function HintList() {
       </S.Header>
       {$AddHintButton}
       {$AddHintFloatingButton}
-      <MakeHint active={isAddEnabled} close={() => setIsAddEnabled(false)} />
+      <HintManager
+        active={isMakeEnabled}
+        close={() => setIsMakeEnabled(false)}
+        type="make"
+      />
       {hints.map(({ id, hintCode, contents, answer, progress }) => (
-        <HintItem
-          id={id}
-          hintCode={hintCode}
-          contents={contents}
-          answer={answer}
-          progress={progress}
-        />
+        <div key={`item-${id}`}>
+          <HintItem
+            id={id}
+            hintCode={hintCode}
+            contents={contents}
+            answer={answer}
+            progress={progress}
+            onClick={() => handleModify(id)}
+          />
+          <HintManager
+            active={getOpenedModify(id)}
+            close={() => closeModify(id)}
+            type="modify"
+          />
+        </div>
       ))}
       {/* TODO: delete below dialog */}
       <DeleteHintDialog
