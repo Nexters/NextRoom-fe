@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import DeleteIcon from "@mui/icons-material/Delete";
 import { HintManage } from "@/components/HintManage";
+import { useDeleteTheme } from "@/mutations/deleteTheme";
 import * as S from "./ThemeDetail.styled";
 
 function ThemeDetailView() {
@@ -27,6 +28,7 @@ function ThemeDetailView() {
   const [state, setState] = useState(false);
   const [state1, setState1] = useState(false);
   const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
+  const { mutateAsync: deleteTheme } = useDeleteTheme();
 
   useEffect(() => {
     // eslint-disable-next-line no-console
@@ -41,19 +43,17 @@ function ThemeDetailView() {
   };
   const closeMenu = () => {
     setAnchorEl(null);
-    setState1(!state1)
+    setState1(!state1);
   };
   const handleClose = () => {
-
-    setState(!state)
-
+    setState(!state);
   };
 
-const handleMenu = ()=>{
-  setState(!state)
-    // deleteTheme({id: theme.id})
-  closeMenu()
-}
+  const handleMenu = () => {
+    setState(!state);
+    deleteTheme({ id: selectedTheme.id });
+    closeMenu();
+  };
 
   return (
     <S.Wrapper>
@@ -74,17 +74,17 @@ const handleMenu = ()=>{
             </S.UpdateButton>
           </Grid>
           <Grid item>
-              <IconButton
-                size="large"
-                color="inherit"
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={openMenu}
-              >
-                <MoreVertIcon />
-              </IconButton>
+            <IconButton
+              size="large"
+              color="inherit"
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={openMenu}
+            >
+              <MoreVertIcon />
+            </IconButton>
             <Menu
               id="download-menu"
               anchorEl={anchorEl}
@@ -108,7 +108,7 @@ const handleMenu = ()=>{
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={state}
           onClose={handleClose}
-          message="I love snacks"
+          message="테마를 삭제했습니다.  단말기에서 업데이트를 진행해 주세요."
           key="bottomleft"
         />
       </Box>
