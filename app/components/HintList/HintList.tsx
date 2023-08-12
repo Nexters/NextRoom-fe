@@ -76,9 +76,9 @@ function HintList() {
           contents={contents}
           answer={answer}
           progress={progress}
-          openDeleteModal={() => setIsDeleteModalOpen(true)}
         />
       ))}
+      {/* TODO: delete below dialog */}
       <DeleteHintDialog
         open={isDeleteModalOpen}
         handleClose={() => setIsDeleteModalOpen(false)}

@@ -14,7 +14,8 @@ export const Header = styled.div`
   }
 
   .largeHeader {
-    width: calc((100% - (96px * 2)) / 2);
+    /* width: calc(((100% - (96px * 2)) / 2) - 8px); */
+    width: 448px;
   }
 `;
 

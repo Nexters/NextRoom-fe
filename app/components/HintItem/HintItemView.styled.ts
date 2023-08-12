@@ -61,3 +61,37 @@ export const ButtonsStack = styled(Stack)`
   justify-content: end;
   align-items: center;
 `;
+
+export const ItemWrapper = styled.div`
+  display: flex;
+
+  width: 100%;
+  min-height: 48px;
+  gap: 8px;
+
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  color: ${({ theme }) => theme.color.white70};
+  line-height: 16.71px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.white20};
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.color.white10};
+  }
+
+  .numberBox {
+    display: flex;
+    align-items: center;
+    width: 96px;
+    color: ${({ theme }) => theme.color.white};
+  }
+
+  .textBox {
+    display: flex;
+    align-items: center;
+    width: 448px;
+    padding: 12px 0;
+  }
+`;
