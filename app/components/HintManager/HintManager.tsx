@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { usePostHint } from "@/mutations/postHint";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { usePutHint } from "@/mutations/putHint";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import HintManagerView from "./HintManagerView";
 
@@ -10,6 +11,8 @@ type Props = {
   type: "make" | "modify";
   // eslint-disable-next-line react/require-default-props
   id?: number;
+  // eslint-disable-next-line react/require-default-props
+  hintData?: FormValues;
 };
 
 interface FormValues {
@@ -20,17 +23,59 @@ interface FormValues {
 }
 
 function HintManager(props: Props) {
-  const { id, active, close, type } = props;
+  const { id, active, close, type, hintData } = props;
 
-  const { register, handleSubmit } = useForm<FormValues>();
-  const { mutateAsync: postHint, isSuccess } = usePostHint();
+  const { register, handleSubmit, setValue, watch } = useForm<FormValues>();
+  const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
+  const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (postHintSuccess) {
       close();
     }
-  }, [close, isSuccess]);
+  }, [close, postHintSuccess]);
+
+  useEffect(() => {
+    if (!hintData) return;
+    const { progress, hintCode, contents, answer } = hintData;
+
+    const previousValues: FormValues = { hintCode, contents, answer, progress };
+    const names = Object.keys(previousValues) as (keyof FormValues)[];
+
+    names.forEach((name) => {
+      const value = previousValues[name];
+      if (value) {
+        setValue(name, value);
+      }
+    });
+  }, [hintData, setValue]);
+
+  useEffect(() => {
+    if (!hintData) return;
+    const { progress, hintCode, contents, answer } = hintData;
+
+    const subscription = watch((value) => {
+      const {
+        progress: inputProgress = "",
+        hintCode: inputHintCode = "",
+        contents: inputContents = "",
+        answer: inputAnswer = "",
+      } = value;
+      if (
+        progress !== inputProgress ||
+        hintCode !== inputHintCode ||
+        contents !== inputContents ||
+        answer !== inputAnswer
+      ) {
+        // setSubmitDisable(false);
+      } else {
+        // setSubmitDisable(true);
+      }
+    });
+    // eslint-disable-next-line consistent-return
+    return () => subscription.unsubscribe();
+  }, [hintData, watch]);
 
   const key = `${type}-${id}`;
 
@@ -53,7 +98,13 @@ function HintManager(props: Props) {
         themeId,
       });
     } else {
-      alert("수정 요청");
+      putHint({
+        progress: Number(progress),
+        hintCode,
+        contents,
+        answer,
+        id: Number(id),
+      });
     }
   };
 
@@ -66,23 +117,23 @@ function HintManager(props: Props) {
   };
 
   const progressInputProps = {
-    placeholder: "진행률",
+    placeholder: hintData?.progress || "진행률",
     type: "number",
     ...register("progress"),
   };
 
   const hintCodeInputProps = {
-    placeholder: "힌트코드",
+    placeholder: hintData?.hintCode || "힌트코드",
     type: "number",
     ...register("hintCode"),
   };
   const contentsInputProps = {
-    placeholder: "힌트내용",
+    placeholder: hintData?.contents || "힌트내용",
     multiline: true,
     ...register("contents"),
   };
   const answerInputProps = {
-    placeholder: "정답",
+    placeholder: hintData?.answer || "정답",
     multiline: true,
     ...register("answer"),
   };

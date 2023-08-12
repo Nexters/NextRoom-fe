@@ -102,9 +102,11 @@ function HintList() {
             onClick={() => handleModify(id)}
           />
           <HintManager
+            id={id}
             active={getOpenedModify(id)}
             close={() => closeModify(id)}
             type="modify"
+            hintData={{ hintCode, contents, answer, progress }}
           />
         </div>
       ))}
