@@ -712,7 +712,8 @@
           "&.Mui-focused:after": {
             "borderBottom": "1px solid var(--TextField-brandBorderFocusedColor)"
           },
-          "color": "#fff"
+          "color": "#fff",
+          "backgroundColor": "rgba(255, 255, 255, 0.08)"
         }
       }
     }
@@ -896,7 +897,7 @@
     },
     "background": {
       "default": "#f2ecf1",
-      "paper": "#fdf8fd"
+      "paper": "#2B2B2B"
     },
     "onBackground": {
       "main": "#1c1b1e"
