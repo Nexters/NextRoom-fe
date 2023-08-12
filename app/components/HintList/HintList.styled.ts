@@ -48,4 +48,5 @@ export const FloatButton = styled(Button)`
   bottom: 40px;
   left: calc((100% - 360px) / 2 + 360px);
   transform: translateX(-50%);
+  font-weight: 600;
 `;

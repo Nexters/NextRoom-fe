@@ -705,7 +705,9 @@
         "root": {
           "borderBottom": "1px solid #ffffff80",
           "borderRadius": "4px 4px 0px 0px",
-          "padding": "8px 16px"
+          "padding": "8px 16px",
+          "fontSize": "16px",
+          "fontWeight": "400"
         },
         "input": {}
       }
