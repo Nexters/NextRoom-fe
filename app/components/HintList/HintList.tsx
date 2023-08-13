@@ -40,7 +40,7 @@ function HintList() {
   };
 
   const $AddHintButton = useMemo(() => {
-    if (hintsLength > 1 || isMakeEnabled) {
+    if (hintsLength > 0 || isMakeEnabled) {
       return null;
     }
 
