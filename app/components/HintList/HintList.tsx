@@ -8,11 +8,11 @@ import { useGetHintList } from "@/queries/getHintList";
 import { HintItem } from "../HintItem";
 
 import HintManager from "../HintManager/HintManager";
+import { DeleteHintDialog } from "../DeleteHintDialog";
 
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 import * as S from "./HintList.styled";
-import { DeleteHintDialog } from "../DeleteHintDialog";
 
 function HintList() {
   const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);
@@ -20,7 +20,6 @@ function HintList() {
   const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [], isLoading = false } = useGetHintList({ themeId });
   const hintsLength = hints.length;
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const getOpenedModify = (id: number) =>
     !!isModifyEnableds.find((modifyEnables) => modifyEnables === id);
@@ -110,12 +109,7 @@ function HintList() {
           />
         </div>
       ))}
-      {/* TODO: delete below dialog */}
-      <DeleteHintDialog
-        open={isDeleteModalOpen}
-        handleClose={() => setIsDeleteModalOpen(false)}
-        id={themeId}
-      />
+      <DeleteHintDialog />
     </S.HintListWrapper>
   );
 }

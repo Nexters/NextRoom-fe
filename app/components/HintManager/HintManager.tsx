@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { usePostHint } from "@/mutations/postHint";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePutHint } from "@/mutations/putHint";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import HintManagerView from "./HintManagerView";
+import { useIsOpenDeleteDialogStateWrite } from "../atoms/hints.atom";
 
 type Props = {
   active: boolean;
@@ -29,6 +30,7 @@ function HintManager(props: Props) {
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
+  const setIsOpenDeleteDialogState = useIsOpenDeleteDialogStateWrite();
 
   useEffect(() => {
     if (postHintSuccess) {
@@ -76,6 +78,11 @@ function HintManager(props: Props) {
     // eslint-disable-next-line consistent-return
     return () => subscription.unsubscribe();
   }, [hintData, watch]);
+
+  const openDeleteDialog = () => {
+    if (!id) return;
+    setIsOpenDeleteDialogState({ isOpen: true, id });
+  };
 
   const key = `${type}-${id}`;
 
@@ -140,7 +147,7 @@ function HintManager(props: Props) {
 
   const deleteButtonProps = {
     variant: "text",
-    onClick: close,
+    onClick: type === "make" ? close : openDeleteDialog,
   };
 
   const makeHintButtonProps = {
