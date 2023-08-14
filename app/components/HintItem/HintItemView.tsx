@@ -17,8 +17,12 @@ function HintItemView(props: Props) {
     <S.ItemWrapper key={id} onClick={onClick}>
       <div className="numberBox">{hintData.hintCode}</div>
       <div className="numberBox">{hintData.progress}</div>
-      <div className="textBox">{hintData.contents}</div>
-      <div className="textBox">{hintData.answer}</div>
+      <div className="textBox">
+        <span>{hintData.contents}</span>
+      </div>
+      <div className="textBox">
+        <span>{hintData.answer}</span>
+      </div>
     </S.ItemWrapper>
   );
 }

@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { styled } from "styled-components";
 
 export const HintListWrapper = styled.div`
-  margin-top: 60px;
+  margin-top: 60px !important;
 `;
 
 export const Header = styled.div`
