@@ -81,7 +81,7 @@ function HintList() {
         <div className="smallHeader">힌트코드</div>
         <div className="smallHeader">진행률</div>
         <div className="largeHeader">힌트 내용</div>
-        <div className="largeHeader">정답 내용</div>
+        <div className="largeHeader">정답</div>
       </S.Header>
       {$AddHintButton}
       {$AddHintFloatingButton}
