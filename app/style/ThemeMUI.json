@@ -409,6 +409,40 @@
         }
       }
     },
+    "MuiDialog": {
+      "styleOverrides": {
+        "paper": {
+          "width": "400px",
+          "height": "180px",
+          "borderRadius": "28px"
+        }
+      }
+    },
+    "MuiDialogTitle": {
+      "styleOverrides": {
+        "root": {
+          "color": "#fff",
+          "padding": "24px 24px 16px 24px"
+        }
+      }
+    },
+    "MuiDialogContent": {
+      "styleOverrides": {
+        "root": {
+          "flex": "unset",
+          "padding": "0 24px"
+        }
+      }
+    },
+    "MuiDialogContentText": {
+      "styleOverrides": {
+        "root": {
+          "color": "#fff",
+          "padding": "unset",
+          "height": "68%"
+        }
+      }
+    },
     "MuiFab": {
       "defaultProps": {
         "color": "secondary"
