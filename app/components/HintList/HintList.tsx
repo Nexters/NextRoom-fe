@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 
 import { ListItemIcon, ListItemText } from "@mui/material";
@@ -20,6 +20,11 @@ function HintList() {
   const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [], isLoading = false } = useGetHintList({ themeId });
   const hintsLength = hints.length;
+
+  useEffect(() => {
+    setIsModifyEnableds([]);
+    setIsMakeEnabled(false);
+  }, [themeId]);
 
   const getOpenedModify = (id: number) =>
     !!isModifyEnableds.find((modifyEnables) => modifyEnables === id);
