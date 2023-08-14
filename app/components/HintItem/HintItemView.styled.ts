@@ -89,9 +89,10 @@ export const ItemWrapper = styled.div`
   }
 
   .textBox {
-    display: flex;
-    align-items: center;
     width: 448px;
     padding: 12px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `;
