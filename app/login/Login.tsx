@@ -26,7 +26,12 @@ function Login() {
     isError = false,
   } = usePostLogin();
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      adminCode: process.env.NEXT_PUBLIC_ADMIN_CODE || "",
+      password: process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "",
+    },
+  });
 
   useCheckSignIn();
 
@@ -47,7 +52,7 @@ function Login() {
     variant: "filled",
     label: ADMIN_CODE,
     placeholder: INPUT_MSG,
-    ...register("adminCode"),
+    ...register("adminCode", { required: "관리자 번호를 입력해 주세요." }),
     error: isError,
     sx: {
       marginBottom: "40px",
@@ -61,7 +66,7 @@ function Login() {
     variant: "filled",
     label: ADMIN_PASSWORD,
     placeholder: INPUT_MSG,
-    ...register("password"),
+    ...register("password", { required: "비밀번호를 입력해 주세요." }),
     error: isError,
     sx: { backgroundColor: "#ffffff10" },
   };
