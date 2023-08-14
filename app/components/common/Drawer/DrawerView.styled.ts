@@ -28,6 +28,7 @@ export const Wrapper = styled.div`
 
 export const ListWrap = styled(List)`
   width: 360px;
+  min-width: 360px;
   height: 100%;
   min-height: 100vh;
   padding: 12px;
