@@ -1,11 +1,8 @@
-import { Inter } from "next/font/google";
 import StyledJsxRegistry from "@/lib/registry";
 import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import MuiProvider from "./lib/muiProvider";
 import StyledProvider from "./lib/themeProvider";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "NEXT ROOM",
@@ -19,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body>
         <Recoil>
           <ReactQueryProvider>
             <StyledProvider>
