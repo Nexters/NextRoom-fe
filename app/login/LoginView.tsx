@@ -18,6 +18,7 @@ function LoginView(props: Props) {
     buttonProps,
     logoProps,
     isLoading,
+    errorMessage,
   } = props;
 
   return (
@@ -30,7 +31,10 @@ function LoginView(props: Props) {
       <S.StyledBox {...formProps}>
         <TextField {...adminCodeProps} />
         <TextField {...passwordProps} />
-        <S.LoginButton {...buttonProps}>{LOGIN}</S.LoginButton>
+        <S.LoginButtonWrapper>
+          <S.ServerErrorMessage>{errorMessage}</S.ServerErrorMessage>
+          <S.LoginButton {...buttonProps}>{LOGIN}</S.LoginButton>
+        </S.LoginButtonWrapper>
       </S.StyledBox>
 
       <S.Contect>
