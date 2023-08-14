@@ -42,3 +42,15 @@ export const useIsOpenDeleteDialogStateValue = () =>
   useRecoilValue(isOpenDeleteDialogState);
 export const useIsOpenDeleteDialogStateWrite = () =>
   useSetRecoilState(isOpenDeleteDialogState);
+
+const isActiveHintItemState = atom<number>({
+  key: "isActiveHintItemState",
+  default: 0,
+});
+
+export const useIsActiveHintItemState = () =>
+  useRecoilState(isActiveHintItemState);
+export const useIsActiveHintItemStateValue = () =>
+  useRecoilValue(isActiveHintItemState);
+export const useIsActiveHintItemStateWrite = () =>
+  useSetRecoilState(isActiveHintItemState);

@@ -10,10 +10,17 @@ export const SummaryText = styled.div`
   white-space: nowrap;
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ active?: boolean }>`
   width: 100%;
   padding: 8px;
   background-color: ${({ theme }) => theme.color.white10};
+
+  ${({ active }) =>
+    active &&
+    `
+    border: 1px solid #B5E6D2;
+    border-radius: 8px;
+  `}
 `;
 
 export const InputsWrapper = styled.div`

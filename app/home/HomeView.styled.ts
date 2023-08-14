@@ -11,9 +11,9 @@ export const Wrapper = styled(Box)`
 export const Cont = styled(Box)`
   flex-grow: 1;
   height: 100%;
-  min-width: calc(${MAIN_GRID_WIDTH} + 2px);
-  margin: 0 auto;
-  padding: 0 80px;
+  /* min-width: calc(${MAIN_GRID_WIDTH} + 2px); */
+  margin: 0;
+  padding: 0 16px 80px 80px;
   overflow-y: auto;
 `;
 export const TopNav = styled.div`

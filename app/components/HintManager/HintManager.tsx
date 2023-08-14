@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { usePostHint } from "@/mutations/postHint";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePutHint } from "@/mutations/putHint";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import HintManagerView from "./HintManagerView";
-import { useIsOpenDeleteDialogStateWrite } from "../atoms/hints.atom";
+import {
+  useIsActiveHintItemState,
+  useIsOpenDeleteDialogStateWrite,
+} from "../atoms/hints.atom";
 
 type Props = {
   active: boolean;
@@ -31,6 +34,9 @@ function HintManager(props: Props) {
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
   const setIsOpenDeleteDialogState = useIsOpenDeleteDialogStateWrite();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isActiveHintItemState, setIsActiveHintItemState] =
+    useIsActiveHintItemState();
 
   useEffect(() => {
     if (postHintSuccess) {
@@ -115,12 +121,40 @@ function HintManager(props: Props) {
     }
   };
 
+  const isCurrentHintActive = isActiveHintItemState === id;
+
+  const activateForm = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!id) return;
+    setIsActiveHintItemState(id);
+  };
+
+  const deactivateForm = (event: MouseEvent) => {
+    const isOutsideForm =
+      formRef.current && !formRef.current.contains(event.target as Node);
+
+    if (isOutsideForm && isCurrentHintActive) {
+      setIsActiveHintItemState(0);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", deactivateForm);
+
+    return () => {
+      document.removeEventListener("click", deactivateForm);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const formProps = {
     key,
     component: "form",
     noValidate: true,
     autoComplete: "off",
     onSubmit: handleSubmit(onSubmit),
+    onClick: activateForm,
+    ref: formRef,
   };
 
   const progressInputProps = {
@@ -163,6 +197,7 @@ function HintManager(props: Props) {
     formProps,
     deleteButtonProps,
     makeHintButtonProps,
+    activateForm: isCurrentHintActive,
   };
 
   if (!active) return null;

@@ -17,6 +17,7 @@ interface Props {
   formProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   makeHintButtonProps: Record<string, any>;
+  activateForm: boolean;
 }
 
 const DELETE = "삭제하기";
@@ -31,11 +32,12 @@ function HintManagerView(props: Props) {
     deleteButtonProps,
     makeHintButtonProps,
     formProps,
+    activateForm,
   } = props;
 
   return (
     <Box {...formProps}>
-      <S.Wrapper>
+      <S.Wrapper active={activateForm}>
         <S.InputsWrapper>
           <Input className="inputBox" {...hintCodeInputProps} />
           <Input className="inputBox" {...progressInputProps} />

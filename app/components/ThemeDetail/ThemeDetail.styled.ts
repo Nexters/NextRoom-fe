@@ -6,7 +6,6 @@ export const Wrapper = styled(Box)`
   display: flex;
   margin: 0 auto;
   width: ${MAIN_GRID_WIDTH};
-  height: 100%;
   flex-direction: column;
 `;
 
