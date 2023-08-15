@@ -1,4 +1,4 @@
-import { Grid, TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FieldError } from "react-hook-form";
 import * as S from "./MakeThemePageView.styled";
 
@@ -46,13 +46,10 @@ function MakeThemePageView(props: Props) {
 
   return (
     <div>
-      <S.CardWrap variant="outlined" {...formProps}>
+      <S.CardWrap variant="elevation" {...formProps}>
         <S.TextWrapper>
-          <TextField
+          <S.StyledNumberInput
             {...themeNameProps}
-            InputLabelProps={{
-              shrink: true,
-            }}
             variant="filled"
             fullWidth
             error={!!titleError}
@@ -64,11 +61,8 @@ function MakeThemePageView(props: Props) {
           ) : (
             <S.Description>{themeNameProps.message}</S.Description>
           )}
-          <TextField
+          <S.StyledNumberInput
             {...timeLimitProps}
-            InputLabelProps={{
-              shrink: true,
-            }}
             variant="filled"
             fullWidth
             error={!!timeLimitError}
@@ -80,11 +74,8 @@ function MakeThemePageView(props: Props) {
           ) : (
             <S.Description>{timeLimitProps.message}</S.Description>
           )}
-          <TextField
+          <S.StyledNumberInput
             {...hintLimitProps}
-            InputLabelProps={{
-              shrink: true,
-            }}
             variant="filled"
             fullWidth
             error={!!hintLimitError}

@@ -4,8 +4,8 @@ import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
-import { CancelDialog } from "@/components/CancelDialog";
 import MakeThemeModalView from "./MakeThemePageView";
+import Dialog from "../common/Dialog/Dialog";
 
 interface FormValues {
   id: number | undefined;
@@ -30,9 +30,23 @@ function MakeThemePage() {
   } = useForm<FormValues>();
 
   const formValue = watch();
-  const handleClose=()=>{
-    setOpen(!open)
-  }
+  const handleClose = () => {
+    if (
+      selectedTheme.title === formValue.title &&
+      selectedTheme.timeLimit === formValue.timeLimit &&
+      selectedTheme.hintLimit === formValue.hintLimit
+    ) {
+      setModalState({ ...modalState, isOpen: false });
+    }
+    if (
+      modalState.type === "post" &&
+      !(formValue.title || formValue.timeLimit || formValue.hintLimit)
+    ) {
+      setModalState({ ...modalState, isOpen: false });
+    }
+
+    setOpen(!open);
+  };
   useEffect(() => {
     reset();
     if (modalState.type === "put") {
@@ -95,11 +109,11 @@ function MakeThemePage() {
   };
   const hintLimitProps = {
     id: "hintLimit",
-    label: "힌트갯수",
+    label: "힌트 개수",
     type: "number",
-    message: "손님이 사용할 힌트갯수입니다.",
+    message: "이 테마에서 사용할 수 있는 힌트 수를 입력해 주세요.",
     ...register("hintLimit", {
-      required: "갯수를 입력해주세요.",
+      required: "힌트 수를 입력해 주세요..",
       pattern: {
         value: /^[1-9]\d*$/,
         message: "1개 이상으로 입력해 주세요.",
@@ -110,6 +124,7 @@ function MakeThemePage() {
   const MakeThemeModalViewProps = {
     handleClose,
     formValue,
+    selectedTheme,
     modalState,
     formProps,
     themeNameProps,
@@ -123,10 +138,10 @@ function MakeThemePage() {
   return (
     <>
       <MakeThemeModalView {...MakeThemeModalViewProps} />
-      <CancelDialog
+      <Dialog
         open={open}
-        handleClose={() => setOpen(false)}
-        handleModalClose={() => setModalState({ ...modalState, isOpen: false })}
+        handleDialogClose={() => setOpen(false)}
+        type={modalState.type === "post" ? "themePost" : "themePut"}
       />
     </>
   );
