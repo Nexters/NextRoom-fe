@@ -1,3 +1,4 @@
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiError, ApiResponse, MutationConfigOptions } from "@/types";
 import { useMutation } from "@tanstack/react-query";
@@ -34,7 +35,9 @@ export const postLogin = async (data: Request) => {
 
 export const usePostLogin = (configOptions?: MutationConfigOptions) => {
   const setIsLoggedIn = useIsLoggedInWrite();
+  const setSnackBar = useSnackBarWrite();
   const info = useMutation<Response, AxiosError<ApiError>, Request, void>({
+
     mutationKey: MUTATION_KEY,
     mutationFn: (req) => postLogin(req),
     ...configOptions?.options,
@@ -49,6 +52,12 @@ export const usePostLogin = (configOptions?: MutationConfigOptions) => {
     },
     onSettled: () => {
       //   console.log("항상 실행");
+    },
+    onError: (error) => {
+      setSnackBar({
+        isOpen: true,
+        message: `${(error as any)?.response?.data?.message || error}`,
+      });
     },
   });
 

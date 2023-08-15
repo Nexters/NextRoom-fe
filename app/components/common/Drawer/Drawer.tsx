@@ -9,8 +9,6 @@ import {
 import { useState, useEffect } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from "@mui/icons-material/Add";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import CircleIcon from "@mui/icons-material/Circle";
 import { useModalState } from "@/components/atoms/modals.atom";
 import { useSelectedThemeWrite } from "@/components/atoms/selectedTheme.atom";
 import { Theme, Themes } from "@/queries/getThemeList";
@@ -36,7 +34,6 @@ function MainDrawer(props: Props) {
   const toggleOnModalState = () =>
     setModalState({ type: "post", isOpen: true });
 
-
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "NEXT ROOM",
@@ -57,9 +54,9 @@ function MainDrawer(props: Props) {
     setSelectedIndex(theme.id);
     setSelectedTheme({ ...theme });
     // toggleOffModalState();
-    
-    if(modalState.isOpen){
-      handleDialog()
+
+    if (modalState.isOpen) {
+      handleDialog();
     }
   };
 
@@ -97,9 +94,6 @@ function MainDrawer(props: Props) {
                   handleListItemClick(theme);
                 }}
               >
-                <ListItemIcon>
-                  <CircleIcon fontSize="small" />
-                </ListItemIcon>
                 <ListItemText>{theme.title}</ListItemText>
               </ListItemButton>
             </ListItem>

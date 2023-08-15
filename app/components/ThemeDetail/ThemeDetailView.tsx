@@ -48,6 +48,9 @@ function ThemeDetailView(props: Props) {
         <Stack spacing={1} direction="row" alignItems="center">
           <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
           <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
+          <S.MiddleTitle>•</S.MiddleTitle>
+          <S.MiddleTitle>사용 가능 힌트</S.MiddleTitle>
+          <S.MiddleTitle>{selectedTheme.hintLimit}개</S.MiddleTitle>
         </Stack>
         <Grid container spacing={1} rowSpacing={3} alignItems="center">
           <Grid item>
@@ -80,9 +83,16 @@ function ThemeDetailView(props: Props) {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleMenu}>
-                <DeleteIcon />
-                테마삭제
+              <MenuItem
+                onClick={handleMenu}
+                sx={{
+                  width: "200px",
+                  height: "56px",
+                  backgroundColor: "#211F26",
+                }}
+              >
+                <DeleteIcon sx={{ marginRight: "12px" }} />
+                테마 삭제
               </MenuItem>
             </Menu>
           </Grid>
