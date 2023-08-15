@@ -1,12 +1,5 @@
-import React, {  useState } from "react";
-import {
-  Stack,
-  Grid,
-  IconButton,
-  Menu,
-  MenuItem,
-
-} from "@mui/material";
+import React, { useState } from "react";
+import { Stack, Grid, IconButton, Menu, MenuItem } from "@mui/material";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -43,7 +36,7 @@ function ThemeDetailView(props: Props) {
   };
 
   const handleMenu = () => {
-    handleOpen()
+    handleOpen();
     closeMenu();
   };
 
@@ -56,7 +49,7 @@ function ThemeDetailView(props: Props) {
           <S.MiddleTitle>탈출 제한 시간</S.MiddleTitle>
           <S.MiddleTitle>{selectedTheme.timeLimit}분</S.MiddleTitle>
         </Stack>
-        <Grid container  spacing={1} rowSpacing={3} alignItems="center">
+        <Grid container spacing={1} rowSpacing={3} alignItems="center">
           <Grid item>
             <S.UpdateButton
               variant="outlined"
@@ -96,7 +89,6 @@ function ThemeDetailView(props: Props) {
         </Grid>
         <HintList />
       </Stack>
-
     </S.Wrapper>
   );
 }

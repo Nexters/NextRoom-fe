@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { Box } from "@mui/material";
+import { MAIN_GRID_WIDTH } from "@/consts/styles/common";
 
 export const Wrapper = styled(Box)`
   display: flex;
@@ -10,7 +11,10 @@ export const Wrapper = styled(Box)`
 export const Cont = styled(Box)`
   flex-grow: 1;
   height: 100%;
-  margin-left: 80px;
+  /* min-width: calc(${MAIN_GRID_WIDTH} + 2px); */
+  margin: 0;
+  padding: 0 16px 80px 80px;
+  overflow-y: auto;
 `;
 export const TopNav = styled.div`
   display: flex;
@@ -30,7 +34,7 @@ export const Title = styled.div`
 `;
 
 export const Body = styled.div`
-  width: 1128px;
+  width: ${MAIN_GRID_WIDTH};
   height: 100%;
   margin: 0 auto;
   overflow-y: auto;

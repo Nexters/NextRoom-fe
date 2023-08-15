@@ -1,15 +1,16 @@
 import { useDeleteHint } from "@/mutations/deleteHint";
 import DeleteHintDialogView from "./DeleteHintDialogView";
+import { useIsOpenDeleteDialogState } from "../atoms/hints.atom";
 
-interface Props {
-  open: boolean;
-  handleClose: () => void;
-  id: number;
-}
-
-function DeleteHintDialog(props: Props) {
-  const { open, handleClose, id } = props;
+function DeleteHintDialog() {
+  const [isOpenDeleteDialogState, setIsOpenDeleteDialogState] =
+    useIsOpenDeleteDialogState();
+  const { isOpen, id } = isOpenDeleteDialogState;
   const { mutateAsync: deleteHint } = useDeleteHint();
+
+  const handleClose = () => {
+    setIsOpenDeleteDialogState({ isOpen: false, id: 0 });
+  };
 
   const handleDelete = () => {
     deleteHint({ id });
@@ -17,7 +18,7 @@ function DeleteHintDialog(props: Props) {
   };
 
   const DeleteHintDialogProps = {
-    open,
+    open: isOpen,
     handleClose,
     handleDelete,
   };
