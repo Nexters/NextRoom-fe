@@ -4,6 +4,7 @@ import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import MuiProvider from "./lib/muiProvider";
 import StyledProvider from "./lib/themeProvider";
+import RequireAuth from "./lib/requireAuth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
           <ReactQueryProvider>
             <StyledProvider>
               <StyledJsxRegistry>
-                <MuiProvider>{children}</MuiProvider>
+                <MuiProvider>
+                  <RequireAuth>{children}</RequireAuth>
+                </MuiProvider>
               </StyledJsxRegistry>
             </StyledProvider>
           </ReactQueryProvider>
