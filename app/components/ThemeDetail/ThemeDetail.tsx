@@ -1,27 +1,21 @@
 import React, { useState } from "react";
-
-import ThemeDetailView from "./ThemeDetailView";
-import { DeleteThemeDialog } from "../DeleteThemeDialog";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
-import SnackBar from "../SnackBar/SnackBar";
+import DeleteDialog from "../common/DeleteDialog/DeleteDialog";
+import ThemeDetailView from "./ThemeDetailView";
 
 function ThemeDetail() {
   const selectedTheme = useSelectedThemeValue();
   const [open, setOpen] = useState<boolean>(false);
-  const [snackOpen, setSnackOpen] = useState<boolean>(false);
+  
 
   return (
     <>
-      <ThemeDetailView handleOpen={() => setOpen(true)}/>
-      <DeleteThemeDialog
+      <ThemeDetailView handleOpen={() => setOpen(true)} />
+      <DeleteDialog
         open={open}
-        handleSnackOpen={() => setSnackOpen(true)}
-        handleClose={() => setOpen(false)}
+        handleDialogClose={() => setOpen(false)}
         id={selectedTheme.id}
-      />
-      <SnackBar
-        open={snackOpen}
-        handleClose={() => setSnackOpen(false)}
+        type="themeDelete"
       />
     </>
   );
