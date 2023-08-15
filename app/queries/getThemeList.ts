@@ -1,7 +1,8 @@
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 type Request = void;
 export type Theme = {
@@ -30,11 +31,20 @@ export const getThemeList = async (config?: AxiosRequestConfig) => {
 };
 
 export const useGetThemeList = (configOptions?: QueryConfigOptions) => {
-  const info = useQuery<Response, Request, Themes>({
+  const setSnackBar = useSnackBarWrite();
+
+  const info = useQuery<Response, AxiosError, Themes>({
     queryKey: QUERY_KEY,
     queryFn: () => getThemeList(configOptions?.config),
     ...configOptions?.options,
     select: (res) => res.data,
+
+    onError: (error: AxiosError) => {
+      setSnackBar({
+        isOpen: true,
+        message: `${(error as any)?.response?.data?.message || error}`,
+      });
+    },
   });
 
   return info;

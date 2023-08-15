@@ -1,3 +1,4 @@
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { ApiResponse, QueryConfigOptions } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -39,12 +40,20 @@ export const useGetHintList = (
   req: Request,
   configOptions?: QueryConfigOptions
 ) => {
+  const setSnackBar = useSnackBarWrite();
+
   const info = useQuery<Response, Request, Hints>({
     queryKey: [...QUERY_KEY, req],
     queryFn: () => getHintList(req, configOptions?.config),
     select: (res) => res.data,
     enabled: req.themeId > 0,
     ...configOptions?.options,
+    onError: (error) => {
+      setSnackBar({
+        isOpen: true,
+        message: `${(error as any)?.response?.data?.message || error}`,
+      });
+    },
   });
 
   return info;

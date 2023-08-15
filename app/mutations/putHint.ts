@@ -1,3 +1,5 @@
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
+
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getHintList";
 import { MutationConfigOptions } from "@/types";
@@ -27,6 +29,7 @@ export const putHint = async (req: Request) => {
 
 export const usePutHint = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
+  const setSnackBar = useSnackBarWrite();
 
   const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
@@ -35,9 +38,19 @@ export const usePutHint = (configOptions?: MutationConfigOptions) => {
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
       // console.log("성공 시 실행")
+      setSnackBar({
+        isOpen: true,
+        message: '힌트를 수정했습니다. 단말기에서 업데이트를 진행해 주세요.',
+      });
     },
     onSettled: () => {
       //   console.log("항상 실행");
+    },
+    onError: (error) => {
+      setSnackBar({
+        isOpen: true,
+        message: `${(error as any)?.response?.data?.message || error}`,
+      });
     },
   });
 

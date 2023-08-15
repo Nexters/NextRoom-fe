@@ -1,3 +1,4 @@
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 import { apiClient } from "@/lib/reactQueryProvider";
 import { QUERY_KEY } from "@/queries/getHintList";
 import { MutationConfigOptions } from "@/types";
@@ -23,6 +24,7 @@ export const deleteHint = async (req: Request) => {
 
 export const useDeleteHint = (configOptions?: MutationConfigOptions) => {
   const queryClient = useQueryClient();
+  const setSnackBar = useSnackBarWrite();
 
   const info = useMutation<Response, void, Request, void>({
     mutationKey: MUTATION_KEY,
@@ -30,10 +32,20 @@ export const useDeleteHint = (configOptions?: MutationConfigOptions) => {
     ...configOptions?.options,
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEY);
+      setSnackBar({
+        isOpen: true,
+        message: '힌트를 삭제했습니다. 단말기에서 업데이트를 진행해 주세요.',
+      });
       // console.log("성공 시 실행")
     },
     onSettled: () => {
       //   console.log("항상 실행");
+    },
+    onError: (error) => {
+      setSnackBar({
+        isOpen: true,
+        message: `${(error as any)?.response?.data?.message || error}`,
+      });
     },
   });
 
