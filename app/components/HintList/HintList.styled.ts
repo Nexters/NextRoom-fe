@@ -1,5 +1,9 @@
-import { Fab } from "@mui/material";
+import { Button } from "@mui/material";
 import { styled } from "styled-components";
+
+export const HintListWrapper = styled.div`
+  margin-top: 60px !important;
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -7,13 +11,15 @@ export const Header = styled.div`
   font-weight: ${(props) => props.theme.fontWeight.medium};
   color: #ffffff60;
   height: 34px;
+  gap: 8px;
 
   .smallHeader {
     width: 96px;
   }
 
   .largeHeader {
-    width: calc((100% - (96px * 2)) / 2);
+    /* width: calc(((100% - (96px * 2)) / 2) - 8px); */
+    width: 448px;
   }
 `;
 
@@ -34,9 +40,13 @@ export const Empty = styled.button`
   }
 `;
 
-export const StyledFab = styled(Fab)`
-  position: fixed;
+export const FloatButton = styled(Button)`
+  position: fixed !important;
+  color: #000 !important;
+  background-color: #fff !important;
+  padding: 10px 24px !important;
   bottom: 40px;
-  left: 50%;
+  left: calc((100% - 360px) / 2 + 360px);
   transform: translateX(-50%);
+  font-weight: 600;
 `;

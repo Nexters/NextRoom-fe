@@ -1,5 +1,5 @@
 import React from "react";
-import { HOME_TITLE } from "@/consts/home";
+import { HOME_TITLE } from "@/consts/components/home";
 import AddIcon from "@mui/icons-material/Add";
 import { useModalStateWrite } from "@/components/atoms/modals.atom";
 import * as S from "./EmptyHomeView.styled";
@@ -12,7 +12,9 @@ function EmptyHomeView() {
 
   return (
     <S.Wrapper>
-      <S.Title><pre>{HOME_TITLE}</pre></S.Title>
+      <S.Title>
+        <pre>{HOME_TITLE}</pre>
+      </S.Title>
       <S.AddButton onClick={toggleOnModalState} startIcon={<AddIcon />}>
         새로운 테마 추가하기
       </S.AddButton>

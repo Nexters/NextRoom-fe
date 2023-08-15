@@ -28,8 +28,21 @@ export const Title = styled.div`
   margin-bottom: 2.93rem;
 `;
 
-export const LoginButton = styled(Button)`
+export const LoginButtonWrapper = styled.div`
   margin-top: 32px;
+  height: 100px;
+`;
+
+export const ServerErrorMessage = styled.div`
+  color: #f2b8b5;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+export const LoginButton = styled(Button)`
+  width: 100%;
   height: 56px;
 `;
 
