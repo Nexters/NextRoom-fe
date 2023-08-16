@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import { styled } from "styled-components";
 
 export const Wrapper = styled.div`
@@ -10,10 +11,6 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const Icon = styled.div`
-  width: 32px;
-  height: 32px;
-  background-color: ${(props) => props.theme.color.white};
-  border-radius: 50%;
+export const StyledAvatar = styled(Avatar)`
   cursor: pointer;
 `;

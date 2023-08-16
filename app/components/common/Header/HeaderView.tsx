@@ -1,15 +1,21 @@
 import React from "react";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import * as S from "./HeaderView.styled";
 
-type Props = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  iconProps: Record<string, any>;
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Props = Record<string, any>;
 
-function HeaderView({ iconProps }: Props) {
+const LOGOUT = "로그아웃";
+
+function HeaderView({ avatarProps, menuProps, logoutMenuProps }: Props) {
   return (
     <S.Wrapper>
-      <S.Icon {...iconProps} />
+      <S.StyledAvatar {...avatarProps} />
+      <Menu {...menuProps}>
+        <MenuItem {...logoutMenuProps}>{LOGOUT}</MenuItem>
+      </Menu>
     </S.Wrapper>
   );
 }
