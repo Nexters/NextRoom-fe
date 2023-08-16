@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePostHint } from "@/mutations/postHint";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePutHint } from "@/mutations/putHint";
@@ -28,7 +28,7 @@ interface FormValues {
 
 function HintManager(props: Props) {
   const { id, active, close, type, hintData } = props;
-
+  const [submitDisable, setSubmitDisable] = useState<boolean>(false);
   const { register, handleSubmit, setValue, watch } = useForm<FormValues>();
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
@@ -84,6 +84,21 @@ function HintManager(props: Props) {
     // eslint-disable-next-line consistent-return
     return () => subscription.unsubscribe();
   }, [hintData, watch]);
+
+  const formValue = watch();
+  useEffect(() => {
+    if (
+      !formValue.progress ||
+      !(formValue.hintCode.length===4) ||
+      !formValue.contents ||
+      !formValue.answer
+    ) {
+      setSubmitDisable(true);
+    }else{
+      setSubmitDisable(false);
+
+    }
+  }, [formValue]);
 
   const openDeleteDialog = () => {
     if (!id) return;
@@ -187,6 +202,7 @@ function HintManager(props: Props) {
   const makeHintButtonProps = {
     type: "submit",
     variant: "contained",
+    disabled: submitDisable
   };
 
   const makeHintProps = {
