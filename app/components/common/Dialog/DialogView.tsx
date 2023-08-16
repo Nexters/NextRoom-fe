@@ -12,13 +12,14 @@ interface Props {
   open: boolean;
   handleDialogClose: () => void;
   content:any;
+  handleCancleDialog: () => void;
 }
 
 const CANCEL = "취소";
 const STAY = "그만두기";
 
 function DeleteThemeDialogView(props: Props) {
-  const { open, handleDialogClose, content } = props;
+  const { open, handleDialogClose, content, handleCancleDialog } = props;
   
   return (
     <Dialog
@@ -37,7 +38,7 @@ function DeleteThemeDialogView(props: Props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleDialogClose}>{CANCEL}</Button>
-        <Button onClick={content.handleDialog} autoFocus>
+        <Button onClick={handleCancleDialog} autoFocus>
           {STAY}
         </Button>
       </DialogActions>

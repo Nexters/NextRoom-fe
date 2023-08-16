@@ -139,6 +139,7 @@ function MakeThemePage() {
     <>
       <MakeThemeModalView {...MakeThemeModalViewProps} />
       <Dialog
+        handleBtn={() => setModalState({ ...modalState, isOpen: false })}
         open={open}
         handleDialogClose={() => setOpen(false)}
         type={modalState.type === "post" ? "themePost" : "themePut"}
