@@ -61,20 +61,20 @@ function HintList() {
     );
   }, [hintsLength, isMakeEnabled]);
 
-  const $AddHintFloatingButton = useMemo(() => {
-    if (hintsLength === 0 || isMakeEnabled) {
-      return null;
-    }
-
-    return (
-      <S.FloatButton onClick={() => setIsMakeEnabled(true)}>
+  const $AddHintFloatingButton = useMemo(
+    () => (
+      <S.FloatButton
+        onClick={() => setIsMakeEnabled(true)}
+        active={hintsLength > 0 && !isMakeEnabled}
+      >
         <ListItemIcon>
           <AddIcon />
         </ListItemIcon>
         <ListItemText>새로운 힌트 추가하기</ListItemText>
       </S.FloatButton>
-    );
-  }, [hintsLength, isMakeEnabled]);
+    ),
+    [hintsLength, isMakeEnabled]
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
