@@ -8,6 +8,7 @@ import {
   useIsActiveHintItemState,
   useIsOpenDeleteDialogStateWrite,
 } from "../atoms/hints.atom";
+import Dialog from "../common/Dialog/Dialog";
 
 type Props = {
   active: boolean;
@@ -17,6 +18,7 @@ type Props = {
   id?: number;
   // eslint-disable-next-line react/require-default-props
   hintData?: FormValues;
+  // dialogOpen: () => void;
 };
 
 interface FormValues {
@@ -28,8 +30,11 @@ interface FormValues {
 
 function HintManager(props: Props) {
   const { id, active, close, type, hintData } = props;
+  const [open, setOpen] = useState<boolean>(false);
+
   const [submitDisable, setSubmitDisable] = useState<boolean>(false);
-  const { register, handleSubmit, setValue, watch } = useForm<FormValues>();
+  const { register, handleSubmit, reset, setValue, watch } =
+    useForm<FormValues>();
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
@@ -37,11 +42,10 @@ function HintManager(props: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
-
   useEffect(() => {
-    if (postHintSuccess) {
-      close();
-    }
+    // if (postHintSuccess) {
+    //   close();
+    // }
   }, [close, postHintSuccess]);
 
   useEffect(() => {
@@ -89,14 +93,13 @@ function HintManager(props: Props) {
   useEffect(() => {
     if (
       !formValue.progress ||
-      !(formValue.hintCode.length===4) ||
+      !(formValue.hintCode.length === 4) ||
       !formValue.contents ||
       !formValue.answer
     ) {
       setSubmitDisable(true);
-    }else{
+    } else {
       setSubmitDisable(false);
-
     }
   }, [formValue]);
 
@@ -134,6 +137,8 @@ function HintManager(props: Props) {
         id: Number(id),
       });
     }
+    reset();
+    close();
   };
 
   const isCurrentHintActive = isActiveHintItemState === id;
@@ -141,7 +146,14 @@ function HintManager(props: Props) {
   const activateForm = (event: React.MouseEvent) => {
     event.stopPropagation();
     if (!id) return;
+
     setIsActiveHintItemState(id);
+    // close();
+    setOpen(true);
+  };
+
+  const stopEvent = (event: React.MouseEvent) => {
+    event.stopPropagation();
   };
 
   const deactivateForm = (event: MouseEvent) => {
@@ -202,7 +214,7 @@ function HintManager(props: Props) {
   const makeHintButtonProps = {
     type: "submit",
     variant: "contained",
-    disabled: submitDisable
+    disabled: submitDisable,
   };
 
   const makeHintProps = {
@@ -214,11 +226,22 @@ function HintManager(props: Props) {
     deleteButtonProps,
     makeHintButtonProps,
     activateForm: isCurrentHintActive,
+    stopEvent,
   };
 
   if (!active) return null;
 
-  return <HintManagerView {...makeHintProps} />;
+  return (
+    <>
+      <HintManagerView {...makeHintProps} />
+      <Dialog
+        open={open}
+        handleDialogClose={() => setOpen(false)}
+        type="hintPut"
+        handleHint={close}
+      />
+    </>
+  );
 }
 
 export default HintManager;

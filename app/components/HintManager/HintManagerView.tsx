@@ -18,6 +18,7 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   makeHintButtonProps: Record<string, any>;
   activateForm: boolean;
+  stopEvent: (event: React.MouseEvent) => void;
 }
 
 const DELETE = "삭제하기";
@@ -33,18 +34,35 @@ function HintManagerView(props: Props) {
     makeHintButtonProps,
     formProps,
     activateForm,
+    stopEvent,
   } = props;
 
   return (
     <Box {...formProps}>
       <S.Wrapper active={activateForm}>
         <S.InputsWrapper>
-          <Input className="inputBox" {...hintCodeInputProps} />
-          <Input className="inputBox" {...progressInputProps} />
-          <Input className="TextareaBox" {...contentsInputProps} />
-          <Input className="TextareaBox" {...answerInputProps} />
+          <Input
+            className="inputBox"
+            onClick={stopEvent}
+            {...hintCodeInputProps}
+          />
+          <Input
+            className="inputBox"
+            onClick={stopEvent}
+            {...progressInputProps}
+          />
+          <Input
+            className="TextareaBox"
+            onClick={stopEvent}
+            {...contentsInputProps}
+          />
+          <Input
+            className="TextareaBox"
+            onClick={stopEvent}
+            {...answerInputProps}
+          />
         </S.InputsWrapper>
-        <S.FunctionButtonsWrapper>
+        <S.FunctionButtonsWrapper onClick={stopEvent}>
           <Button {...deleteButtonProps}>{DELETE}</Button>
           <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
         </S.FunctionButtonsWrapper>
