@@ -22,13 +22,28 @@ export const apiClient = axios.create({
   },
 });
 
+type ErrorResponse = {
+  response: {
+    data: {
+      code: number;
+      message: string;
+    };
+  };
+};
+
+type DataResponse = {
+  code: number;
+  message: string;
+};
+
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const setIsLoggedIn = useIsLoggedInWrite();
   const queryCache = new QueryCache({
-    // TODO: change onSettled to onError
-    onSettled: (data) => {
-      // TODO: Type definition required
-      if ((data as Record<string, string | number>)?.code === 401) {
+    onSettled: (data, error) => {
+      if (
+        (error as ErrorResponse)?.response?.data?.code === 401 ||
+        (data as DataResponse)?.code === 401
+      ) {
         removeAccessToken();
         setIsLoggedIn(false);
       }
