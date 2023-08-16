@@ -238,7 +238,7 @@ function HintManager(props: Props) {
         open={open}
         handleDialogClose={() => setOpen(false)}
         type="hintPut"
-        handleHint={close}
+        handleBtn={close}
       />
     </>
   );

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useGetThemeList } from "@/queries/getThemeList";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
 import { useRouter } from "next/navigation";
-import { useModalStateValue } from "@/components/atoms/modals.atom";
+import { useModalState } from "@/components/atoms/modals.atom";
 import Dialog from "@/components/common/Dialog/Dialog";
 import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import SnackBar from "@/components/SnackBar/SnackBar";
@@ -16,7 +16,7 @@ function Home() {
   const [open, setOpen] = useState<boolean>(false);
   const [snackInfo, setSnackBarInfo] = useSnackBarInfo();
 
-  const modalState = useModalStateValue();
+  const [modalState, setModalState] = useModalState();
 
   const handleDialog = () => {
     setOpen(!open);
@@ -50,6 +50,7 @@ function Home() {
       <HomeView {...themeAllProps} />
       <Dialog
         open={open}
+        handleBtn={() => setModalState({ ...modalState, isOpen: false })}
         handleDialogClose={() => setOpen(false)}
         type={modalState.type === "post" ? "themePost" : "themePut"}
       />
