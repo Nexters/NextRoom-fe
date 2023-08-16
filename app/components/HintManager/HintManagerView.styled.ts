@@ -35,6 +35,15 @@ export const InputsWrapper = styled.div`
     height: 36px;
     background-color: #ffffff14;
     color: #fff;
+    & input[type="number"]::-webkit-inner-spin-button,
+    & input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    & input[type="number"] {
+      -moz-appearance: textfield; /* Firefox에서 화살표를 숨기기 위한 설정 */
+    }
   }
 
   .TextareaBox {
