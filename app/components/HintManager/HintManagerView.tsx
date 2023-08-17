@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 
 import * as S from "./HintManagerView.styled";
 
@@ -39,8 +39,8 @@ function HintManagerView(props: Props) {
   } = props;
 
   return (
-    <Box {...formProps}>
-      <S.Wrapper active={isCurrentHintActive}>
+    <S.StyledBox {...formProps}>
+      <S.Wrapper selected={isCurrentHintActive}>
         <S.InputsWrapper {...wrapperProps}>
           <Input className="inputBox" {...hintCodeInputProps} />
           <Input className="inputBox" {...progressInputProps} />
@@ -52,7 +52,7 @@ function HintManagerView(props: Props) {
           <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
         </S.FunctionButtonsWrapper>
       </S.Wrapper>
-    </Box>
+    </S.StyledBox>
   );
 }
 

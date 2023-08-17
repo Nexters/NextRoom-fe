@@ -189,6 +189,7 @@ function HintManager(props: Props) {
   }, []);
 
   const formProps = {
+    active,
     key,
     component: "form",
     noValidate: true,
@@ -274,7 +275,7 @@ function HintManager(props: Props) {
     wrapperProps,
   };
 
-  if (!active) return null;
+  // if (!active) return null;
 
   return (
     <>
