@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { styled } from "styled-components";
+import { css, keyframes, styled } from "styled-components";
 
 export const HintListWrapper = styled.div`
   margin-top: 60px !important;
@@ -40,13 +40,43 @@ export const Empty = styled.button`
   }
 `;
 
-export const FloatButton = styled(Button)`
+const riseUpAnimation = keyframes`
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 40px;
+  }
+`;
+
+const downAnimation = keyframes`
+
+  from {
+    bottom: 40px;
+  }
+  to {
+    bottom: -10 0px;
+  }
+`;
+
+export const FloatButton = styled(Button)<{ active?: boolean }>`
   position: fixed !important;
   color: #000 !important;
   background-color: #fff !important;
   padding: 10px 24px !important;
-  bottom: 40px;
+  bottom: -100px;
   left: calc((100% - 360px) / 2 + 360px);
   transform: translateX(-50%);
   font-weight: 600;
+
+  ${(props) =>
+    props.active
+      ? css`
+          animation: ${riseUpAnimation} 300ms forwards 300ms ease-out;
+          bottom: -100px;
+        `
+      : css`
+          animation: ${downAnimation} 300ms forwards 300ms ease-out;
+          bottom: 0px;
+        `}
 `;

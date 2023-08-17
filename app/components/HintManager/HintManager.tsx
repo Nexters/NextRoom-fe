@@ -33,8 +33,15 @@ function HintManager(props: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const [submitDisable, setSubmitDisable] = useState<boolean>(false);
-  const { register, handleSubmit, reset, setValue, watch } =
-    useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
+
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
@@ -187,19 +194,34 @@ function HintManager(props: Props) {
   const progressInputProps = {
     placeholder: hintData?.progress || "진행률",
     type: "number",
-    ...register("progress"),
+    helperText: errors?.progress && errors?.progress.message,
+    error: Boolean(errors?.progress),
+    ...register("progress", {
+      pattern: {
+        value: /^(100|[1-9][0-9]?|0)$/,
+        message: "1부터 100까지의 정수만 입력 가능합니다.",
+      },
+    }),
   };
 
   const hintCodeInputProps = {
     placeholder: hintData?.hintCode || "힌트코드",
+    helperText: errors?.hintCode && errors?.hintCode.message,
     type: "number",
-    ...register("hintCode"),
+    ...register("hintCode", {
+      pattern: {
+        value: /^\d{4}$/,
+        message: "4자리 숫자만 입력 가능합니다.",
+      },
+    }),
   };
+
   const contentsInputProps = {
     placeholder: hintData?.contents || "힌트내용",
     multiline: true,
     ...register("contents"),
   };
+
   const answerInputProps = {
     placeholder: hintData?.answer || "정답",
     multiline: true,
