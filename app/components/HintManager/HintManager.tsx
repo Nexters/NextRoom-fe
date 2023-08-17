@@ -44,6 +44,7 @@ function HintManager(props: Props) {
     formState: { errors },
   } = useForm<FormValues>();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
@@ -51,6 +52,12 @@ function HintManager(props: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
+
+  // useEffect(() => {
+  //   // if (postHintSuccess) {
+  //   //   close();
+  //   // }
+  // }, [close, postHintSuccess]);
 
   useEffect(() => {
     if (!hintData) return;
