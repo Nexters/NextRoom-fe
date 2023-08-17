@@ -22,6 +22,17 @@ export const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Authorization 헤더 삭제
+      delete apiClient.defaults.headers.common.Authorization;
+    }
+    return Promise.reject(error);
+  }
+);
+
 type ErrorResponse = {
   response: {
     data: {
@@ -46,6 +57,7 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
       ) {
         removeAccessToken();
         setIsLoggedIn(false);
+        delete apiClient.defaults.headers.common.Authorization;
       }
     },
   });
