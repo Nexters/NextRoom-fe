@@ -3,7 +3,6 @@ import Recoil from "@/lib/recoil";
 import ReactQueryProvider from "@/lib/reactQueryProvider";
 import MuiProvider from "./lib/muiProvider";
 import StyledProvider from "./lib/themeProvider";
-import RequireAuth from "./lib/requireAuth";
 
 export const metadata = {
   title: "NEXT ROOM",
@@ -22,9 +21,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             <StyledProvider>
               <StyledJsxRegistry>
-                <MuiProvider>
-                  <RequireAuth>{children}</RequireAuth>
-                </MuiProvider>
+                <MuiProvider>{children}</MuiProvider>
               </StyledJsxRegistry>
             </StyledProvider>
           </ReactQueryProvider>
