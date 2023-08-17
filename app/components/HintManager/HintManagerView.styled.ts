@@ -9,18 +9,20 @@ export const SummaryText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 2px;
 `;
 
 export const StyledBox = styled(Box)<{ active?: boolean }>`
-  max-height: ${(props) =>
-    props.active ? "220px" : "0"}; /* 예상되는 최대 높이값 설정 */
+  width: 100%;
+  max-height: ${(props) => (props.active ? "230px" : "0")};
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out; /* 애니메이션 효과 추가 */
+  transition: max-height 0.3s ease-in-out;
 `;
 
 export const Wrapper = styled.div<{ selected?: boolean }>`
   width: 100%;
   padding: 8px;
+  box-sizing: border-box;
   background-color: ${({ theme }) => theme.color.white10};
 
   ${({ selected }) =>

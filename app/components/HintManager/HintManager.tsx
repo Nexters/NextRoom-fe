@@ -51,11 +51,6 @@ function HintManager(props: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
-  useEffect(() => {
-    // if (postHintSuccess) {
-    //   close();
-    // }
-  }, [close, postHintSuccess]);
 
   useEffect(() => {
     if (!hintData) return;
