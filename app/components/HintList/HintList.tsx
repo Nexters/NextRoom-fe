@@ -95,7 +95,7 @@ function HintList() {
         close={() => setIsMakeEnabled(false)}
         type="make"
       />
-      {hints.reverse().map(({ id, hintCode, contents, answer, progress }) => (
+      {hints.map(({ id, hintCode, contents, answer, progress }) => (
         <div key={`item-${themeId}-${id}`}>
           <HintItem
             id={id}
