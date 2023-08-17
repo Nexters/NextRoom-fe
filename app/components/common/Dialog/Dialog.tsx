@@ -18,7 +18,6 @@ function Dialog(props: Props) {
     handleDialogClose();
   };
 
-
   // 힌트 함수 추가
 
   const content = {
