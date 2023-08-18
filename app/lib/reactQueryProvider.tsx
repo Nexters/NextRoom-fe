@@ -10,6 +10,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getAccessToken, removeAccessToken } from "@/uilts/localStorage";
 import { useIsLoggedInWrite } from "@/components/atoms/account.atom";
+import { useSnackBarWrite } from "@/components/atoms/snackBar.atom";
 
 const accessToken = getAccessToken();
 
@@ -50,17 +51,29 @@ type DataResponse = {
 
 export default function ReactQueryProvider({ children }: PropsWithChildren) {
   const setIsLoggedIn = useIsLoggedInWrite();
+  const setSnackBar = useSnackBarWrite();
   const queryCache = new QueryCache({
     onSettled: (data, error) => {
       if (
         (error as ErrorResponse)?.response?.data?.code === 401 ||
-        ((error as ErrorResponse).response &&
-          (error as ErrorResponse).response.status === 401) ||
-        (data as DataResponse)?.code === 401
+        (error as ErrorResponse)?.response?.data?.code === 400 ||
+        (error as ErrorResponse).response.status === 401 ||
+        (error as ErrorResponse).response.status === 400 ||
+        (data as DataResponse)?.code === 401 ||
+        (data as DataResponse)?.code === 400
       ) {
         removeAccessToken();
         setIsLoggedIn(false);
         delete apiClient.defaults.headers.common.Authorization;
+      }
+    },
+    onError: (error) => {
+      const { response } = error as ErrorResponse;
+      if (response?.data?.message) {
+        setSnackBar({
+          isOpen: true,
+          message: `${(error as any)?.response?.data?.message || error}`,
+        });
       }
     },
   });
