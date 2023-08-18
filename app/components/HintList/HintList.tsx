@@ -115,31 +115,33 @@ function HintList() {
         close={() => setIsMakeEnabled(false)}
         type="make"
       />
-      {hints.map(({ id, hintCode, contents, answer, progress }) => (
-        <div key={`item-${themeId}-${id}`}>
-          <HintItem
-            id={id}
-            hintCode={hintCode}
-            contents={contents}
-            answer={answer}
-            progress={progress}
-            onClick={() => handleModify(id)}
-          />
-          <HintManager
-            id={id}
-            active={getOpenedModify(id)}
-            close={() => closeModify(id)}
-            type="modify"
-            hintData={{ hintCode, contents, answer, progress }}
-          />
-        </div>
-      ))}
+      {[...hints]
+        .reverse()
+        .map(({ id, hintCode, contents, answer, progress }) => (
+          <div key={`item-${themeId}-${id}`}>
+            <HintItem
+              id={id}
+              hintCode={hintCode}
+              contents={contents}
+              answer={answer}
+              progress={progress}
+              onClick={() => handleModify(id)}
+            />
+            <HintManager
+              id={id}
+              active={getOpenedModify(id)}
+              close={() => closeModify(id)}
+              type="modify"
+              hintData={{ hintCode, contents, answer, progress }}
+            />
+          </div>
+        ))}
       <DeleteHintDialog />
       <Dialog
         handleBtn={() => {
           setIsMakeEnabled(true);
           setIsModifyEnableds([]);
-          setActiveHint({isOpen:false, type: "put"})
+          setActiveHint({ isOpen: false, type: "put" });
         }}
         open={dialogOpen}
         handleDialogClose={() => setDialogOpen(false)}
