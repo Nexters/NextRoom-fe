@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { List, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 export const Title = styled.div`
   font-size: 1.25rem;
@@ -11,9 +11,14 @@ export const Title = styled.div`
 export const ShopName = styled(ListItemText)`
   font-size: ${(props) => props.theme.fontSize.sm};
   font-weight: 400;
-  margin-bottom: 18px;
+  margin: 18px !important;
   color: rgba(255, 255, 255, 0.7);
 `;
+
+export const ShopNameListItem = styled(ListItem)`
+  margin-bottom: 14px;
+`;
+
 export const Wrapper = styled.div`
   width: 360px;
   height: 100%;
@@ -41,7 +46,11 @@ export const ListWrap = styled(List)`
 `;
 
 export const LogoWrapper = styled.div`
-  padding: 7.5px auto 7.5px 16px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  width: 336px;
+  height: 56px;
 `;
 
 export const Theme = styled(ListItemText)`
