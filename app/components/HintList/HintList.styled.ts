@@ -55,7 +55,7 @@ const downAnimation = keyframes`
     bottom: 40px;
   }
   to {
-    bottom: -10 0px;
+    bottom: -100px;
   }
 `;
 

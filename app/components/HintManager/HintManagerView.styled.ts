@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { styled } from "styled-components";
 
 export const SummaryText = styled.div`
@@ -8,15 +9,24 @@ export const SummaryText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 2px;
 `;
 
-export const Wrapper = styled.div<{ active?: boolean }>`
+export const StyledBox = styled(Box)<{ active?: boolean }>`
+  width: 100%;
+  max-height: ${(props) => (props.active ? "230px" : "0")};
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+`;
+
+export const Wrapper = styled.div<{ selected?: boolean }>`
   width: 100%;
   padding: 8px;
+  box-sizing: border-box;
   background-color: ${({ theme }) => theme.color.white10};
 
-  ${({ active }) =>
-    active &&
+  ${({ selected }) =>
+    selected &&
     `
     border: 1px solid #B5E6D2;
     border-radius: 8px;
@@ -58,6 +68,7 @@ export const InputsWrapper = styled.div`
 
 export const FunctionButtonsWrapper = styled.div`
   display: flex;
+  padding-right: 10px;
   justify-content: end;
   align-items: end;
   gap: 8px;

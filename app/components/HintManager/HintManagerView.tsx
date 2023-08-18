@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 
 import * as S from "./HintManagerView.styled";
 
@@ -12,13 +12,14 @@ interface Props {
   contentsInputProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   answerInputProps: Record<string, any>;
-  deleteButtonProps: { onClick: () => void };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deleteButtonProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formProps: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   makeHintButtonProps: Record<string, any>;
-  activateForm: boolean;
-  stopEvent: (event: React.MouseEvent) => void;
+  isCurrentHintActive: boolean;
+  wrapperProps: { onClick: (event: React.MouseEvent) => void };
 }
 
 const DELETE = "삭제하기";
@@ -33,41 +34,25 @@ function HintManagerView(props: Props) {
     deleteButtonProps,
     makeHintButtonProps,
     formProps,
-    activateForm,
-    stopEvent,
+    isCurrentHintActive,
+    wrapperProps,
   } = props;
 
   return (
-    <Box {...formProps}>
-      <S.Wrapper active={activateForm}>
-        <S.InputsWrapper>
-          <Input
-            className="inputBox"
-            onClick={stopEvent}
-            {...hintCodeInputProps}
-          />
-          <Input
-            className="inputBox"
-            onClick={stopEvent}
-            {...progressInputProps}
-          />
-          <Input
-            className="TextareaBox"
-            onClick={stopEvent}
-            {...contentsInputProps}
-          />
-          <Input
-            className="TextareaBox"
-            onClick={stopEvent}
-            {...answerInputProps}
-          />
+    <S.StyledBox {...formProps}>
+      <S.Wrapper selected={isCurrentHintActive}>
+        <S.InputsWrapper {...wrapperProps}>
+          <Input className="inputBox" {...hintCodeInputProps} />
+          <Input className="inputBox" {...progressInputProps} />
+          <Input className="TextareaBox" {...contentsInputProps} />
+          <Input className="TextareaBox" {...answerInputProps} />
         </S.InputsWrapper>
-        <S.FunctionButtonsWrapper onClick={stopEvent}>
+        <S.FunctionButtonsWrapper {...wrapperProps}>
           <Button {...deleteButtonProps}>{DELETE}</Button>
           <Button {...makeHintButtonProps}>{MAKE_HINT}</Button>
         </S.FunctionButtonsWrapper>
       </S.Wrapper>
-    </Box>
+    </S.StyledBox>
   );
 }
 

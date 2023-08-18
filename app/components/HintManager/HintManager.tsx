@@ -10,6 +10,8 @@ import {
 } from "../atoms/hints.atom";
 import Dialog from "../common/Dialog/Dialog";
 
+const MAKE = "make";
+
 type Props = {
   active: boolean;
   close: () => void;
@@ -42,6 +44,7 @@ function HintManager(props: Props) {
     formState: { errors },
   } = useForm<FormValues>();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { mutateAsync: postHint, isSuccess: postHintSuccess } = usePostHint();
   const { mutateAsync: putHint } = usePutHint();
   const { id: themeId } = useSelectedThemeValue();
@@ -49,11 +52,12 @@ function HintManager(props: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
-  useEffect(() => {
-    // if (postHintSuccess) {
-    //   close();
-    // }
-  }, [close, postHintSuccess]);
+
+  // useEffect(() => {
+  //   // if (postHintSuccess) {
+  //   //   close();
+  //   // }
+  // }, [close, postHintSuccess]);
 
   useEffect(() => {
     if (!hintData) return;
@@ -127,7 +131,7 @@ function HintManager(props: Props) {
       return;
     }
 
-    if (type === "make") {
+    if (type === MAKE) {
       postHint({
         progress: Number(progress),
         hintCode,
@@ -155,12 +159,17 @@ function HintManager(props: Props) {
     if (!id) return;
 
     setIsActiveHintItemState(id);
-    // close();
-    setOpen(true);
+    // // close();
+    // setOpen(true);
   };
 
   const stopEvent = (event: React.MouseEvent) => {
     event.stopPropagation();
+  };
+
+  const cancelInput = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setOpen(true);
   };
 
   const deactivateForm = (event: MouseEvent) => {
@@ -182,6 +191,7 @@ function HintManager(props: Props) {
   }, []);
 
   const formProps = {
+    active,
     key,
     component: "form",
     noValidate: true,
@@ -196,6 +206,7 @@ function HintManager(props: Props) {
     type: "number",
     helperText: errors?.progress && errors?.progress.message,
     error: Boolean(errors?.progress),
+    onClick: activateForm,
     ...register("progress", {
       pattern: {
         value: /^(100|[1-9][0-9]?|0)$/,
@@ -208,6 +219,7 @@ function HintManager(props: Props) {
     placeholder: hintData?.hintCode || "힌트코드",
     helperText: errors?.hintCode && errors?.hintCode.message,
     type: "number",
+    onClick: activateForm,
     ...register("hintCode", {
       pattern: {
         value: /^\d{4}$/,
@@ -219,24 +231,38 @@ function HintManager(props: Props) {
   const contentsInputProps = {
     placeholder: hintData?.contents || "힌트내용",
     multiline: true,
+    onClick: activateForm,
     ...register("contents"),
   };
 
   const answerInputProps = {
     placeholder: hintData?.answer || "정답",
     multiline: true,
+    onClick: activateForm,
     ...register("answer"),
   };
 
   const deleteButtonProps = {
     variant: "text",
-    onClick: type === "make" ? close : openDeleteDialog,
+    onClick: (event: React.MouseEvent) => {
+      event.stopPropagation();
+      if (type === MAKE) {
+        close();
+      } else {
+        openDeleteDialog();
+      }
+    },
   };
 
   const makeHintButtonProps = {
     type: "submit",
     variant: "contained",
     disabled: submitDisable,
+    onClick: stopEvent,
+  };
+
+  const wrapperProps = {
+    onClick: cancelInput,
   };
 
   const makeHintProps = {
@@ -247,11 +273,11 @@ function HintManager(props: Props) {
     formProps,
     deleteButtonProps,
     makeHintButtonProps,
-    activateForm: isCurrentHintActive,
-    stopEvent,
+    isCurrentHintActive,
+    wrapperProps,
   };
 
-  if (!active) return null;
+  // if (!active) return null;
 
   return (
     <>
@@ -259,7 +285,7 @@ function HintManager(props: Props) {
       <Dialog
         open={open}
         handleDialogClose={() => setOpen(false)}
-        type="hintPut"
+        type={type === MAKE ? "hintPost" : "hintPut"}
         handleBtn={close}
       />
     </>
