@@ -22,12 +22,14 @@ export const Description = styled.p`
   font-size: ${(props) => props.theme.fontSize.sm};
   font-weight: ${(props) => props.theme.fontWeight.light};
   margin: 4px 16px 20px;
+  line-height: 20px;
   color: rgba(255, 255, 255, 1);
 `;
 
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 42px;
 `;
 
 export const ButtonContainer = styled(Grid)`
@@ -37,16 +39,18 @@ export const ButtonContainer = styled(Grid)`
 
 export const CancleButton = styled(Button)``;
 
-export const SubmitButton = styled(Button)``;
+export const SubmitButton = styled(Button)`
+  width: 97px;
+`;
 
 export const StyledNumberInput = styled(TextField)`
-  & input[type='number']::-webkit-inner-spin-button,
-  & input[type='number']::-webkit-outer-spin-button {
+  & input[type="number"]::-webkit-inner-spin-button,
+  & input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
-  & input[type='number'] {
+  & input[type="number"] {
     -moz-appearance: textfield; /* Firefox에서 화살표를 숨기기 위한 설정 */
   }
 `;
