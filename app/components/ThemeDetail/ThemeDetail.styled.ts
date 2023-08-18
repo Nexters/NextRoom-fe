@@ -15,7 +15,7 @@ export const Title = styled.div`
 `;
 
 export const MiddleTitle = styled.div`
-  font-size: 1rem;
+  font-size: ${(props) => props.theme.fontSize.sm};
   opacity: 0.7;
 `;
 

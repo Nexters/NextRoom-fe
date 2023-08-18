@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Image from "next/image";
 
 import { ListItemIcon, ListItemText } from "@mui/material";
@@ -13,6 +13,8 @@ import { DeleteHintDialog } from "../DeleteHintDialog";
 import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 
 import * as S from "./HintList.styled";
+import { useActiveHintState } from "../atoms/activeHint.atom";
+import Dialog from "../common/Dialog/Dialog";
 
 function HintList() {
   const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);
@@ -20,6 +22,8 @@ function HintList() {
   const { id: themeId } = useSelectedThemeValue();
   const { data: hints = [], isLoading = false } = useGetHintList({ themeId });
   const hintsLength = hints.length;
+  const [activeHint, setActiveHint] = useActiveHintState();
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setIsModifyEnableds([]);
@@ -31,15 +35,31 @@ function HintList() {
 
   const closeModify = (id: number) => {
     const enableds = isModifyEnableds.filter((prevId) => prevId !== id);
+    setActiveHint({ isOpen: false, type: "put" });
+    console.log(enableds);
 
     setIsModifyEnableds(enableds);
   };
 
+  useEffect(() => {
+    console.log(activeHint);
+  }, [activeHint]);
+
+  const handleCreateHint = useCallback(() => {
+    if (activeHint.isOpen) {
+      setDialogOpen(true);
+    } else {
+      setIsMakeEnabled(true);
+    }
+  }, [activeHint]);
+
   const handleModify = (id: number) => {
     if (getOpenedModify(id)) {
+      setActiveHint({ isOpen: false, type: "put" });
       closeModify(id);
     } else {
       setIsModifyEnableds((prev) => [...prev, id]);
+      setActiveHint({ isOpen: true, type: "put" });
     }
   };
 
@@ -64,7 +84,7 @@ function HintList() {
   const $AddHintFloatingButton = useMemo(
     () => (
       <S.FloatButton
-        onClick={() => setIsMakeEnabled(true)}
+        onClick={handleCreateHint}
         active={hintsLength > 0 && !isMakeEnabled}
       >
         <ListItemIcon>
@@ -73,7 +93,7 @@ function HintList() {
         <ListItemText>새로운 힌트 추가하기</ListItemText>
       </S.FloatButton>
     ),
-    [hintsLength, isMakeEnabled]
+    [handleCreateHint, hintsLength, isMakeEnabled]
   );
 
   if (isLoading) {
@@ -115,6 +135,16 @@ function HintList() {
         </div>
       ))}
       <DeleteHintDialog />
+      <Dialog
+        handleBtn={() => {
+          setIsMakeEnabled(true);
+          setIsModifyEnableds([]);
+          setActiveHint({isOpen:false, type: "put"})
+        }}
+        open={dialogOpen}
+        handleDialogClose={() => setDialogOpen(false)}
+        type={activeHint.type === "post" ? "hintPost" : "hintPut"}
+      />
     </S.HintListWrapper>
   );
 }

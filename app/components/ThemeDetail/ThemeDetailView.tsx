@@ -1,28 +1,35 @@
 import React, { useState } from "react";
 import { Stack, Grid, IconButton, Menu, MenuItem } from "@mui/material";
-import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
-import { useModalState } from "@/components/atoms/modals.atom";
+import { useSelectedThemeValue } from "@/components/atoms/selectedTheme.atom";
+import { useModalStateWrite } from "@/components/atoms/modals.atom";
+import { useActiveHintStateValue } from "@/components/atoms/activeHint.atom";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import DeleteIcon from "@mui/icons-material/Delete";
 import HintList from "../HintList/HintList";
 import * as S from "./ThemeDetail.styled";
 
 type Props = {
   handleOpen: () => void;
+  handleDialogOpen: () => void;
 };
 
 function ThemeDetailView(props: Props) {
-  const { handleOpen } = props;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedTheme, setSelectedTheme] = useSelectedTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [modalState, setModalState] = useModalState();
-  const [state1, setState1] = useState(false);
-  const toggleOnModalState = () => setModalState({ isOpen: true, type: "put" });
+  const { handleOpen, handleDialogOpen } = props;
+  const selectedTheme = useSelectedThemeValue();
+  const setModalState = useModalStateWrite();
+  const activeHint = useActiveHintStateValue();
+
+  const [menuState, setMenuState] = useState(false);
+  const toggleOnModalState = () => {
+    if (activeHint.isOpen) {
+      handleDialogOpen();
+    } else {
+      setModalState({ isOpen: true, type: "put" });
+    }
+  };
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -32,7 +39,7 @@ function ThemeDetailView(props: Props) {
   };
   const closeMenu = () => {
     setAnchorEl(null);
-    setState1(!state1);
+    setMenuState(!menuState);
   };
 
   const handleMenu = () => {
@@ -87,7 +94,7 @@ function ThemeDetailView(props: Props) {
                 onClick={handleMenu}
                 sx={{
                   width: "200px",
-                  height: "56px",
+                  // height: "56px",
                   backgroundColor: "#211F26",
                 }}
               >
