@@ -8,10 +8,6 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  img {
-    margin-bottom: 1rem;
-  }
 `;
 
 export const Loading = styled.div<{ isLoading: boolean }>`
@@ -30,7 +26,6 @@ export const Title = styled.div`
 
 export const LoginButtonWrapper = styled.div`
   margin-top: 32px;
-  height: 100px;
 `;
 
 export const ServerErrorMessage = styled.div`

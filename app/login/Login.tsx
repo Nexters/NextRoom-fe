@@ -85,8 +85,8 @@ function Login() {
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "NEXT ROOM",
-    width: 223,
-    height: 41,
+    width: 184,
+    height: 26,
   };
 
   const errorMessage = isError && error?.response?.data?.message;
