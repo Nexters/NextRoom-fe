@@ -39,6 +39,7 @@ type ErrorResponse = {
       code: number;
       message: string;
     };
+    status: number;
   };
 };
 
@@ -53,6 +54,8 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
     onSettled: (data, error) => {
       if (
         (error as ErrorResponse)?.response?.data?.code === 401 ||
+        ((error as ErrorResponse).response &&
+          (error as ErrorResponse).response.status === 401) ||
         (data as DataResponse)?.code === 401
       ) {
         removeAccessToken();
