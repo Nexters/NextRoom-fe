@@ -53,11 +53,6 @@ function HintManager(props: Props) {
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
 
-  // useEffect(() => {
-  //   // if (postHintSuccess) {
-  //   //   close();
-  //   // }
-  // }, [close, postHintSuccess]);
 
   useEffect(() => {
     if (!hintData) return;
@@ -159,7 +154,6 @@ function HintManager(props: Props) {
     if (!id) return;
 
     setIsActiveHintItemState(id);
-
   };
 
   const stopEvent = (event: React.MouseEvent) => {
@@ -169,7 +163,6 @@ function HintManager(props: Props) {
   const cancelInput = (event: React.MouseEvent) => {
     event.stopPropagation();
 
-       
     if (
       type !== MAKE &&
       hintData &&
@@ -182,7 +175,6 @@ function HintManager(props: Props) {
     } else {
       setOpen(true);
     }
-  
   };
 
   const deactivateForm = (event: MouseEvent) => {
