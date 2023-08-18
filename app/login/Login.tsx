@@ -9,6 +9,7 @@ import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
+import Loader from "@/components/Loader/Loader";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -103,7 +104,7 @@ function Login() {
 
   if (isLoggedIn) {
     router.push("/home");
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return <LoginView {...LoginViewProps} />;

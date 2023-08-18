@@ -10,14 +10,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Loading = styled.div<{ isLoading: boolean }>`
-  display: ${({ isLoading }) => (isLoading ? "block" : "none")};
-  position: fixed;
-  width: 100vw;
-  height: 4px;
-  top: 0px;
-`;
-
 export const Title = styled.div`
   font-size: 1.25rem;
   font-weight: bold;

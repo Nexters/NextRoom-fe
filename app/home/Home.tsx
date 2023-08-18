@@ -8,6 +8,7 @@ import { useModalState } from "@/components/atoms/modals.atom";
 import Dialog from "@/components/common/Dialog/Dialog";
 import { useSnackBarInfo } from "@/components/atoms/snackBar.atom";
 import SnackBar from "@/components/SnackBar/SnackBar";
+import Loader from "@/components/Loader/Loader";
 import HomeView from "./HomeView";
 
 function Home() {
@@ -43,7 +44,7 @@ function Home() {
     handleDialog,
   };
 
-  if (!isSignIn) return <div>Loading...</div>;
+  if (!isSignIn) return <Loader />;
 
   return (
     <>

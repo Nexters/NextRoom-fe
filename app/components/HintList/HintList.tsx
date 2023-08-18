@@ -15,6 +15,7 @@ import { useSelectedThemeValue } from "../atoms/selectedTheme.atom";
 import * as S from "./HintList.styled";
 import { useActiveHintState } from "../atoms/activeHint.atom";
 import Dialog from "../common/Dialog/Dialog";
+import Loader from "../Loader/Loader";
 
 function HintList() {
   const [isMakeEnabled, setIsMakeEnabled] = useState<boolean>(false);
@@ -97,7 +98,7 @@ function HintList() {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader isLoading={isLoading} />;
   }
 
   return (
