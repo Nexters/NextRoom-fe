@@ -53,7 +53,6 @@ function HintManager(props: Props) {
   const [isActiveHintItemState, setIsActiveHintItemState] =
     useIsActiveHintItemState();
 
-
   useEffect(() => {
     if (!hintData) return;
     const { progress, hintCode, contents, answer } = hintData;
@@ -237,6 +236,7 @@ function HintManager(props: Props) {
     placeholder: hintData?.contents || "힌트내용",
     multiline: true,
     onClick: activateForm,
+    rows: 5,
     ...register("contents"),
   };
 
@@ -244,6 +244,7 @@ function HintManager(props: Props) {
     placeholder: hintData?.answer || "정답",
     multiline: true,
     onClick: activateForm,
+    rows: 5,
     ...register("answer"),
   };
 
@@ -281,8 +282,6 @@ function HintManager(props: Props) {
     isCurrentHintActive,
     wrapperProps,
   };
-
-  // if (!active) return null;
 
   return (
     <>

@@ -62,7 +62,6 @@ export const InputsWrapper = styled.div`
     background-color: #ffffff14;
     color: #fff;
     align-items: unset;
-    overflow: auto;
   }
 `;
 
