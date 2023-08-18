@@ -94,7 +94,7 @@ function ThemeDetailView(props: Props) {
                 onClick={handleMenu}
                 sx={{
                   width: "200px",
-                  height: "56px",
+                  // height: "56px",
                   backgroundColor: "#211F26",
                 }}
               >
