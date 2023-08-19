@@ -37,8 +37,8 @@ function MainDrawer(props: Props) {
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "NEXT ROOM",
-    width: 223,
-    height: 41,
+    width: 184,
+    height: 26,
   };
 
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -70,13 +70,11 @@ function MainDrawer(props: Props) {
         </ListItem>
       </Box>
       <Box>
-        <ListItem>
-          <ListItemText style={{ margin: "18px 0" }}>
-            <S.ShopName color="inherit">
-              {shopName?.replaceAll(`"`, "")}
-            </S.ShopName>
-          </ListItemText>
-        </ListItem>
+        <S.ShopNameListItem>
+          <S.ShopName color="inherit">
+            {shopName?.replaceAll(`"`, "")}
+          </S.ShopName>
+        </S.ShopNameListItem>
 
         {[...categories].reverse().map((theme) => (
           <Link

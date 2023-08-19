@@ -9,6 +9,7 @@ import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/components/login";
 import { useIsLoggedInValue } from "@/components/atoms/account.atom";
 import { usePostLogin } from "@/mutations/postLogin";
 import useCheckSignIn from "@/hooks/useCheckSignIn";
+import Loader from "@/components/Loader/Loader";
 import LoginView from "./LoginView";
 
 interface FormValues {
@@ -85,8 +86,8 @@ function Login() {
   const logoProps = {
     src: "/images/svg/logo.svg",
     alt: "NEXT ROOM",
-    width: 223,
-    height: 41,
+    width: 184,
+    height: 26,
   };
 
   const errorMessage = isError && error?.response?.data?.message;
@@ -103,7 +104,7 @@ function Login() {
 
   if (isLoggedIn) {
     router.push("/home");
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return <LoginView {...LoginViewProps} />;

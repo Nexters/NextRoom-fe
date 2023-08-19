@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { LinearProgress, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 
 import { LOGIN, CONTECT, EMAIL } from "@/consts/components/login";
 
 import Link from "next/link";
+import Loader from "@/components/Loader/Loader";
 import * as S from "./LoginView.styled";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,9 +24,7 @@ function LoginView(props: Props) {
 
   return (
     <S.Wrapper>
-      <S.Loading isLoading={isLoading}>
-        <LinearProgress />
-      </S.Loading>
+      {isLoading && <Loader />}
       <Image {...logoProps} />
 
       <S.StyledBox {...formProps}>
