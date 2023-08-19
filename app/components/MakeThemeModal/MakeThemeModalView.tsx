@@ -38,10 +38,6 @@ function MakeThemeModalView(props: Props) {
     setModalState({ ...modalState, isOpen: false });
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log({ watch });
-  }, [watch]);
 
   return (
     <div>

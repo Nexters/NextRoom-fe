@@ -37,14 +37,9 @@ function HintList() {
   const closeModify = (id: number) => {
     const enableds = isModifyEnableds.filter((prevId) => prevId !== id);
     setActiveHint({ isOpen: false, type: "put" });
-    console.log(enableds);
-
     setIsModifyEnableds(enableds);
   };
 
-  useEffect(() => {
-    console.log(activeHint);
-  }, [activeHint]);
 
   const handleCreateHint = useCallback(() => {
     if (activeHint.isOpen) {
