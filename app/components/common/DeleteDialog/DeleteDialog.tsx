@@ -1,5 +1,7 @@
+import { useRouter } from "next/navigation";
 import { useDeleteTheme } from "@/mutations/deleteTheme";
 import { useDeleteHint } from "@/mutations/deleteHint";
+import { useCurrentTheme } from "@/components/atoms/currentTheme.atom";
 import DeleteDialogView from "./DeleteDialogView";
 
 type ContentType = "hintDelete" | "themeDelete";
@@ -12,13 +14,23 @@ interface Props {
 }
 
 function DeleteDialog(props: Props) {
+  const router = useRouter();
+
   const { open, handleDialogClose, id, type } = props;
   const { mutateAsync: deleteTheme } = useDeleteTheme();
   const { mutateAsync: deleteHint } = useDeleteHint();
+  const [currentTheme, setCurrentTheme] = useCurrentTheme();
 
   const handleThemeDelete = () => {
+    const filteredArray = currentTheme.filter((obj) => obj.id !== id);
+    setCurrentTheme(filteredArray);
     deleteTheme({ id });
     handleDialogClose();
+    router.push(
+      `/home?title=${encodeURIComponent(
+        filteredArray[filteredArray.length - 1].title
+      )}`
+    );
   };
 
   const handleHintDelete = () => {

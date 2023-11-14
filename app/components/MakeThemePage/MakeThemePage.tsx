@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { usePostTheme } from "@/mutations/postTheme";
 import { usePutTheme } from "@/mutations/putTheme";
 import { useSelectedTheme } from "@/components/atoms/selectedTheme.atom";
 import { useModalState } from "@/components/atoms/modals.atom";
+import { useRouter } from "next/navigation";
 import MakeThemeModalView from "./MakeThemePageView";
 import Dialog from "../common/Dialog/Dialog";
 
@@ -20,6 +23,8 @@ function MakeThemePage() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTheme, setSelectedTheme] = useSelectedTheme();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -61,7 +66,6 @@ function MakeThemePage() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log("Submitting", data);
 
     const submitData = {
       id: selectedTheme.id,
@@ -73,9 +77,12 @@ function MakeThemePage() {
     if (modalState.type === "put") {
       putTheme(submitData);
       setModalState({ ...modalState, isOpen: false });
+      router.push(`/home?title=${encodeURIComponent(selectedTheme.title)}`);
     } else {
       postTheme(data);
       setModalState({ ...modalState, isOpen: false });
+      router.push(`/home?title=${encodeURIComponent(data.title)}`);
+
     }
   };
 
@@ -139,7 +146,9 @@ function MakeThemePage() {
     <>
       <MakeThemeModalView {...MakeThemeModalViewProps} />
       <Dialog
-        handleBtn={() => setModalState({ ...modalState, isOpen: false })}
+        handleBtn={() =>
+          router.push(`/home?title=${encodeURIComponent(selectedTheme.title)}`)
+        }
         open={open}
         handleDialogClose={() => setOpen(false)}
         type={modalState.type === "post" ? "themePost" : "themePut"}

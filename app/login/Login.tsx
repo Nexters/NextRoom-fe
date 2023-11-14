@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { ADMIN_CODE, ADMIN_PASSWORD } from "@/consts/components/login";
@@ -18,7 +17,6 @@ interface FormValues {
 }
 
 function Login() {
-  const router = useRouter();
   const isLoggedIn = useIsLoggedInValue();
   const {
     mutateAsync: postLogin,
@@ -103,7 +101,6 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    router.push("/home");
     return <Loader />;
   }
 

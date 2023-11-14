@@ -8,7 +8,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useRouter } from "next/navigation";
 import HintList from "../HintList/HintList";
+
 import * as S from "./ThemeDetail.styled";
 
 type Props = {
@@ -21,12 +23,13 @@ function ThemeDetailView(props: Props) {
   const selectedTheme = useSelectedThemeValue();
   const setModalState = useModalStateWrite();
   const activeHint = useActiveHintStateValue();
-
+  const router = useRouter();
   const [menuState, setMenuState] = useState(false);
   const toggleOnModalState = () => {
     if (activeHint.isOpen) {
       handleDialogOpen();
     } else {
+      router.push("/theme");
       setModalState({ isOpen: true, type: "put" });
     }
   };

@@ -12,9 +12,8 @@ interface Props {
 function Dialog(props: Props) {
   const { open, handleDialogClose, type, handleBtn } = props;
 
-  const handleCancleDialog = () => {
+  const handleQuitDialog = () => {
     handleBtn();
-
     handleDialogClose();
   };
 
@@ -42,7 +41,7 @@ function Dialog(props: Props) {
   const DialogProps = {
     open,
     handleDialogClose,
-    handleCancleDialog,
+    handleQuitDialog,
     content: { ...content[type] },
   };
 
